@@ -818,36 +818,30 @@
       <h2 class="visit-title">Todo empieza<br />con una visita</h2>
       <p class="visit-sub">Conoce el apartamento modelo y decide con el Llano de frente. Déjanos tus datos y coordinamos por WhatsApp.</p>
 
-      <form class="visit-form" id="visitForm" novalidate>
-        <label>Nombre y apellido
-          <input type="text" name="nombre" autocomplete="name" required />
-        </label>
-        <label>Celular
-          <div class="phone-row"><span>+57</span><input type="tel" name="celular" inputmode="numeric" autocomplete="tel-national" pattern="[0-9]{10}" placeholder="3211234567" required /></div>
-        </label>
-        <label>Email
-          <input type="email" name="email" autocomplete="email" required />
-        </label>
-        <label>¿Qué apartamento prefieres?
-          <select name="tipologia" required>
-            <option value="" selected disabled>Elige una opción</option>
-            <option>70 m² · 2 alcobas</option>
-            <option>75 m² · 2 o 3 alcobas</option>
-            <option>85 m² · 3 alcobas</option>
-            <option>87 m² · 3 o 4 alcobas</option>
-            <option>102 m² · 3 alcobas</option>
-            <option>105 m² · 3 alcobas</option>
-            <option>116 m² · 3 o 4 alcobas</option>
-            <option>Aún no lo sé</option>
-          </select>
-        </label>
-        <label class="check">
-          <input type="checkbox" name="acepto" required />
-          <span>Acepto la política de privacidad y el tratamiento de mis datos personales.</span>
-        </label>
-        <button type="submit" class="btn btn-ink btn-full">Agenda tu visita al apto modelo</button>
-        <p class="form-note" id="formNote">Al enviar se abre WhatsApp con tus datos listos para enviarnos.</p>
-      </form>
+      <!-- Formulario de captura de LeadConnector/GoHighLevel ("Cielo Landing").
+           Reemplaza el formulario propio que abría WhatsApp: ahora el lead entra
+           directo al CRM. Se autoajusta con el mismo form_embed.js que ya carga
+           el calendario (#agenda) antes de </body>; el min-height de la tarjeta
+           es el fallback antes de que corra ese script. Para cambiar el
+           formulario: editar el src y los data-form-id/id del iframe. -->
+      <div class="visit-embed">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/MaaEEQljVMcDfleYi3Fx"
+          style="width:100%;border:none;border-radius:8px"
+          id="inline-MaaEEQljVMcDfleYi3Fx"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Cielo Landing"
+          data-height="614"
+          data-layout-iframe-id="inline-MaaEEQljVMcDfleYi3Fx"
+          data-form-id="MaaEEQljVMcDfleYi3Fx"
+          title="Cielo Landing"></iframe>
+      </div>
     </section>
 
     <!-- ============================================ CALENDARIO · AGENDAR CITA
