@@ -4,7 +4,7 @@
 
 const CONFIG = {
   // Línea real de ventas en formato internacional, solo dígitos (ej: "573201234567").
-  whatsappNumber: "573176387297", // línea de ventas de Cielo (+57 317 638 7297)
+  whatsappNumber: "573186296793", // línea de ventas de Cielo (+57 318 629 6793)
   email: "ventas@curbanas.com",
 };
 
