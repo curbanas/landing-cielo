@@ -1,0 +1,20 @@
+# Cielo Apartamentos — cieloapartamentos.com.co
+# Rastreo abierto para buscadores y para los crawlers de búsqueda con IA.
+
+User-agent: *
+Allow: /
+
+# Crawlers de búsqueda con IA (visibilidad en ChatGPT, Claude, Perplexity)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://www.cieloapartamentos.com.co/sitemap.xml

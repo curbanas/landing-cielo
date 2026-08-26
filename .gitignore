@@ -1,0 +1,7 @@
+﻿# Vercel link config (contiene projectId/orgId)
+.vercel
+
+# Ruido de macOS / editores
+.DS_Store
+Thumbs.db
+._*
