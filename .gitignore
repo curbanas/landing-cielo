@@ -8,3 +8,25 @@ Thumbs.db
 
 # Respaldos locales
 *.bak-*
+
+# ------------------------------------------------------------------
+# Renders originales sin optimizar. Pesan entre 5 y 200 MB cada uno y
+# el sitio no los usa: de cada uno existe su versión .webp comprimida,
+# que es la que carga la página. GitHub rechaza archivos de más de
+# 100 MB, así que si se versionan el push nunca completa.
+# Conviene guardarlos aparte del repositorio.
+# ------------------------------------------------------------------
+Copia de Copy of*
+TERRAVERDE CIELO_*.jpg
+zona humeda *.png
+zonas sociales cielo.png
+new cielo.png
+espacios.png
+UBICACION_OK.png
+toma aerea_r.png
+divertido.png
+private.png
+organic.png
+social al aire libre.png
+social bajo techo.png
+social cocina grill.png

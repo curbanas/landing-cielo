@@ -35,7 +35,7 @@
   --radius-pill: 999px;
   --shadow-card: 0 1.5rem 3rem rgba(14, 23, 41, 0.12);
   --pad-x: clamp(20px, 5vw, 72px);
-  --topbar-h: 52px;
+  --topbar-h: 112px;  /* la franja aloja el logo de la constructora a 84px */
   --nav-h: 72px;
 }
 
@@ -101,8 +101,17 @@ img { max-width: 100%; height: auto; display: block; }
 .btn-sm { padding: 10px 20px; font-size: 0.9rem; }
 .btn-full { width: 100%; }
 
-.btn-ink { background: var(--ink); color: #fff; }
-.btn-ink:hover { background: var(--slate); box-shadow: 0 12px 28px -12px rgba(32, 48, 80, 0.6); }
+/* el CTA principal deja de ser un rectángulo de tinta plano: lleva el
+   violeta de marca en degradado, que es lo que lo distingue del resto de
+   botones oscuros de la página. */
+.btn-ink {
+  background: linear-gradient(135deg, var(--ink) 0%, #2c3a63 55%, var(--violet) 100%);
+  color: #fff;
+}
+.btn-ink:hover {
+  background: linear-gradient(135deg, #2a3c66 0%, #3b4a7a 55%, #7b6cb8 100%);
+  box-shadow: 0 14px 30px -12px rgba(107, 93, 165, 0.7);
+}
 
 .btn-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
 .btn-outline:hover { background: var(--ink); color: #fff; }
@@ -119,35 +128,90 @@ img { max-width: 100%; height: auto; display: block; }
    pega arriba (nav, escenas sticky) arranca en --topbar-h. */
 .topbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 60;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--ink); color: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: clamp(16px, 3vw, 40px);
+  color: #fff;
   height: var(--topbar-h);
   padding: 0 var(--pad-x);
-  font-size: 1.05rem; text-align: center;
+  font-size: 1.05rem;
+  /* Tres capas: el motivo de arcos concéntricos —el mismo del papel mural
+     de los renders del apartamento, que es el patrón de marca del
+     proyecto—, encima un resplandor de cielo que cae desde arriba, y al
+     fondo un degradado de tinta. El patrón va al 6% de opacidad: se
+     percibe como textura, no compite con los logos. */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.06'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(90% 150% at 50% -20%, rgba(133, 169, 224, 0.3) 0%, rgba(133, 169, 224, 0) 62%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 52%, #1a2843 100%);
 }
-.topbar p {
-  display: flex; align-items: center; justify-content: center;
-  gap: 6px; flex-wrap: wrap;
+/* filete de marca al pie de la franja: recorre la paleta completa, de
+   los azules de cielo al violeta. Es el detalle que la vuelve de Cielo
+   y no de cualquier proyecto. */
+.topbar::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--sky) 0%, var(--sky-soft) 26%, var(--lilac) 58%, var(--violet) 100%);
 }
 /* constructora y ciudad en el lila de marca: el dato que más confunde
    a los usuarios es dónde queda el proyecto, así que "Villavicencio"
    lleva el mismo peso que el nombre de la constructora. */
 .topbar strong { color: var(--lilac); }
 
+/* La franja concentra toda la identidad: constructora a la izquierda,
+   proyecto al centro, ubicación a la derecha. Ambos logos usan versiones
+   con el texto en blanco — el original de Curbanas es gris y el de Cielo
+   es tinta, y sobre --ink ninguno de los dos se leería. */
+.topbar-logo {
+  height: 84px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* halo detrás del logo del proyecto: lo separa de la textura de arcos y
+   lo vuelve el punto focal de la franja, por encima del de la
+   constructora. */
+.topbar-cielo {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.topbar-cielo::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 190%; height: 240%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(133, 169, 224, 0.28) 0%, rgba(133, 169, 224, 0) 100%);
+  pointer-events: none;
+}
+.topbar-cielo img { position: relative; }
+/* El PNG venía con 30px de margen transparente arriba y abajo: el dibujo
+   ocupaba solo el 75% del lienzo, así que a igual altura CSS se veía
+   bastante más chico que el de Curbanas (88%). Recortado al contenido,
+   estos 78px son 78px de logo real — antes eran 49. */
+.topbar-cielo img {
+  height: 78px;
+  width: auto;
+}
+
+/* la ubicación equilibra la fila: sin ella el logo central quedaría
+   descentrado respecto al ancho real de la franja. El pin la vuelve un
+   dato de ubicación y no una línea de texto suelta. */
+.topbar-place {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 1rem;
+  line-height: 1.25;
+  flex-shrink: 0;
+}
+.topbar-place svg { flex-shrink: 0; color: var(--sky-soft); }
+
 /* ---------------------------------------------------------------- nav */
-/* banda de marca: logo grande y centrado al abrir la página. Vive fuera
-   del nav sticky y se va con el scroll, así el header no cambia de alto
-   y el contenido nunca da un salto al colapsarse. */
-.brandrow {
-  display: flex; justify-content: center; align-items: center;
-  padding: clamp(18px, 2.6vw, 30px) var(--pad-x);
-  background: #fff;
-}
-.brand-hero { display: inline-flex; }
-.brand-hero img {
-  width: clamp(190px, 21vw, 290px);
-  height: auto;
-}
+/* Ya no hay banda de marca ni logo dentro del nav: ambos logos viven en
+   la franja azul, que es fija y no desaparece al hacer scroll. El JS que
+   alternaba .is-top queda inerte al no existir #brandrow. */
 
 .nav {
   position: sticky; top: var(--topbar-h); z-index: 50;
@@ -159,27 +223,10 @@ img { max-width: 100%; height: auto; display: block; }
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(32, 48, 80, 0.08);
 }
-/* logo compacto del nav: ocupa su espacio siempre (el menú no se corre)
-   y solo se desvanece mientras la banda de marca está en cuadro. Oculto
-   de base únicamente si hay JS para revelarlo — sin JS queda visible. */
-.brand { flex-shrink: 0; display: inline-flex; }
-.brand-logo { width: 132px; height: auto; }
-.js .brand {
-  opacity: 0;
-  visibility: hidden;   /* lo saca del orden de tabulación y del árbol de
-                           accesibilidad mientras manda la banda de arriba */
-  transform: translateY(-6px);
-  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0.28s;
-}
-.js .nav:not(.is-top) .brand {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-}
-
+/* sin logo a la izquierda, los enlaces arrancan al borde y las acciones
+   se van al extremo opuesto. */
 .nav-links {
-  display: flex; gap: 28px; margin-inline: auto;
+  display: flex; gap: 28px; margin-inline-end: auto;
 }
 .nav-links a {
   color: var(--ink); text-decoration: none;
@@ -192,6 +239,66 @@ img { max-width: 100%; height: auto; display: block; }
   transition: right 0.22s ease;
 }
 .nav-links a:hover::after { right: 0; }
+
+/* ------------------------------------------- desplegable de zonas
+   Se abre al pasar el cursor y con el teclado (:focus-within), sin JS.
+   El enlace padre sigue llevando a la sección completa. */
+.nav-drop { position: relative; }
+.nav-drop-trigger {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.nav-drop-trigger svg { transition: transform 0.2s ease; }
+.nav-drop:hover .nav-drop-trigger svg,
+.nav-drop:focus-within .nav-drop-trigger svg { transform: rotate(180deg); }
+
+.nav-drop-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 210px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid rgba(32, 48, 80, 0.1);
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 24px 50px -20px rgba(14, 23, 41, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.nav-drop:hover .nav-drop-menu,
+.nav-drop:focus-within .nav-drop-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+/* puente invisible: sin él, el cursor pierde el hover al bajar del
+   enlace al menú y este se cierra antes de llegar. */
+.nav-drop-menu::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: -16px; height: 16px;
+}
+.nav-drop-menu a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.95rem; font-weight: 600;
+  transition: background-color 0.16s ease;
+}
+.nav-drop-menu a:hover { background: var(--mist); }
+/* punto del color de cada categoría, el mismo de sus bloques */
+.nav-drop-menu a::before {
+  content: "";
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
+}
+[data-cat="divertido"]::before { background: var(--ink); }
+[data-cat="privado"]::before   { background: var(--lilac); }
+[data-cat="organico"]::before  { background: var(--sky); }
+[data-cat="social"]::before    { background: var(--violet); }
 
 .nav-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
@@ -223,6 +330,25 @@ img { max-width: 100%; height: auto; display: block; }
 .drawer a.btn {
   font-size: 1.1rem; justify-content: center; margin-top: 20px;
   background: #fff; color: var(--ink);
+}
+/* subnivel de zonas en el menú móvil: sangrado y algo más chico para que
+   se lea como dependiente de "Zonas sociales". */
+.drawer-sub {
+  list-style: none;
+  margin: 2px 0 0 18px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+.drawer-sub a {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.05rem; font-weight: 600;
+  padding: 7px 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+.drawer-sub a::before {
+  content: "";
+  width: 9px; height: 9px; border-radius: 50%;
+  flex-shrink: 0;
 }
 .drawer-close {
   position: absolute; top: 20px; right: 24px;
@@ -317,51 +443,68 @@ img { max-width: 100%; height: auto; display: block; }
    durante todo el recorrido (el truco central de la referencia). */
 .hero-device {
   --s: calc(0.35 + var(--p1) * 0.65);
+  /* Punto de arranque del device. Era 56% a secas, un porcentaje de la
+     altura de la escena — que a su vez es 100vh menos la franja fija.
+     Al crecer la franja, la escena se acortó y ese 56% dejó de alcanzar
+     para el toggle + titular + subtítulo: el device subía y el texto le
+     quedaba encima en pantallas de poca altura.
+     Ahora el 56% tiene un piso (28rem de aire garantizado para la copia)
+     y un techo (72%, para que el device no arranque bajo el pliegue). */
+  --dev-top: min(max(56%, 28rem), 72%);
   position: absolute;
   left: 50%;
-  top: calc(56% - var(--p1) * 56%);
-  width: 100vw;
-  height: 100vh;
+  top: calc(var(--dev-top) - var(--p1) * var(--dev-top));
+  /* La tarjeta toma la proporción del render (1672/941 = 1.777) en vez de
+     ocupar todo el ancho: así la imagen la llena exacta, sin recorte ni
+     franjas a los lados. Al ser 16:9 la tarjeta queda casi a ancho
+     completo; en pantallas angostas manda el ancho disponible. */
+  width: min(100vw, calc((100vh - var(--topbar-h)) * 1.777));
+  /* 100% de la escena, no 100vh: la escena mide 100vh menos la franja
+     superior, así que con 100vh la tarjeta sobresalía por abajo y el
+     `overflow: clip` de la escena le cortaba el borde inferior —
+     justo donde está la portería del render. */
+  height: 100%;
   margin: 0;
   transform: translateX(-50%) scale(var(--s));
   transform-origin: center top;
   z-index: 1;
   display: flex; flex-direction: column;
   background: #fff;
-  border-radius: calc(var(--radius-xl) / var(--s)) calc(var(--radius-xl) / var(--s)) 0 0;
+  /* redondeo en las cuatro esquinas: la tarjeta ya no se pega a los
+     bordes de la pantalla, así que rematar solo arriba dejaba las
+     esquinas de abajo en ángulo recto sin motivo. */
+  border-radius: calc(var(--radius-xl) / var(--s));
   overflow: hidden;
   box-shadow: 0 40px 90px -40px rgba(22, 35, 60, calc(0.55 - var(--p1) * 0.55));
   will-change: transform, top;
 }
-.hero-device-bar {
-  flex-shrink: 0;
-  display: flex; justify-content: center; align-items: center;
-  padding: calc(0.85rem / var(--s)) 0;
-}
-.hero-device-bar img {
-  width: auto;
-  height: calc(1.7rem / var(--s));
-}
+/* La cabecera del device con el logo se retiró: la imagen ocupa toda la
+   tarjeta. */
 .hero-device-media {
   position: relative;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
+  background: #dbe8f6;   /* azul del cielo del render, por si tarda en cargar */
 }
+/* Ya no hace falta relleno difuso: la tarjeta tiene la proporción del
+   render, así que `cover` lo encuadra exacto, sin recortar ni dejar
+   franjas. */
 .hero-device-img {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   width: 100%; height: 100%;
   object-fit: cover;
 }
 /* sombra inferior para la palabra y el pie; solo aparece en fase B */
 .hero-shade {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(to top, rgba(14, 23, 41, 0.78) 0%, rgba(14, 23, 41, 0.12) 45%, rgba(14, 23, 41, 0) 70%);
   opacity: var(--p2);
 }
 
 /* palabra de marca que cruza la imagen (fase B) */
 .hero-word {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 3;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   pointer-events: none;
@@ -382,7 +525,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* pie con CTA, al final de la fase B; solo es clicable cuando el
    motor marca .is-cta en el stack (evita clics sobre un CTA invisible) */
 .hero-device-caption {
-  position: absolute; left: 0; right: 0; bottom: 0;
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
   padding: clamp(24px, 5vw, 56px);
   text-align: left;
   color: #fff;
@@ -392,14 +535,8 @@ img { max-width: 100%; height: auto; display: block; }
   pointer-events: none;
 }
 .hero-stack.is-cta .hero-device-caption { pointer-events: auto; }
-.hero-device-caption span {
-  display: block;
-  font-size: 0.82rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--lilac);
-  margin-bottom: 8px;
-}
 .hero-device-caption strong {
+  text-shadow: 0 2px 16px rgba(14, 23, 41, 0.75);
   display: block;
   font-size: clamp(1.3rem, 3vw, 2.2rem);
   font-weight: 800; letter-spacing: -0.02em; line-height: 1.12;
@@ -455,28 +592,14 @@ img { max-width: 100%; height: auto; display: block; }
 .float-wa svg { color: var(--wa); flex-shrink: 0; }
 .float-wa strong { font-size: 0.9rem; }
 
-/* --------------------------------------------------- respaldo bajo el hero */
-.hero-backed {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  padding: clamp(32px, 6vh, 56px) var(--pad-x) 0;
-  text-align: center;
-}
-.hero-backed p {
-  font-size: 0.78rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--slate); opacity: 0.7;
-}
-/* 4x el tamaño original (34px→136px). No basta con `height` fija +
-   width:auto confiando en el reset global `img{max-width:100%}`: en
-   pantallas angostas ese max-width limita el ancho pero no recalcula el
-   alto, y el logo queda achatado. Con un solo lado fluido (height) el
-   ancho siempre se deriva del alto real, sin distorsión. */
-.hero-backed img { height: clamp(92px, 25vw, 136px); width: auto; }
-
 /* --------------------------------------------------------------- intro */
+/* Era 880px: en monitores anchos dejaba márgenes enormes a lado y lado y
+   además apretaba las tiles de datos y las dos columnas de características.
+   Ahora la sección usa el mismo ancho que zonas y tipologías (1240px); el
+   párrafo se limita aparte, por medida de lectura, no por ancho de caja. */
 .intro {
   padding: clamp(64px, 10vh, 110px) var(--pad-x);
-  max-width: 880px; margin: 0 auto;
+  max-width: 1240px; margin: 0 auto;
 }
 .intro-kicker {
   font-size: 0.85rem; font-weight: 700;
@@ -484,10 +607,14 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--violet);
   margin-bottom: 18px;
 }
+/* 72 caracteres es la medida donde un párrafo largo sigue siendo cómodo de
+   leer. Sin este tope, al ensanchar la sección el texto cruzaría los 1240px
+   de lado a lado y el ojo perdería el renglón al saltar de línea. */
 .intro-lede {
   font-size: clamp(1.05rem, 1.8vw, 1.3rem);
   line-height: 1.75;
   color: var(--slate);
+  max-width: 72ch;
 }
 .intro-lede strong { color: var(--ink); }
 
@@ -577,12 +704,16 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ============================================================== SPLIT
    Texto + imagen alta, como "Shop in stores and online". */
+/* Reparto desequilibrado a propósito: el texto no necesita más de 46ch,
+   así que la columna de imágenes se lleva casi el doble. Y el contenedor
+   sube a 1520px — a 1200 las tarjetas quedaban en 540px y se veían
+   pequeñas para lo que la sección está pidiendo mostrar. */
 .split {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: clamp(32px, 5vw, 72px);
+  grid-template-columns: 0.8fr 1.6fr;
+  gap: clamp(32px, 4vw, 64px);
   align-items: center;
-  max-width: 1200px;
+  max-width: 1520px;
   margin: 0 auto;
   padding: clamp(64px, 10vh, 120px) var(--pad-x);
 }
@@ -592,16 +723,91 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: clamp(1rem, 1.6vw, 1.18rem);
   max-width: 46ch;
 }
+
+/* El texto va en tres bloques con distinto peso en vez de un párrafo
+   corrido: entrada, atributos y cierre. Así el ojo agarra los datos sin
+   tener que leer la frase entera.
+   Los selectores llevan .split-copy delante para ganarle en especificidad
+   a `.split-copy p`, sin recurrir a !important. */
+.split-copy .split-lead { margin-bottom: 22px; }
+
+/* Los tres atributos son el argumento de la sección, no un pie de foto:
+   van en fondo de marca, en tinta y con cuerpo grande. Cada uno en su
+   propia línea para que se lean como una lista de razones y no como una
+   fila de etiquetas menores. */
+.split-specs {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  margin: 0 0 30px;
+}
+.split-specs li {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--sky-tint);
+  border-left: 4px solid var(--violet);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 15px 24px;
+  font-weight: 700;
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* el cierre es la invitación: el bloque de texto más grande de la
+   sección después del titular. */
+.split-copy .split-close {
+  color: var(--ink);
+  font-weight: 800;
+  font-size: clamp(1.25rem, 2.1vw, 1.7rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 30px;
+  max-width: 20ch;
+}
+/* Composición viva en vez de dos imágenes apiladas: las tarjetas se
+   superponen, van ligeramente giradas y flotan en sentidos opuestos al
+   hacer scroll (--fy lo escribe el JS). Mismo recurso que los renders
+   del recorrido 360, para que la página hable un solo idioma. */
+/* Sin superposición: las tarjetas van una debajo de otra, con anchos y
+   giros distintos. El movimiento lo dan la rotación, el escalonado y el
+   flotado con el scroll — no el hecho de que se pisen. */
 .split-media {
-  border-radius: var(--radius-xl);
+  display: grid;
+  gap: clamp(20px, 3vw, 36px);
+}
+.split-media figure {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 30px 70px -22px rgba(14, 23, 41, 0.5);
+  --fy: 0px;
+  will-change: transform;
 }
 .split-media img {
   width: 100%; height: 100%;
-  aspect-ratio: 4 / 5;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* acercamiento suave al pasar el cursor: la vida no depende solo del
+   scroll. Va sobre la imagen y no sobre la figura para no pelearse con
+   el transform que lleva la rotación y el flotado. */
+.split-media figure:hover img { transform: scale(1.06); }
+
+/* comedor: ocupa toda la columna, es la toma principal */
+.split-media .sm-wide {
+  width: 100%;
+  transform: rotate(-1.5deg) translate3d(0, var(--fy), 0);
+}
+.split-media .sm-wide img { aspect-ratio: 3 / 2; }
+
+/* balcón: mismo ancho que la anterior. Lo que rompe la simetría ahora es
+   solo el giro contrario y el flotado en sentido opuesto. */
+.split-media .sm-tall {
+  width: 100%;
+  transform: rotate(2.5deg) translate3d(0, var(--fy), 0);
+}
+.split-media .sm-tall img { aspect-ratio: 3 / 2; }
 
 /* ============================================================== ZONES
    Réplica del grid de rewards: tres carriles con parallax vertical a
@@ -618,6 +824,243 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--slate);
   font-size: clamp(1rem, 1.6vw, 1.18rem);
   max-width: 52ch;
+}
+
+/* Pieza de marca que abre la sección. La imagen trae sus propios márgenes
+   blancos, así que no lleva radio ni sombra: se apoya directamente sobre
+   el fondo de la página. */
+.zones-lifestyle {
+  position: relative;
+  margin: 0 0 10px;
+}
+.zones-lifestyle img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Zonas clicables sobre cada franja. En porcentaje —no en píxeles— para
+   que sigan alineadas con los paneles a cualquier ancho de pantalla. */
+.zl-hit {
+  position: absolute;
+  top: 0; height: 100%;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 5%;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.zl-1 { left: 5.1%;  width: 21.3%; }
+.zl-2 { left: 28.3%; width: 21.3%; }
+.zl-3 { left: 51.6%; width: 21.4%; }
+.zl-4 { left: 74.8%; width: 21.3%; }
+
+/* solo los que son enlace responden: los <span> de las categorías aún
+   sin bloque quedan como reserva de espacio, sin cursor ni hover. */
+a.zl-hit { cursor: pointer; }
+a.zl-hit:hover,
+a.zl-hit:focus-visible {
+  box-shadow: inset 0 0 0 3px #fff, 0 20px 44px -20px rgba(14, 23, 41, 0.65);
+  transform: translateY(-5px);
+}
+
+.zl-hit span {
+  opacity: 0;
+  transform: translateY(10px);
+  background: #fff;
+  color: var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 9px 18px;
+  font-size: 0.8rem; font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -8px rgba(14, 23, 41, 0.5);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+a.zl-hit:hover span,
+a.zl-hit:focus-visible span { opacity: 1; transform: none; }
+
+/* en táctil no hay hover: la pastilla se queda visible, algo atenuada */
+@media (hover: none) {
+  a.zl-hit span { opacity: 0.9; transform: none; }
+}
+
+.zones-lifestyle-hint {
+  margin: 0 0 clamp(40px, 6vh, 72px);
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--slate);
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------- categorías de zonas
+   Cuatro bloques, uno por categoría de la pieza de marca. Cada uno lleva
+   su etiqueta de color, un titular y sus renders. --zcat es el color de
+   la categoría: se define en la clase de cada bloque y lo usan la
+   etiqueta y el filete del titular. */
+.zcat {
+  margin-bottom: clamp(48px, 8vh, 88px);
+  /* al llegar por el enlace de la pieza, el bloque no queda pegado bajo
+     la franja fija ni al ras del borde superior */
+  scroll-margin-top: calc(var(--topbar-h) + var(--nav-h) + 24px);
+}
+.zcat-divertido { --zcat: var(--ink); }
+.zcat-privado   { --zcat: var(--lilac); }
+.zcat-organico  { --zcat: var(--sky); }
+.zcat-social    { --zcat: var(--violet); }
+
+/* icono de la categoría a la izquierda, tomado de la propia pieza de
+   marca; el filete de color acompaña al texto. */
+.zcat-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 22px);
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+.zcat-icon {
+  width: clamp(56px, 6vw, 78px);
+  height: auto;
+  flex-shrink: 0;
+}
+.zcat-head-text {
+  padding-left: 18px;
+  border-left: 5px solid var(--zcat);
+}
+.zcat-tag {
+  display: inline-block;
+  font-size: 0.8rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--zcat);
+  margin-bottom: 8px;
+}
+/* el filete ya identifica la categoría; en tinta oscura si el color de
+   la categoría es claro, el titular no perdería contraste. */
+.zcat-head h3 {
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--ink);
+  max-width: 24ch;
+}
+
+/* la toma general manda; la aérea la acompaña */
+.zcat-media {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(14px, 2vw, 24px);
+}
+/* categoría con un solo render: ocupa todo el ancho y se muestra más
+   panorámica, para que no quede una tarjeta suelta al lado de un hueco. */
+.zcat-media-solo { grid-template-columns: 1fr; }
+.zcat-media-solo img { aspect-ratio: 16 / 9; }
+
+/* cuatro renders: rejilla 2×2 de columnas iguales. Con el reparto
+   1.35fr/1fr del bloque de dos, la segunda fila habría quedado
+   desalineada respecto a la primera. */
+.zcat-media-quad { grid-template-columns: 1fr 1fr; }
+.zcat-media-quad img { aspect-ratio: 16 / 10; }
+
+/* Las zonas que componen la categoría, entre el titular y los renders.
+   Es lo que el comprador quiere saber: qué incluye cada ambiente. Van en
+   píldoras del color de la categoría, en fila para que ocupen poco alto. */
+.zcat-zones {
+  list-style: none;
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin: 0 0 clamp(20px, 3vh, 30px);
+}
+.zcat-zones li {
+  display: flex; align-items: center; gap: 13px;
+  background: #fff;
+  border: 1.5px solid color-mix(in srgb, var(--zcat) 35%, transparent);
+  border-radius: var(--radius-pill);
+  padding: 8px 24px 8px 9px;   /* menos relleno a la izquierda: el ícono
+                                  ya aporta su propio margen visual */
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+/* Ícono dentro de cada píldora, a 44px: a ese tamaño se lee como dibujo
+   —la escalera de la piscina, el vapor del jacuzzi— y no como una mancha
+   de color. El color de fondo cubre el caso de que el PNG no cargue. */
+.zcat-zones li::before {
+  content: "";
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background-color: var(--zcat);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+/* Respaldo por categoría: mientras una zona no tenga su ícono propio,
+   lleva el genérico de su categoría. */
+.zcat-divertido .zcat-zones li::before { background-image: url("../img/icono-divertido.png"); }
+.zcat-privado   .zcat-zones li::before { background-image: url("../img/icono-privado.png"); }
+.zcat-organico  .zcat-zones li::before { background-image: url("../img/icono-organico.png"); }
+.zcat-social    .zcat-zones li::before { background-image: url("../img/icono-social.png"); }
+
+/* Ícono propio de cada zona. Va con clase y no con custom property en el
+   atributo style: definida así, la url() no resolvía la ruta y el fondo
+   quedaba vacío. Con clase, la ruta es relativa a esta hoja y funciona
+   igual que las de arriba. Para sumar íconos: una línea aquí y la clase
+   en el <li> — la especificidad ya le gana al respaldo de categoría. */
+/* Social se divide en tres grupos: cada uno lleva su rótulo por encima de
+   sus píldoras. El rótulo va en el color de la categoría, con una línea
+   que lo separa sin pesar tanto como un titular. */
+/* cada grupo es un bloque completo: rótulo, sus zonas y su render, así
+   que necesita más aire entre uno y otro que una simple lista. */
+.zcat-grupo { margin-bottom: clamp(34px, 5vh, 56px); }
+.zcat-grupo h4 {
+  font-size: 0.78rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--zcat);
+  margin-bottom: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid color-mix(in srgb, var(--zcat) 30%, transparent);
+}
+.zcat-grupo:last-of-type { margin-bottom: clamp(24px, 3.5vh, 34px); }
+
+.zcat-zones li.zi-piscina-vip::before  { background-image: url("../img/icono-piscina-vip.png"); }
+.zcat-zones li.zi-jacuzzi-vip::before  { background-image: url("../img/icono-jacuzzi-vip.png"); }
+.zcat-zones li.zi-pilates::before      { background-image: url("../img/icono-pilates.png"); }
+.zcat-zones li.zi-yoga::before         { background-image: url("../img/icono-yoga.png"); }
+.zcat-zones li.zi-trx::before          { background-image: url("../img/icono-trx.png"); }
+.zcat-zones li.zi-gym::before          { background-image: url("../img/icono-gym.png"); }
+.zcat-zones li.zi-muro-escalar::before { background-image: url("../img/icono-muro-escalar.png"); }
+.zcat-zones li.zi-parque-infantil::before     { background-image: url("../img/icono-parque-infantil.png"); }
+.zcat-zones li.zi-cancha-multiple::before     { background-image: url("../img/icono-cancha-multiple.png"); }
+.zcat-zones li.zi-cancha-sintetica::before    { background-image: url("../img/icono-cancha-sintetica.png"); }
+.zcat-zones li.zi-voley-playa::before         { background-image: url("../img/icono-voley-playa.png"); }
+.zcat-zones li.zi-salon-multifuncional::before{ background-image: url("../img/icono-salon-multifuncional.png"); }
+.zcat-zones li.zi-auditorio::before           { background-image: url("../img/icono-auditorio.png"); }
+.zcat-zones li.zi-coworking::before           { background-image: url("../img/icono-coworking.png"); }
+.zcat-zones li.zi-conectividad::before        { background-image: url("../img/icono-conectividad.png"); }
+.zcat-zones li.zi-lobby::before               { background-image: url("../img/icono-lobby.png"); }
+.zcat-zones li.zi-isla-lectura::before        { background-image: url("../img/icono-isla-lectura.png"); }
+.zcat-zones li.zi-bbq::before                 { background-image: url("../img/icono-bbq.png"); }
+.zcat-zones li.zi-teppanyaki::before          { background-image: url("../img/icono-teppanyaki.png"); }
+.zcat-zones li.zi-ahumadores::before          { background-image: url("../img/icono-ahumadores.png"); }
+
+.zcat-media figure {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.zcat-media img {
+  width: 100%; height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.zcat-media figure:hover img { transform: scale(1.05); }
+
+@media (max-width: 780px) {
+  .zcat-media { grid-template-columns: 1fr; }
+  .zcat-media img { aspect-ratio: 16 / 10; }
+  .zcat-zones li { font-size: 0.92rem; padding: 6px 18px 6px 7px; gap: 10px; }
+  .zcat-zones li::before { width: 34px; height: 34px; }
 }
 
 .zones-grid {
@@ -670,6 +1113,15 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: var(--radius-lg);
   padding: clamp(28px, 4vw, 48px);
 }
+/* la tile del 18 ya no vive dentro del carril central del grid: va sola,
+   centrada y con un ancho de lectura acotado. */
+.znum-solo {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+.znum-solo .znum-big { justify-content: center; }
+.znum-solo .znum-sub { margin-inline: auto; }
 .znum-accent { background: var(--sky-tint); }
 .znum-pvc { background: var(--lilac-soft); }
 
@@ -770,8 +1222,12 @@ img { max-width: 100%; height: auto; display: block; }
   --c: 0;
   position: relative;
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  min-height: clamp(360px, 52vh, 460px);
+  /* Antes 3fr/2fr con alto fijo: la columna de imagen quedaba casi
+     cuadrada y recortaba casi la mitad de renders que son 16:9. Ahora la
+     imagen manda —lleva más ancho y su proporción real— y el alto de la
+     tarjeta lo define ella. */
+  grid-template-columns: 1fr 1.25fr;
+  align-items: center;
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -806,8 +1262,43 @@ img { max-width: 100%; height: auto; display: block; }
   max-width: 16ch;
 }
 .deck-copy p { font-size: clamp(0.98rem, 1.5vw, 1.1rem); max-width: 42ch; }
-.deck-media { margin: 0; min-height: 0; }
-.deck-media img { width: 100%; height: 100%; object-fit: cover; }
+/* la figura se estira al alto de la tarjeta y la imagen queda centrada
+   con su proporción real: se ve completa, sin recorte. Lo que sobre
+   arriba o abajo lo llena el color de fondo de la tarjeta. */
+.deck-media {
+  margin: 0; min-height: 0;
+  align-self: stretch;
+  display: flex; align-items: center;
+}
+/* Todas las tarjetas al mismo alto, el del paso 2 (la alcoba, 1800×1528).
+   Los renders 16:9 se recortan por los costados para encajar; se pierde
+   algo de ancho, pero las cuatro tarjetas quedan parejas. */
+.deck-media img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1800 / 1528;
+  object-fit: cover;
+}
+
+/* Panel de logo en vez de render: la tarjeta de "Acompañamiento de
+   Curbanas" cierra el plan de pagos con la marca de la constructora.
+   Lleva fondo oscuro —el mismo lenguaje de la franja superior— porque el
+   logo es la versión en blanco y sobre el fondo claro de la tarjeta no
+   se vería. El logo va contenido y centrado, no recortado a sangre. */
+.deck-media-logo {
+  justify-content: center;
+  padding: clamp(28px, 5vw, 64px);
+  background:
+    radial-gradient(90% 150% at 50% -20%, rgba(133, 169, 224, 0.28) 0%, rgba(133, 169, 224, 0) 62%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 52%, #1a2843 100%);
+}
+.deck-media-logo img {
+  width: auto;
+  max-width: min(72%, 320px);
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
 
 .deck-ink { background: var(--navy-deep); color: #fff; }
 .deck-ink .deck-copy p { color: rgba(255, 255, 255, 0.82); }
@@ -821,97 +1312,200 @@ img { max-width: 100%; height: auto; display: block; }
 /* ============================================================= BACKED
    Réplica del stack "Safety and privacy": titular centrado, imagen
    grande redondeada, texto y logos debajo. */
+/* Bloque de respaldo: es el argumento que sostiene la compra en preventa,
+   así que sale del fondo blanco y se planta como una banda propia, con el
+   mismo lenguaje de la franja superior —degradado de tinta, resplandor de
+   cielo y el patrón de arcos de marca—. A sangre completa, sin tope de
+   ancho, para que corte visualmente la página y se note. */
 .backed {
-  padding: clamp(72px, 11vh, 130px) var(--pad-x);
-  max-width: 1240px;
-  margin: 0 auto;
+  padding: clamp(80px, 12vh, 140px) var(--pad-x);
   text-align: center;
+  color: #fff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(70% 120% at 50% 0%, rgba(133, 169, 224, 0.26) 0%, rgba(133, 169, 224, 0) 60%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 55%, #17243d 100%);
 }
-.backed > h2 { margin-bottom: clamp(36px, 6vh, 56px); }
+/* el contenido sí va acotado, aunque la banda sea a sangre */
+.backed > * { max-width: 1240px; margin-inline: auto; }
+.backed > h2 {
+  color: #fff;
+  margin-bottom: clamp(36px, 6vh, 56px);
+}
 .backed-media {
+  position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
+/* La aérea es 1.40 y la caja iba en 16:8 (2.0): forzarla habría recortado
+   media planta. Conserva su proporción y se ve completa.
+   La imagen crece con el scroll, como la tarjeta del hero: --zg va de 0 a
+   1 mientras la sección atraviesa la pantalla y la escala pasa de 1 a
+   1.2. Arranca en 1 exacto, así nunca asoman los bordes. */
 .backed-media img {
   width: 100%;
-  aspect-ratio: 16 / 8;
-  object-fit: cover;
+  height: auto;
+  --zg: 0;
+  transform: scale(calc(1 + var(--zg) * 0.2));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Frase sobre la aérea: flota en sentido contrario a la imagen, así el
+   bloque respira al hacer scroll en vez de leerse como una foto pegada.
+   El degradado inferior le da contraste sin oscurecer toda la toma. */
+.backed-frase {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: flex-end;
+  padding: clamp(24px, 5vw, 68px);
+  text-align: left;
+  background: linear-gradient(to top,
+    rgba(14, 23, 41, 0.82) 0%, rgba(14, 23, 41, 0.35) 45%, rgba(14, 23, 41, 0) 80%);
+  --fy: 0px;
+  transform: translate3d(0, var(--fy), 0);
+  will-change: transform;
+  pointer-events: none;
+}
+.backed-frase span {
+  font-size: clamp(1.5rem, 3.6vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 6px 28px rgba(14, 23, 41, 0.65);
 }
 .backed p {
   margin: clamp(28px, 5vh, 44px) auto 0;
   max-width: 58ch;
-  color: var(--slate);
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
 }
-.backed p strong { color: var(--ink); }
+.backed p strong { color: #fff; }
+
+/* Las cifras son la prueba: van grandes, en fila, con el número por
+   encima de su etiqueta para que se lean de un vistazo. */
+.backed-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 3vw, 40px);
+  margin: clamp(40px, 6vh, 64px) auto 0;
+  padding-top: clamp(32px, 5vh, 48px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.backed-stats dd {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.backed-stats dt {
+  margin-top: 10px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--sky-soft);
+}
+@media (max-width: 720px) {
+  .backed-stats { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+}
 .backed-logos {
   margin-top: 36px;
   display: flex; justify-content: center; align-items: center; gap: 44px;
   flex-wrap: wrap;   /* al doble de tamaño, dos logos ya no caben en una
                         fila en celulares angostos */
 }
-.backed-logos img { height: 72px; width: auto; opacity: 0.85; }
+/* los dos logos van en su versión en blanco sobre el fondo oscuro; el de
+   Bancolombia es un lockup horizontal y a la misma altura que el de
+   Curbanas se vería enorme, así que baja. */
+.backed-logos img { height: 72px; width: auto; opacity: 0.92; }
+.backed-logos img[alt="Bancolombia"] { height: 34px; }
 
-/* ======================================================= BRAND MOMENT
-   Réplica de "send smarter": media full-bleed con parallax vertical
-   (--bmy) y dos palabras gigantes que entran desde lados opuestos y se
-   cruzan al ritmo del scroll (--bm1x / --bm2x). */
-.bmoment {
-  position: relative;
-  height: 100vh;
-  overflow: clip;
+/* ============================================ PLANTA DE IMPLANTACIÓN
+   Sustituye al momento de marca oscuro. La planta es clara y necesita
+   verse: en vez de un velo sobre toda la imagen, el contraste se aplica
+   solo donde caen las palabras. */
+/* poco relleno abajo: la banda de texto que sigue ya trae el suyo, y
+   sumados dejaban un hueco de casi 270px entre ambas. */
+.planta {
+  padding: clamp(64px, 10vh, 120px) var(--pad-x) clamp(24px, 4vh, 40px);
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
 }
-.bmoment-media {
-  position: absolute;
-  left: 0; right: 0;
-  top: -15%; height: 130%;
-  --bmy: 0px;
-  transform: translate3d(0, var(--bmy), 0);
+/* Va debajo del plano, como pie de imagen: el titular de la sección son
+   las palabras sobre la planta, así que arriba este párrafo quedaba
+   suelto, sin nada que lo encabezara. */
+.planta-sub {
+  margin: clamp(20px, 3vh, 30px) auto 0;
+  max-width: 62ch;
+  color: var(--slate);
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.6;
+}
+.planta-media {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.planta-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  --zg: 0;
+  transform: scale(calc(1 + var(--zg) * 0.1));
+  transform-origin: center;
   will-change: transform;
 }
-.bmoment-media img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+
+/* Velo en óvalo central: apenas se nota en los bordes —la planta sigue
+   clara— y da el contraste justo donde van las letras. Era esto o
+   oscurecer la imagen entera, que es lo que no funcionaba antes. */
+.planta-media::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(62% 46% at 50% 50%,
+    rgba(14, 23, 41, 0.5) 0%, rgba(14, 23, 41, 0.28) 45%, rgba(14, 23, 41, 0) 72%);
 }
-.bmoment-tint {
-  position: absolute; inset: 0;
-  background: rgba(22, 35, 60, 0.28);
-}
-.bmoment-words {
-  position: absolute; inset: 0;
+
+/* las dos palabras entran desde lados opuestos con el scroll (--sx) */
+.planta-words {
+  position: absolute; inset: 0; z-index: 2;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 0 clamp(20px, 6vw, 96px);
+  padding: 0 clamp(16px, 5vw, 80px);
   overflow: clip;
+  pointer-events: none;
 }
-.bmoment-w1, .bmoment-w2 {
-  font-size: clamp(4rem, 14vw, 12rem);
+.planta-w1, .planta-w2 {
+  --sx: 0px;
+  font-size: clamp(2.4rem, 10vw, 8.5rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 0.98;
   color: #fff;
   white-space: nowrap;
-  text-shadow: 0 12px 60px rgba(14, 23, 41, 0.4);
+  text-shadow: 0 10px 46px rgba(14, 23, 41, 0.8);
+  transform: translate3d(var(--sx), 0, 0);
   will-change: transform;
 }
-.bmoment-w1 {
-  align-self: flex-start;
-  --bm1x: -250px;
-  transform: translate3d(var(--bm1x), 0, 0);
-}
-.bmoment-w2 {
-  align-self: flex-end;
-  --bm2x: 250px;
-  transform: translate3d(var(--bm2x), 0, 0);
-}
+.planta-w1 { align-self: flex-start; }
+.planta-w2 { align-self: flex-end; }
 
 /* ============================================================ BANDA
    Text-section blanca a pantalla completa ("Invierte donde crece..."). */
+/* Era min-height: 100vh — una pantalla entera para una sola frase. Con la
+   página ya llena de secciones, eso dejaba un vacío enorme antes y
+   después. Ahora la frase respira con su propio padding, sin reservar
+   un viewport completo. */
 .band-text {
-  min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   text-align: center;
-  padding: clamp(64px, 10vh, 120px) var(--pad-x);
+  padding: clamp(48px, 7vh, 88px) var(--pad-x) clamp(64px, 10vh, 110px);
 }
 .band-text h2 {
   font-size: clamp(2.4rem, 6vw, 5rem);
@@ -1049,17 +1643,36 @@ img { max-width: 100%; height: auto; display: block; }
 .tour360-inner { max-width: 1080px; margin: 0 auto; }
 
 /* =============================================================== WHERE */
+/* El mapa de entorno lleva titular y siete pines con texto: en media
+   columna esas etiquetas quedaban ilegibles. Ahora el texto va arriba y
+   la pieza ocupa el ancho completo de la sección. */
 .where {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: clamp(32px, 5vw, 72px);
-  align-items: center;
-  max-width: 1200px;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vh, 56px);
+  max-width: 1520px;
   margin: 0 auto;
   padding: clamp(72px, 11vh, 130px) var(--pad-x);
 }
+/* dos columnas: el bloque de texto a la izquierda y los datos con el CTA
+   a la derecha, alineados abajo para que compartan línea de base. */
+.where-copy {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+}
+.where-intro p { max-width: 46ch; }
+.where-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+@media (max-width: 900px) {
+  .where-copy { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+}
 .where-copy p {
-  margin: 20px 0 24px;
+  margin: 20px 0 0;
   color: var(--slate);
   font-size: clamp(1rem, 1.6vw, 1.18rem);
   max-width: 46ch;
@@ -1077,31 +1690,41 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 600; font-size: 0.92rem;
 }
 
-/* parallax: el inner (128% de alto) se desplaza dentro del marco */
-.px-frame {
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  aspect-ratio: 4 / 3;
-  box-shadow: var(--shadow-card);
+/* El mapa de entorno se muestra completo: lleva titular y pines en
+   puntos concretos, y el marco de parallax con recorte los partía. */
+.where-map {
   margin: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
-.px-inner {
-  height: 128%;
+.where-map img {
+  width: 100%;
+  height: auto;
+  display: block;
+  --zg: 0;
+  transform: scale(calc(1 + var(--zg) * 0.08));
+  transform-origin: center;
   will-change: transform;
 }
-.px-inner img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ================================================================ TOUR
    Split oscuro (lugar del "Crypto"): renders flotando en parallax. */
 .tour {
   position: relative;
+  /* mismo fondo que la franja superior: patrón de arcos de marca,
+     resplandor de cielo cayendo desde arriba y degradado de tinta. */
   background:
-    radial-gradient(100% 80% at 80% 10%, rgba(107, 93, 165, 0.4) 0%, rgba(107, 93, 165, 0) 60%),
-    var(--navy-deep);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(70% 120% at 50% 0%, rgba(133, 169, 224, 0.26) 0%, rgba(133, 169, 224, 0) 60%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 55%, #17243d 100%);
   color: #fff;
   overflow: clip;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* la imagen se lleva algo más de ancho que el texto, pero contenida
+     dentro de la retícula: sangrar por el borde la sacaba del contexto
+     del resto de la página. */
+  grid-template-columns: 0.88fr 1.12fr;
   gap: clamp(32px, 5vw, 72px);
   align-items: center;
   padding: clamp(88px, 14vh, 160px) var(--pad-x);
@@ -1114,26 +1737,22 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: clamp(1rem, 1.6vw, 1.18rem);
   max-width: 44ch;
 }
-.tour-float { position: relative; min-height: 400px; }
-.tour-float img {
-  position: absolute;
-  width: min(66%, 360px);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.55);
-  --fy: 0px;
+/* Una sola imagen, contenida en su columna. Crece con el scroll, igual
+   que la aérea del bloque de respaldo. */
+.tour-single {
+  margin: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 34px 80px -30px rgba(0, 0, 0, 0.6);
+}
+.tour-single img {
+  width: 100%;
+  height: auto;
+  display: block;
+  --zg: 0;
+  transform: scale(calc(1 + var(--zg) * 0.16));
+  transform-origin: center;
   will-change: transform;
-}
-/* pareja diagonal: antes las dos cartas se iban a esquinas opuestas y en
-   desktop quedaba un hueco grande en medio ("muy separadas"). Ahora se
-   superponen hacia el centro de la columna. */
-.tour-card-a {
-  left: 2%; top: 4%;
-  transform: rotate(-6deg) translate3d(0, var(--fy), 0);
-}
-.tour-card-b {
-  right: 2%; bottom: 4%;
-  transform: rotate(5deg) translate3d(0, var(--fy), 0);
-  z-index: 1;
 }
 
 /* ----------------------------------------------------------------- faq
@@ -1186,9 +1805,12 @@ img { max-width: 100%; height: auto; display: block; }
    Cierre oscuro con titular gigante y la tarjeta blanca del formulario,
    como "All in the PayPal app". */
 .visit {
+  /* mismo tratamiento que la franja superior: arcos de marca,
+     resplandor de cielo desde arriba y degradado de tinta. */
   background:
-    radial-gradient(90% 60% at 50% 0%, rgba(107, 93, 165, 0.35) 0%, rgba(107, 93, 165, 0) 60%),
-    var(--black-plate);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(70% 120% at 50% 0%, rgba(133, 169, 224, 0.26) 0%, rgba(133, 169, 224, 0) 60%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 55%, #17243d 100%);
   color: #fff;
   padding: clamp(88px, 13vh, 150px) var(--pad-x);
   display: flex; flex-direction: column; align-items: center;
@@ -1270,9 +1892,12 @@ img { max-width: 100%; height: auto; display: block; }
    Cierre oscuro con tarjeta blanca, mismo molde que #visita: el widget de
    reservas va dentro de una tarjeta clara sobre el fondo profundo. */
 .schedule {
+  /* mismo tratamiento que la franja superior: arcos de marca,
+     resplandor de cielo desde arriba y degradado de tinta. */
   background:
-    radial-gradient(90% 60% at 50% 0%, rgba(107, 93, 165, 0.28) 0%, rgba(107, 93, 165, 0) 60%),
-    var(--black-plate);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(70% 120% at 50% 0%, rgba(133, 169, 224, 0.2) 0%, rgba(133, 169, 224, 0) 60%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 55%, #17243d 100%);
   color: #fff;
   padding: clamp(64px, 10vh, 120px) var(--pad-x) clamp(80px, 12vh, 150px);
   text-align: center;
@@ -1305,7 +1930,12 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* -------------------------------------------------------------- footer */
 .footer {
-  background: var(--black-plate);
+  /* mismo tratamiento que la franja superior: arcos de marca,
+     resplandor de cielo desde arriba y degradado de tinta. */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(70% 120% at 50% 0%, rgba(133, 169, 224, 0.14) 0%, rgba(133, 169, 224, 0) 60%),
+    linear-gradient(180deg, #26385c 0%, var(--ink) 55%, #17243d 100%);
   color: rgba(255, 255, 255, 0.75);
   padding: clamp(56px, 9vh, 96px) var(--pad-x) 40px;
 }
@@ -1394,8 +2024,6 @@ img { max-width: 100%; height: auto; display: block; }
     margin: 40px auto 0;
     box-shadow: var(--shadow-card);
   }
-  .hero-device-bar { padding: 14px 0; }
-  .hero-device-bar img { height: 28px; }
   .hero-device-media { aspect-ratio: 16 / 10; }
   .hero-shade { opacity: 1; }
   .hero-word { display: none; }
@@ -1410,20 +2038,29 @@ img { max-width: 100%; height: auto; display: block; }
   .deck-card { transform: none; }
   .deck-card::after { display: none; }
 
-  .bmoment { height: auto; }
-  .bmoment-media { position: relative; top: 0; height: auto; transform: none; }
-  .bmoment-words { position: absolute; inset: 0; justify-content: center; }
-  .bmoment-w1, .bmoment-w2 { transform: none; }
 
-  .band-text { min-height: 0; }
 
-  .px-inner { transform: none !important; height: 100%; }
-  .tour-float img { transform: rotate(0); }
+  .where-map img { transform: none; }
+
+  /* respaldo y recorrido: sin flotado ni escala para quien pidió
+     movimiento reducido */
+  .backed-media img { transform: none; }
+  .backed-frase { transform: none; }
+  .tour-single img { transform: none; }
+  .planta-media img { transform: none; }
+  .planta-w1, .planta-w2 { transform: none; }
+
+  /* apartamento modelo: sin giro ni escalonado para quien pidió
+     movimiento reducido. */
+  .split-media figure { transform: none; width: 100%; justify-self: stretch; }
+  .split-media figure:hover img { transform: none; }
 }
 
 /* ============================================================ RESPONSIVE */
 @media (max-width: 1024px) {
-  .deck-card { grid-template-columns: 1.2fr 1fr; }
+  /* a este ancho el texto necesita más sitio, pero la imagen conserva su
+     proporción: solo se reparte distinto el ancho. */
+  .deck-card { grid-template-columns: 1fr 1.05fr; }
 }
 
 @media (max-width: 980px) {
@@ -1437,21 +2074,23 @@ img { max-width: 100%; height: auto; display: block; }
   .nav-links, .nav-actions { display: none; }
   .nav-toggle { display: flex; }
 
-  /* móvil: sin banda aparte. Como el menú vive en el drawer, el logo va
-     grande y centrado dentro del propio nav y el botón de menú se sale
-     del flujo a la derecha — así no queda una franja blanca vacía. */
-  .brandrow { display: none; }
-  .nav { justify-content: center; height: 78px; }
-  .brand-logo { width: 152px; }
-  .js .brand {
-    opacity: 1; visibility: visible; transform: none;
-  }
-  .nav-toggle { position: absolute; right: var(--pad-x); margin-left: 0; }
+  /* móvil: el nav ya no lleva logo (ambas marcas están en la franja),
+     solo el botón de menú. Barra fina alineada a la derecha en vez de
+     78px de blanco vacío. Se cambia la variable, no solo el alto:
+     scroll-padding-top y las cards del deck se posicionan con --nav-h. */
+  :root { --nav-h: 56px; }
+  .nav { justify-content: flex-end; }
+  .nav-toggle { margin-left: 0; }
 
   .stats { grid-template-columns: repeat(2, 1fr); }
 
   .split { grid-template-columns: 1fr; }
-  .split-media img { aspect-ratio: 4 / 3; }
+  /* móvil: sin giros ni escalonado. A este ancho el giro recorta esquinas
+     contra el borde de la pantalla y la tarjeta angosta queda diminuta. */
+  .split-media { gap: 16px; }
+  .split-media figure { transform: none; width: 100%; justify-self: stretch; }
+  .split-media .sm-wide img,
+  .split-media .sm-tall img { aspect-ratio: 4 / 3; }
 
   /* zonas: el carril central pasa arriba y los laterales quedan en dos
      columnas debajo, sin parallax que descuadre el layout */
@@ -1463,18 +2102,19 @@ img { max-width: 100%; height: auto; display: block; }
     grid-template-columns: 1fr;
     min-height: 0;
   }
-  .deck-media img { aspect-ratio: 16 / 9; }
   .deck-copy { padding: 24px; }
 
-  .where { grid-template-columns: 1fr; }
 
   /* el 360 embebido no funciona bien en celular; se esconde y queda solo
      el CTA de "Agendar un recorrido" para que la gente agende su visita */
   .tour360 { display: none; }
 
-  .tour { grid-template-columns: 1fr; }
+  .tour {
+    grid-template-columns: 1fr;
+    padding: clamp(64px, 10vh, 110px) var(--pad-x);
+  }
   .tour-copy { justify-self: start; }
-  .tour-float { min-height: 300px; }
+  .tour-single { border-radius: var(--radius-lg); }
 
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
@@ -1487,27 +2127,33 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-scene { padding-top: clamp(16px, 3vh, 32px); }
   .hero-device {
     --s: calc(0.5 + var(--p1) * 0.5);
-    top: calc(48% - var(--p1) * 48%);
+    /* mismo piso/techo que en escritorio, con medidas de móvil: el
+       titular es más chico, así que basta con 22rem de aire. */
+    --dev-top: min(max(48%, 22rem), 66%);
   }
   .hero-title { font-size: clamp(2.4rem, 10.8vw, 3.6rem); }
   .hero-sub { margin-top: 14px; font-size: 1rem; }
   .hero-toggle { margin-bottom: clamp(18px, 3vh, 28px); }
   .hero-scrollcue { display: none; }
 
-  /* topbar a una línea: como es fija, si envuelve se come alto en toda
-     la página, no solo en el hero */
-  .topbar { font-size: 0.8rem; padding: 0 16px; }
-  .topbar p { flex-wrap: nowrap; white-space: nowrap; }
+  /* la franja es fija: su alto se descuenta de la pantalla en toda la
+     página, así que en móvil los dos logos bajan de tamaño. La ubicación
+     se retira — no cabrían tres bloques sin apretujarse, y el dato se
+     repite en la sección de Ubicación y en el pie. */
+  :root { --topbar-h: 72px; }
+  .topbar { padding: 0 16px; gap: 14px; justify-content: space-around; }
+  .topbar-logo { height: 46px; }
+  .topbar-cielo img { height: 42px; }
+  .topbar-place { display: none; }
 }
 
-/* en celulares angostos "Proyecto de" ya no cabe junto al resto sin
-   partir la línea; se quita ese relleno antes que arriesgar el
-   truncamiento de "Villavicencio", que es el dato que de verdad importa
-   (y el que antes se perdía: la barra vieja usaba text-overflow:
-   ellipsis y se comía justo la ubicación). */
+/* en celulares angostos los dos logos siguen bajando: por debajo de este
+   ancho, a 46px el de Curbanas empezaba a tocar al de Cielo. */
 @media (max-width: 440px) {
-  .topbar-lead { display: none; }
-  .topbar { padding: 0 10px; }
+  :root { --topbar-h: 62px; }
+  .topbar { padding: 0 12px; gap: 10px; }
+  .topbar-logo { height: 38px; }
+  .topbar-cielo img { height: 34px; }
 }
 
 @media (max-width: 560px) {
@@ -1520,6 +2166,5 @@ img { max-width: 100%; height: auto; display: block; }
      dejarían "2,65 m" y "PVC" demasiado apretados, así que se apilan. */
   .znum-pair { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-  .bmoment-w1, .bmoment-w2 { font-size: clamp(3rem, 16vw, 5rem); }
   .visit-form { padding: 22px; }
 }

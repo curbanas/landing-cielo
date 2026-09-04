@@ -4,7 +4,7 @@
 
 const CONFIG = {
   // Línea real de ventas en formato internacional, solo dígitos (ej: "573201234567").
-  whatsappNumber: "573186296793", // línea de ventas de Cielo (+57 318 629 6793)
+  whatsappNumber: "573332889545", // línea de ventas de Cielo (+57 333 288 9545)
   email: "ventas@curbanas.com",
 };
 
@@ -73,7 +73,7 @@ const tabInvertir = document.getElementById("tabInvertir");
 const HERO_COPY = {
   vivir: {
     title: "Vive, invierte y<br />respira más alto",
-    sub: "Apartamentos de 70 a 116 m² sobre el Anillo Vial de Villavicencio. Desde $460 millones.",
+    sub: "Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio. Desde $461 millones.",
   },
   invertir: {
     title: "Tu inversión,<br />en el punto más alto",
@@ -162,7 +162,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
       sel: ".intro-kicker, .intro-lede, .intro-note, .split-copy p, .zones-head p, .deck-head p, .backed p, .where-copy p, .tour-copy p, .visit-sub, .schedule-sub",
       variant: "",
     },
-    { sel: ".stat, .faq-item, .where-chips li, .feature-group, .hero-backed", variant: "" },
+    { sel: ".stat, .faq-item, .where-chips li, .feature-group", variant: "" },
     { sel: ".zitem, .znum, .typology-card", variant: "motion-up" },
     { sel: ".split-media, .backed-media, .where-map, .visit-form", variant: "motion-media" },
   ];
@@ -250,14 +250,12 @@ const heroStack = document.getElementById("heroStack");
 const zonesGrid = document.getElementById("zonesGrid");
 const zlanes = zonesGrid ? [...zonesGrid.querySelectorAll(".zlane")] : [];
 const deckSlots = [...document.querySelectorAll(".deck-slot")];
-const bmoments = [...document.querySelectorAll("[data-bm]")].map((sec) => ({
-  sec,
-  media: sec.querySelector("[data-bm-media]"),
-  w1: sec.querySelector("[data-bm-w1]"),
-  w2: sec.querySelector("[data-bm-w2]"),
-}));
-const pxInners = document.querySelectorAll(".px-inner");
+// brand moments: la página ya no usa el formato de fondo oscuro con
+// palabras cruzándose; las dos secciones que lo usaban se reemplazaron
+// por piezas de marca y por la planta de implantación.
 const tourFloats = [...document.querySelectorAll("[data-float]")];
+const zoomEls = [...document.querySelectorAll("[data-zoom]")];
+const slideEls = [...document.querySelectorAll("[data-slide]")];
 
 if (!reduceMotion) {
   const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
@@ -314,36 +312,47 @@ if (!reduceMotion) {
       card.style.setProperty("--c", c.toFixed(3));
     });
 
-    // brand moments: fondo en parallax y palabras cruzándose (±)
-    bmoments.forEach(({ sec, media, w1, w2 }) => {
-      const r = sec.getBoundingClientRect();
-      if (r.bottom < -80 || r.top > vh + 80) return;
-      const t = clamp((vh - r.top) / (vh + r.height), 0, 1) * 2 - 1; // -1..1
-      const shift = Math.min(280, window.innerWidth * 0.22);
-      if (media) media.style.setProperty("--bmy", `${(t * r.height * 0.1).toFixed(1)}px`);
-      if (w1) w1.style.setProperty("--bm1x", `${(t * shift).toFixed(1)}px`);
-      if (w2) w2.style.setProperty("--bm2x", `${(-t * shift).toFixed(1)}px`);
-    });
-
-    // parallax: el inner (128% de alto) se desplaza dentro del marco
-    pxInners.forEach((inner) => {
-      const frame = inner.parentElement;
-      const r = frame.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < vh) {
-        const t = clamp((vh - r.top) / (vh + r.height), 0, 1); // 0..1
-        const travel = inner.offsetHeight - frame.offsetHeight;
-        inner.style.transform = `translate3d(0, ${-travel * t}px, 0)`;
-      }
-    });
-
-    // tour: los renders flotan en direcciones opuestas
-    tourFloats.forEach((img) => {
-      const r = img.closest(".tour").getBoundingClientRect();
+    // renders que flotan en direcciones opuestas: los del recorrido 360
+    // (.tour) y los del apartamento modelo (.split). El scope se busca
+    // entre ambos porque cada sección tiene su propio alto de referencia.
+    tourFloats.forEach((el) => {
+      const scope = el.closest(".tour, .split, .backed");
+      if (!scope) return;
+      const r = scope.getBoundingClientRect();
       if (r.bottom > 0 && r.top < vh) {
         const t = clamp((vh - r.top) / (vh + r.height), 0, 1);
-        const dir = Number(img.dataset.float || 1);
-        img.style.setProperty("--fy", `${((t - 0.5) * dir * 56).toFixed(1)}px`);
+        const dir = Number(el.dataset.float || 1);
+        // amplitud por elemento: 56px sirve en secciones cortas, pero en
+        // bloques altos ese recorrido se diluye y no se percibe.
+        const amp = Number(el.dataset.floatAmp || 56);
+        el.style.setProperty("--fy", `${((t - 0.5) * dir * amp).toFixed(1)}px`);
       }
+    });
+
+    // zoom ligado al scroll: la imagen crece mientras la sección atraviesa
+    // la pantalla, el mismo recurso que la tarjeta del hero. --zg va de 0
+    // a 1 y el CSS decide cuánto crece.
+    zoomEls.forEach((el) => {
+      const scope = el.closest("[data-zoom-scope]") || el.parentElement;
+      if (!scope) return;
+      const r = scope.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < vh) {
+        const t = clamp((vh - r.top) / (vh + r.height), 0, 1);
+        el.style.setProperty("--zg", t.toFixed(3));
+      }
+    });
+
+    // palabras que se cruzan: entran desde lados opuestos con el scroll.
+    // --sx va de -amp a +amp según la dirección de cada una.
+    slideEls.forEach((el) => {
+      const scope = el.closest("[data-slide-scope]") || el.parentElement;
+      if (!scope) return;
+      const r = scope.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) return;
+      const t = clamp((vh - r.top) / (vh + r.height), 0, 1) * 2 - 1; // -1..1
+      const dir = Number(el.dataset.slide || 1);
+      const amp = Math.min(260, window.innerWidth * 0.2);
+      el.style.setProperty("--sx", `${(t * dir * amp).toFixed(1)}px`);
     });
 
     ticking = false;
