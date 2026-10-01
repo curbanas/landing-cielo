@@ -794,18 +794,23 @@ img { max-width: 100%; height: auto; display: block; }
    el transform que lleva la rotación y el flotado. */
 .split-media figure:hover img { transform: scale(1.06); }
 
+/* Las dos imágenes van centradas y derechas (sin giro), alineadas entre
+   sí en la columna. Conservan solo el flotado suave con el scroll. */
+.split-media { justify-items: center; }
+
 /* comedor: ocupa toda la columna, es la toma principal */
 .split-media .sm-wide {
   width: 100%;
-  transform: rotate(-1.5deg) translate3d(0, var(--fy), 0);
+  justify-self: center;
+  transform: translate3d(0, var(--fy), 0);
 }
 .split-media .sm-wide img { aspect-ratio: 3 / 2; }
 
-/* balcón: mismo ancho que la anterior. Lo que rompe la simetría ahora es
-   solo el giro contrario y el flotado en sentido opuesto. */
+/* balcón: mismo ancho y mismo eje que la anterior. */
 .split-media .sm-tall {
   width: 100%;
-  transform: rotate(2.5deg) translate3d(0, var(--fy), 0);
+  justify-self: center;
+  transform: translate3d(0, var(--fy), 0);
 }
 .split-media .sm-tall img { aspect-ratio: 3 / 2; }
 
