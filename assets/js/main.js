@@ -162,6 +162,21 @@ if (firmaEl && "IntersectionObserver" in window) {
   firmaEl.classList.add("is-in");
 }
 
+/* ---- espacio flexible: la palabra del titular rota entre usos */
+document.querySelectorAll(".flexi-word[data-words]").forEach((el) => {
+  const words = el.dataset.words.split("|");
+  if (reduceMotion || words.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    el.classList.add("is-out");
+    setTimeout(() => {
+      i = (i + 1) % words.length;
+      el.textContent = words[i];
+      el.classList.remove("is-out");
+    }, 320);
+  }, 2600);
+});
+
 /* ========================================================== MOTION ENGINE
    Un solo rAF gobierna todo lo ligado al scroll (hero, carriles, deck,
    brand moments, odómetros, parallax); los reveals van por
@@ -182,7 +197,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
     },
     { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li", variant: "" },
     { sel: ".typology-card", variant: "motion-up" },
-    { sel: ".modelo-gal, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
+    { sel: ".modelo-gal, .flexi-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
 
   const io = new IntersectionObserver(

@@ -3550,3 +3550,57 @@ button.zdet-item:hover img { transform: translateY(-2px); }
   .js .modelo-gal .zviewer-thumbs { gap: 6px; }
 }
 @media (min-width: 861px) { .split.split-ed { grid-template-columns: 0.9fr 1.25fr; max-width: 1360px; } }
+
+/* ============================================ ESPACIO FLEXIBLE
+   Render grande a la izquierda con el marco editorial; a la derecha el
+   titular con la palabra que rota, cuatro usos posibles y en qué
+   tipologías viene. Fondo lila muy claro de borde a borde, para que la
+   sección se note como un argumento aparte. */
+.flexi {
+  position: relative; z-index: 0;
+  display: grid; grid-template-columns: 1.1fr 1fr; align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  max-width: 1360px; margin: 0 auto;
+  padding: clamp(64px, 10vh, 120px) var(--pad-x);
+}
+.flexi::before {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%;
+  width: 100vw; transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(236, 232, 245, 0.75) 0%, rgba(221, 229, 247, 0.6) 100%);
+}
+.flexi-fig { margin: 14px 14px 0 0; }
+.flexi-fig .ed-ph img { aspect-ratio: 5 / 4; }
+.flexi-copy h2 {
+  font-size: clamp(2rem, 3.9vw, 3.4rem);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; color: var(--ink);
+  min-height: 3.3em;   /* la palabra que rota no mueve lo de abajo */
+}
+.flexi-word {
+  display: inline-block; font-style: italic; font-weight: 300; color: var(--violet);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.flexi-word.is-out { opacity: 0; transform: translateY(8px); }
+.flexi-lead { margin: 16px 0 0; max-width: 48ch; color: var(--slate); font-size: clamp(1rem, 1.5vw, 1.15rem); }
+.flexi-usos {
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin: clamp(22px, 3.4vh, 32px) 0;
+  border-top: 1px solid rgba(32, 48, 80, 0.16);
+}
+.flexi-usos li {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 14px 14px 14px 0;
+  border-bottom: 1px solid rgba(32, 48, 80, 0.16);
+}
+.flexi-usos li:nth-child(even) { padding-left: 18px; border-left: 1px solid rgba(32, 48, 80, 0.16); }
+.flexi-usos strong { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); }
+.flexi-usos span { font-size: 0.9rem; color: var(--slate); }
+.flexi-donde { margin: 0 0 22px; max-width: 46ch; font-size: 0.98rem; color: var(--ink); }
+/* en las fichas, el espacio flexible va resaltado */
+.typology-specs li.is-flex {
+  background: var(--lilac-soft); color: var(--violet); font-weight: 700;
+}
+.typology-specs li.is-flex::before { content: "★"; margin-right: 8px; font-size: 0.85em; }
+@media (max-width: 900px) {
+  .flexi { grid-template-columns: 1fr; }
+  .flexi-fig { margin: 10px 10px 0 0; }
+}
