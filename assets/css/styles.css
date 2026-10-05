@@ -3696,3 +3696,6 @@ mark {
   font-size: clamp(1rem, 1.35vw, 1.14rem); line-height: 1.5; color: rgba(255, 255, 255, 0.92);
 }
 .feature-group li.is-key { font-weight: 500; }
+/* tipología disponible sin precio publicado: enlace a cotizar */
+.typology-price.is-ask a { color: var(--violet); font-weight: 700; text-decoration: none; }
+.typology-price.is-ask a:hover { text-decoration: underline; }
