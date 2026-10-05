@@ -3113,3 +3113,134 @@ button.zdet-item:hover img { transform: translateY(-2px); }
 .drawer { overflow-y: auto; justify-content: safe center; visibility: hidden; transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.32s; }
 .drawer.is-open { visibility: visible; }
 @media (min-width: 861px) { .drawer { display: none; } }
+
+/* ============================================ BANDA "INVIERTE" · ATARDECER
+   La frase deja de ir suelta sobre el papel: pasa a una banda a sangre
+   con el cielo de la marca al atardecer (de tinta a violeta, con un
+   resplandor de cielo abajo y el motivo de arcos), antetítulo, tres
+   razones en fila y el botón. */
+.band-text.band-dusk {
+  position: relative; overflow: hidden;
+  padding: clamp(72px, 12vh, 140px) var(--pad-x);
+  color: #fff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    radial-gradient(90% 70% at 50% 118%, rgba(133, 169, 224, 0.55) 0%, rgba(133, 169, 224, 0) 70%),
+    linear-gradient(180deg, #131e35 0%, #24305a 42%, #4b4279 78%, #6b5da5 100%);
+}
+.band-dusk .band-copy {
+  position: relative; width: 100%; max-width: 1200px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.band-dusk .sec-kicker { justify-content: center; margin-bottom: 22px; }
+.band-dusk h2 { max-width: none; color: #fff; font-size: clamp(2.2rem, 5.4vw, 4.6rem); }
+.band-dusk h2 em { font-style: italic; font-weight: 300; color: var(--lilac); }
+.band-points {
+  list-style: none; width: 100%;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: clamp(36px, 6vh, 64px) 0 clamp(30px, 5vh, 48px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.band-points li {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: clamp(20px, 3vw, 36px) clamp(12px, 2vw, 28px);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+.band-points li:first-child { border-left: 0; }
+.band-points strong {
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+  color: #fff;
+}
+.band-points span {
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.5;
+  color: var(--lilac);
+}
+@media (max-width: 700px) {
+  .band-points { grid-template-columns: 1fr; }
+  .band-points li { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.2); padding: 20px 8px; }
+  .band-points li:first-child { border-top: 0; }
+}
+/* la planta que va justo antes ya no necesita aire abajo */
+.planta.planta-ed { padding-bottom: clamp(40px, 6vh, 64px); }
+
+/* ============================================ UBICACIÓN · EDITORIAL
+   Cabecera en dos columnas (título a la izquierda; texto y botón a la
+   derecha), el mapa grande con el marco editorial —esquinas rectas,
+   filete desfasado, pie numerado— y debajo los tres datos en fila con
+   numeral, entre filetes. */
+.where.where-ed {
+  max-width: 1440px; margin: 0 auto;
+  padding: clamp(72px, 11vh, 130px) var(--pad-x);
+}
+.where-ed .where-head {
+  max-width: none; margin: 0 0 clamp(30px, 4.4vw, 56px); padding: 0;
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  column-gap: clamp(32px, 5vw, 72px); align-items: end;
+  text-align: left;
+}
+.where-ed .where-head .sec-kicker { justify-content: flex-start; }
+.where-ed .where-head-side p { margin: 0 0 22px; max-width: 48ch; color: var(--slate); font-size: clamp(1rem, 1.6vw, 1.18rem); }
+.where-ed .where-photo { position: relative; margin: 14px 14px 0 0; background: none; }
+.where-ed .where-photo::before {
+  content: ""; position: absolute; z-index: 0;
+  top: -14px; right: -14px; width: 46%; height: 52%;
+  border: 1px solid var(--filete); pointer-events: none;
+}
+.where-ph {
+  position: relative; z-index: 1; display: block; overflow: hidden;
+  box-shadow: var(--shadow-ed);
+}
+.where-ph img { display: block; width: 100%; height: auto; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.where-ph:hover img { transform: scale(1.03); }
+.where-zoom {
+  position: absolute; right: 16px; bottom: 16px;
+  padding: 9px 16px; border-radius: var(--radius-pill);
+  background: rgba(22, 35, 60, 0.86); color: #fff;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+}
+.where-zoom::after { content: "↗"; margin-left: 8px; }
+.where-ed .where-photo figcaption {
+  display: flex; align-items: baseline; gap: 14px;
+  margin-top: 18px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink);
+}
+.where-ed .where-photo figcaption b { font-weight: 300; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1; color: var(--violet); }
+.where-ed .where-photo figcaption::after { content: ""; flex: 1 1 auto; height: 1px; align-self: center; background: rgba(32, 48, 80, 0.18); }
+.where-ed .where-facts {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  margin-top: clamp(32px, 5vh, 52px); padding: 0;
+  background: none; color: var(--ink);
+  border-top: 1px solid rgba(32, 48, 80, 0.16);
+  border-bottom: 1px solid rgba(32, 48, 80, 0.16);
+}
+.where-ed .where-facts li {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: clamp(20px, 2.6vw, 34px) clamp(14px, 2vw, 30px);
+  border-left: 1px solid rgba(32, 48, 80, 0.16);
+}
+.where-ed .where-facts li:first-child { border-left: 0; padding-left: 0; }
+.where-ed .where-facts b { font-weight: 300; font-size: 1.3rem; line-height: 1; color: var(--violet); margin-bottom: 6px; }
+.where-ed .where-facts strong { font-size: clamp(1.3rem, 2.3vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); }
+.where-ed .where-facts span { font-size: clamp(0.9rem, 1.2vw, 1rem); color: var(--slate); line-height: 1.4; }
+@media (max-width: 860px) {
+  .where-ed .where-head { grid-template-columns: 1fr; row-gap: 18px; align-items: start; }
+  .where-ed .where-photo { margin: 10px 10px 0 0; }
+  .where-ed .where-photo::before { top: -10px; right: -10px; }
+  .where-zoom { right: 8px; bottom: 8px; padding: 6px 12px; font-size: 0.7rem; }
+  .where-ed .where-facts { grid-template-columns: 1fr; }
+  .where-ed .where-facts li { border-left: 0; padding-left: 0; border-top: 1px solid rgba(32, 48, 80, 0.16); }
+  .where-ed .where-facts li:first-child { border-top: 0; }
+}
+/* la pastilla va a la izquierda: a la derecha la tapaba el botón flotante
+   de WhatsApp. Y en celular el antetítulo de ubicación va a la izquierda,
+   como su cabecera. */
+.where-zoom { right: auto; left: 16px; }
+@media (max-width: 860px) { .where-zoom { left: 8px; } }
+@media (max-width: 600px) {
+  .where-ed .where-head .sec-kicker { display: flex; text-align: left; }
+  .where-ed .where-head .sec-kicker::before { content: ""; }
+}

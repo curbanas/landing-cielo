@@ -159,7 +159,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
       variant: "motion-title",
     },
     {
-      sel: ".sec-kicker, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
+      sel: ".sec-kicker, .band-points, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
       variant: "",
     },
     { sel: ".stat, .faq-item, .where-facts li, .backed-facts div", variant: "" },
@@ -188,7 +188,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   });
 
   // escalonado: los hermanos de una misma rejilla entran en cascada
-  [".stats", ".where-facts ul", ".backed-facts", ".ed-duo", ".faq"].forEach((parentSel) => {
+  [".stats", ".where-facts", ".backed-facts", ".ed-duo", ".faq"].forEach((parentSel) => {
     document.querySelectorAll(parentSel).forEach((parent) => {
       [...parent.children].forEach((child, i) => {
         child.style.setProperty("--motion-delay", `${Math.min(i, 5) * 80}ms`);

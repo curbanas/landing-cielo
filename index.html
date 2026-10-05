@@ -100,7 +100,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261004g" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261004i" />
 </head>
 <body>
 
@@ -845,30 +845,50 @@
 
     <!-- ================================= TEXT SECTION BLANCA 100vh
          Réplica de "Make your money work harder. It's easy." -->
-    <section class="band-text band-text-light">
-      <h2>Invierte donde crece el Llano.<br /><em>Es simple. Muy simple.</em></h2>
+    <section class="band-text band-dusk">
+      <div class="band-copy">
+        <p class="sec-kicker sec-kicker-light">Inversión</p>
+        <h2>Invierte donde crece el Llano.<br /><em>Es simple. Muy simple.</em></h2>
+        <!-- tres razones, con datos que ya están en la página: el precio
+             "desde", el precio congelado al separar (plan de pagos) y los
+             años de la constructora (respaldo). -->
+        <ul class="band-points">
+          <li><strong>$461&nbsp;M</strong><span>precio desde, en preventa</span></li>
+          <li><strong>Precio congelado</strong><span>al separar tu apartamento</span></li>
+          <li><strong>37 años</strong><span>de respaldo de Construcciones Urbanas</span></li>
+        </ul>
+        <a class="btn btn-light" href="#agenda">Agenda tu visita</a>
+      </div>
     </section>
 
     <!-- ============================================ UBICACIÓN -->
         <section class="where where-ed" id="ubicacion">
       <header class="where-head">
-        <p class="sec-kicker">Ubicación</p>
-        <h2>Sobre el Anillo Vial,<br />pasando la Terpel</h2>
-        <p>El Anillo Vial conecta el proyecto con toda la ciudad sin atravesar el centro: el punto exacto donde Villavicencio se expande.</p>
+        <div class="where-head-main">
+          <p class="sec-kicker">Ubicación</p>
+          <h2>Sobre el Anillo Vial,<br />pasando la Terpel</h2>
+        </div>
+        <div class="where-head-side">
+          <p>El Anillo Vial conecta el proyecto con toda la ciudad sin atravesar el centro: el punto exacto donde Villavicencio se expande.</p>
+          <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&query=Cielo+Apartamentos+Anillo+Vial+Villavicencio" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
       </header>
       <!-- La pieza lleva su propio titular y pines en puntos concretos:
-           va completa, de borde a borde, sin texto encima. -->
+           va completa y grande, sin texto encima, con el mismo marco
+           editorial del apartamento modelo. El enlace la abre a tamaño
+           completo para leer los pines. -->
       <figure class="where-photo">
-        <img src="assets/img/ubicacion-ok.webp" alt="Entorno y urbanismo del sector: Cielo Apartamentos junto a Terraverde, Terraverde Park y Terraverde Vista, sobre el Anillo Vial de Villavicencio" width="1672" height="941" loading="lazy" />
+        <a class="where-ph" href="assets/img/ubicacion-ok.webp" target="_blank" rel="noopener" aria-label="Ver el mapa del sector en grande">
+          <img src="assets/img/ubicacion-ok.webp" alt="Entorno y urbanismo del sector: Cielo Apartamentos junto a Terraverde, Terraverde Park y Terraverde Vista, sobre el Anillo Vial de Villavicencio" width="1672" height="941" loading="lazy" />
+          <span class="where-zoom" aria-hidden="true">Ver en grande</span>
+        </a>
+        <figcaption><b>01</b><span>El sector, visto desde el aire</span></figcaption>
       </figure>
-      <div class="where-facts">
-        <ul id="whereChips">
-          <li><strong>Anillo Vial</strong><span>de Villavicencio</span></li>
-          <li><strong>Terpel</strong><span>pasando la estación</span></li>
-          <li><strong>Cita previa</strong><span>en la sala de ventas</span></li>
-        </ul>
-        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Cielo+Apartamentos+Anillo+Vial+Villavicencio" target="_blank" rel="noopener">Cómo llegar</a>
-      </div>
+      <ul class="where-facts" id="whereChips">
+        <li><b>01</b><strong>Anillo Vial</strong><span>de Villavicencio</span></li>
+        <li><b>02</b><strong>Pasando la Terpel</strong><span>la estación de servicio sobre el Anillo Vial</span></li>
+        <li><b>03</b><strong>Cita previa</strong><span>en la sala de ventas</span></li>
+      </ul>
     </section>
 
     <!-- ============================================ PREGUNTAS -->
@@ -983,7 +1003,7 @@
     <p class="footer-copy">© 2026 Cielo Apartamentos · Construcciones Urbanas. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="assets/js/main.js?v=20261004g" defer></script>
+  <script src="assets/js/main.js?v=20261004i" defer></script>
   <!-- autoajusta la altura del iframe del calendario (#agenda) al contenido -->
   <script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 </body>
