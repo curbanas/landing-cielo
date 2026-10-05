@@ -100,7 +100,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261005b" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261005c" />
 </head>
 <body>
 
@@ -253,6 +253,14 @@
       <!-- El detalle (las dos listas) va plegado: la sección abre con lo
            esencial y quien quiera el inventario completo lo despliega. El
            texto sigue en el HTML, también para buscadores. -->
+      <!-- los tres diferenciales, a la vista (el detalle completo sigue
+           plegado debajo) -->
+      <ul class="intro-keys">
+        <li><a href="#altura"><b>2,65 m</b><span>Altura libre, única en apartamentos de Villavicencio</span></a></li>
+        <li><a href="#terraza"><b>Terraza</b><span>Gran formato de terraza en sala-comedor</span></a></li>
+        <li><a href="#zona-privado"><b>Piscinas VIP</b><span>Zona privada exclusiva para piscinas VIP</span></a></li>
+      </ul>
+
       <details class="intro-more">
         <summary>Ver todo lo que incluye</summary>
         <p class="intro-etapas">Cielo se construye en <strong>2 etapas</strong>, cada una de <strong>2 torres de 17 pisos</strong> con <strong>4 apartamentos por piso</strong>.</p>
@@ -260,7 +268,8 @@
           <div class="feature-group">
             <h3>En cada apartamento</h3>
             <ul>
-              <li>Gran formato de sala-comedor</li>
+              <li class="is-key">Altura libre de 2,65 m, única en apartamentos de Villavicencio</li>
+              <li class="is-key">Gran formato de terraza en sala-comedor</li>
               <li>Balcón mirador en alcobas</li>
               <li>Cocina abierta</li>
               <li>Zona de lavandería independiente</li>
@@ -269,7 +278,6 @@
               <li>Ventanales de piso a techo en PVC</li>
               <li>Aire acondicionado en todas las alcobas</li>
               <li>Acabados premium</li>
-              <li>Altura libre de 2,65 m, única en apartamentos de Villavicencio</li>
             </ul>
           </div>
           <div class="feature-group">
@@ -277,6 +285,7 @@
             <ul>
               <li>18 zonas sociales</li>
               <li>Piscina Honda y Piscina Panda</li>
+              <li class="is-key">Zona privada exclusiva para piscinas VIP</li>
               <li>Dos piscinas VIP y dos jacuzzis</li>
               <li>Cancha múltiple y cancha sintética</li>
               <li>Vóley playa</li>
@@ -405,6 +414,32 @@
       </div>
     </section>
 
+    <!-- ============================================ TERRAZA
+         El otro diferencial del apartamento: la terraza de gran formato
+         a la que se abre la sala-comedor. Mismo molde que el espacio
+         flexible, en espejo (texto a la izquierda, render a la derecha). -->
+    <section class="flexi flexi-rev" id="terraza">
+      <div class="flexi-copy">
+        <p class="sec-kicker">Terraza</p>
+        <h2>Gran formato de terraza<br /><em>en sala-comedor.</em></h2>
+        <p class="flexi-lead">La sala-comedor se abre a la terraza por un ventanal de piso a techo. Es tu sala, extendida al aire libre y de frente con el Llano.</p>
+        <ul class="flexi-usos">
+          <li><strong>De piso a techo</strong><span>el ventanal que une sala y terraza</span></li>
+          <li><strong>En las 11 tipologías</strong><span>todas tienen terraza</span></li>
+          <li><strong>Balcón mirador</strong><span>además, en las alcobas</span></li>
+          <li><strong>De frente con el Llano</strong><span>la vista, desde tu sala</span></li>
+        </ul>
+        <div class="firma-cta">
+          <a class="btn btn-ink" href="#agenda">Ven a conocerla</a>
+          <a class="firma-link" href="#tipologias">Ver tipologías</a>
+        </div>
+      </div>
+      <figure class="ed-fig flexi-fig">
+        <div class="ed-ph"><img src="assets/img/balcon.webp" alt="Terraza de un apartamento de Cielo, amoblada, junto al ventanal de piso a techo de la sala-comedor y con vista al Llano" width="1400" height="1400" loading="lazy" /></div>
+        <figcaption><b>02</b><span>La terraza, desde afuera</span></figcaption>
+      </figure>
+    </section>
+
     <!-- =============================== ZONAS SOCIALES (EN PESTAÑAS)
          Las 18 zonas se agrupan en los cuatro ambientes de la marca:
          Divertido, Privado, Orgánico y Social. Cada pestaña muestra los
@@ -472,6 +507,7 @@
           <div class="zpanel-copy">
             <p class="zpanel-tag">Privado</p>
             <h3>Zonas húmedas exclusivas</h3>
+            <p class="zpanel-note">Una zona privada, exclusiva para las piscinas VIP.</p>
             <ul class="zdet">
               <li><button type="button" class="zdet-item" data-zimg="vip"><img src="assets/img/icono-piscina-vip.png" alt="" width="132" height="132" loading="lazy" /><span>2 Piscinas VIP</span></button></li>
               <li><button type="button" class="zdet-item" data-zimg="vip"><img src="assets/img/icono-jacuzzi-vip.png" alt="" width="132" height="132" loading="lazy" /><span>2 Jacuzzis VIP</span></button></li>
@@ -690,7 +726,7 @@
               <li>2 alcobas</li>
               <li>2 baños</li>
               <li>1 balcón</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -708,7 +744,7 @@
               <li class="is-flex">1 espacio flexible</li>
               <li>2 baños</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -725,7 +761,7 @@
               <li>3 alcobas</li>
               <li>2 baños</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -742,7 +778,7 @@
               <li>3 alcobas</li>
               <li>2 baños</li>
               <li>1 balcón</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -760,7 +796,7 @@
               <li class="is-flex">1 espacio flexible</li>
               <li>2 baños + social</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -777,7 +813,7 @@
               <li>4 alcobas</li>
               <li>2 baños + social</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -794,7 +830,7 @@
               <li>3 alcobas</li>
               <li>2 baños + social</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -811,7 +847,7 @@
               <li>3 alcobas</li>
               <li>2 baños + social</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -829,7 +865,7 @@
               <li class="is-flex">1 espacio flexible</li>
               <li>3 baños</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -846,7 +882,7 @@
               <li>4 alcobas</li>
               <li>3 baños</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -863,7 +899,7 @@
               <li>4 alcobas</li>
               <li>3 baños</li>
               <li>2 balcones</li>
-              <li>1 terraza</li>
+              <li class="is-terr">1 terraza</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -1092,7 +1128,7 @@
     <p class="footer-copy">© 2026 Cielo Apartamentos · Construcciones Urbanas. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="assets/js/main.js?v=20261005b" defer></script>
+  <script src="assets/js/main.js?v=20261005c" defer></script>
   <!-- autoajusta la altura del iframe del calendario (#agenda) al contenido -->
   <script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 </body>

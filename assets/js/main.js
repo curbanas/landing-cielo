@@ -195,7 +195,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
       sel: ".sec-kicker, .band-points, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
       variant: "",
     },
-    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li", variant: "" },
+    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li, .intro-keys li", variant: "" },
     { sel: ".typology-card", variant: "motion-up" },
     { sel: ".modelo-gal, .flexi-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
