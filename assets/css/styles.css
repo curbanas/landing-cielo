@@ -3106,3 +3106,10 @@ button.zdet-item:hover img { transform: translateY(-2px); }
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.035'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
     var(--black-plate);
 }
+
+/* ---- menú móvil: cerrado no debe asomar. Su contenido es más alto que
+   una ventana baja (portátiles), y lo que desbordaba del panel oculto se
+   veía sobre la página. Cerrado queda invisible; abierto, hace scroll. */
+.drawer { overflow-y: auto; justify-content: safe center; visibility: hidden; transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.32s; }
+.drawer.is-open { visibility: visible; }
+@media (min-width: 861px) { .drawer { display: none; } }
