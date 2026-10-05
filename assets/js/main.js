@@ -182,7 +182,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
     },
     { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li", variant: "" },
     { sel: ".typology-card", variant: "motion-up" },
-    { sel: ".ed-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
+    { sel: ".modelo-gal, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
 
   const io = new IntersectionObserver(
@@ -452,9 +452,8 @@ if (!reduceMotion) {
    Cada panel con [data-zviewer] muestra un render a la vez. Las zonas y
    las miniaturas con data-zimg cambian el render; las zonas que
    pertenecen al render visible quedan resaltadas. */
-document.querySelectorAll(".zpanel").forEach((panel) => {
-  const viewer = panel.querySelector("[data-zviewer]");
-  if (!viewer) return;
+document.querySelectorAll("[data-zviewer]").forEach((viewer) => {
+  const panel = viewer.closest(".zpanel") || viewer;
   const figs = [...viewer.querySelectorAll("[data-zfig]")];
   const triggers = [...panel.querySelectorAll("[data-zimg]")];
   function show(key) {
