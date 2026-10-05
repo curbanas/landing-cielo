@@ -3244,3 +3244,31 @@ button.zdet-item:hover img { transform: translateY(-2px); }
   .where-ed .where-head .sec-kicker { display: flex; text-align: left; }
   .where-ed .where-head .sec-kicker::before { content: ""; }
 }
+
+/* ---- onda sobre el pin de Cielo en el mapa: tres anillos que salen del
+   círculo del pin, uno tras otro. El centro (45,66% · 40,28%) y el
+   diámetro (8% del ancho) salen de medir el pin en la pieza. Sin zoom al
+   pasar el cursor en esta imagen: descuadraría la onda respecto al pin. */
+.where-ph:hover img { transform: none; }
+.where-pulse {
+  position: absolute; left: 45.66%; top: 40.28%;
+  width: 8%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.where-pulse i {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(107, 93, 165, 0.55), 0 0 18px rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  animation: where-pulse 3s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.where-pulse i:nth-child(2) { animation-delay: 1s; }
+.where-pulse i:nth-child(3) { animation-delay: 2s; }
+@keyframes where-pulse {
+  0%   { transform: scale(1);   opacity: 0.95; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .where-pulse { display: none; }
+}
