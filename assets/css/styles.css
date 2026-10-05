@@ -3717,3 +3717,5 @@ mark {
 .typology-specs li.is-plus { font-weight: 700; color: var(--violet); }
 .typology-specs li.is-plus::before { content: "+"; margin-right: 8px; }
 .typologies-head p strong { color: var(--ink); }
+/* video del espacio flexible: ocupa el mismo marco que la imagen */
+.flexi-fig .ed-ph video { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; background: #e9e6e0; }

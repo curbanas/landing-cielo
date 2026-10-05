@@ -177,6 +177,17 @@ document.querySelectorAll(".flexi-word[data-words]").forEach((el) => {
   }, 2600);
 });
 
+/* ---- videos de sección: corren solo mientras están en pantalla */
+if ("IntersectionObserver" in window && !reduceMotion) {
+  const vio = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll("video.flexi-video").forEach((v) => vio.observe(v));
+}
+
 /* ========================================================== MOTION ENGINE
    Un solo rAF gobierna todo lo ligado al scroll (hero, carriles, deck,
    brand moments, odómetros, parallax); los reveals van por

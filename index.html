@@ -100,7 +100,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261005i" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261005k" />
 </head>
 <body>
 
@@ -388,8 +388,14 @@
          sección de tipologías. -->
     <section class="flexi" id="espacio-flexible">
       <figure class="ed-fig flexi-fig">
-        <div class="ed-ph"><img src="assets/img/espacio-flexible.webp" alt="Espacio flexible de un apartamento de Cielo usado como sala de televisión, separado de la sala-comedor por un divisor de listones de madera" width="1700" height="1398" loading="lazy" /></div>
-        <figcaption><b>01</b><span>Aquí, como sala de TV</span></figcaption>
+        <!-- video del mismo espacio cambiando de uso (sala de TV, oficina).
+             Sin sonido, en bucle; solo corre mientras está en pantalla. Con
+             movimiento reducido o sin JS queda la imagen fija. -->
+        <div class="ed-ph"><video class="flexi-video" muted loop playsinline preload="none" poster="assets/img/espacio-flexible-poster.webp" width="1200" height="986" aria-label="El espacio flexible de un apartamento de Cielo cambia de sala de televisión a oficina, con escritorio y silla, junto al divisor de listones de madera">
+          <source src="assets/video/espacio-flexible.mp4" type="video/mp4" />
+          <source src="assets/video/espacio-flexible.webm" type="video/webm" />
+        </video></div>
+        <figcaption><b>01</b><span>El mismo espacio: de sala de TV a oficina</span></figcaption>
       </figure>
       <div class="flexi-copy">
         <p class="sec-kicker">Espacio flexible</p>
@@ -1148,7 +1154,7 @@
     <p class="footer-copy">© 2026 Cielo Apartamentos · Construcciones Urbanas. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="assets/js/main.js?v=20261005i" defer></script>
+  <script src="assets/js/main.js?v=20261005k" defer></script>
   <!-- autoajusta la altura del iframe del calendario (#agenda) al contenido -->
   <script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 </body>
