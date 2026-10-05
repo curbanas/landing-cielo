@@ -3719,3 +3719,40 @@ mark {
 .typologies-head p strong { color: var(--ink); }
 /* video del espacio flexible: ocupa el mismo marco que la imagen */
 .flexi-fig .ed-ph video { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; background: #e9e6e0; }
+
+/* ============================================ CABECERA CON MÁS DISEÑO
+   Deja de ser una franja plana: degradado de tinta a violeta, el motivo
+   de arcos de la marca, un resplandor de cielo detrás de los logos y el
+   filete de color (cielo → lila → violeta) al pie. */
+.nav {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.07'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 100% / 88px 44px,
+    radial-gradient(38% 190% at 12% 0%, rgba(133, 169, 224, 0.38) 0%, rgba(133, 169, 224, 0) 70%),
+    radial-gradient(30% 160% at 92% 110%, rgba(189, 181, 218, 0.3) 0%, rgba(189, 181, 218, 0) 70%),
+    linear-gradient(100deg, #131e35 0%, #1f2c52 42%, #3a3370 78%, #51468c 100%);
+  border-bottom: 0;
+  box-shadow: 0 10px 30px -14px rgba(14, 23, 41, 0.55);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.nav::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--sky) 0%, var(--sky-soft) 26%, var(--lilac) 58%, var(--violet) 100%);
+  pointer-events: none;
+}
+/* enlaces: subrayado en degradado y el botón principal en blanco, para que
+   resalte sobre el violeta */
+.nav-links a::after { height: 2px; bottom: -2px; background: linear-gradient(90deg, var(--sky), var(--lilac)); }
+.nav .btn-ink { background: #fff; color: var(--ink); box-shadow: 0 8px 22px -10px rgba(14, 23, 41, 0.7); }
+.nav .btn-ink:hover { background: var(--lilac-soft); box-shadow: 0 10px 26px -10px rgba(14, 23, 41, 0.8); }
+.nav .btn-ghost { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.28); }
+@media (max-width: 860px) {
+  /* en celular la franja es la de los logos; el nav solo aloja el botón */
+  .nav { background: none; box-shadow: none; }
+  .nav::after { content: none; }
+  .topbar {
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.07'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 100% / 88px 44px,
+      radial-gradient(60% 190% at 12% 0%, rgba(133, 169, 224, 0.38) 0%, rgba(133, 169, 224, 0) 70%),
+      linear-gradient(100deg, #131e35 0%, #1f2c52 42%, #3a3370 78%, #51468c 100%);
+  }
+}
