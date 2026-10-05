@@ -100,7 +100,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261004l" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261004m" />
 </head>
 <body>
 
@@ -294,24 +294,16 @@
 
     <!-- ============================================ FIRMA · 2,65 m Y PRECIO
          Los dos argumentos de venta, cada uno en su mitad y a todo
-         tamaño. Izquierda: la altura libre, con una escena a escala (una
-         persona de 1,70 m bajo un techo a 2,65 m) para que el número se
-         entienda con el cuerpo y no solo se lea. Derecha: el precio
+         tamaño. Izquierda: la altura libre sobre una foto del apartamento
+         modelo, que es donde esa altura se ve. Derecha: el precio
          "desde", lo que ya incluye, el precio congelado al separar y la
          disponibilidad real (2 de 11 tipologías agotadas). Todo sale de
          datos que ya están en la página. -->
     <section class="firma" id="altura" aria-label="Altura libre y precio">
       <div class="firma-half firma-alto">
-        <div class="firma-escena" aria-hidden="true">
-          <span class="fe-techo"></span>
-          <span class="fe-regla"><i></i></span>
-          <span class="fe-aire"><b>0,95 m</b> de aire</span>
-          <span class="fe-persona">
-            <svg viewBox="0 0 60 170" preserveAspectRatio="xMidYMax meet" focusable="false"><circle cx="30" cy="13" r="12"/><rect x="15" y="29" width="30" height="66" rx="13"/><rect x="5" y="31" width="9" height="58" rx="4.5"/><rect x="46" y="31" width="9" height="58" rx="4.5"/><rect x="16" y="82" width="13" height="88" rx="6"/><rect x="31" y="82" width="13" height="88" rx="6"/></svg>
-            <em>1,70 m</em>
-          </span>
-          <span class="fe-piso"></span>
-        </div>
+        <!-- la foto del apartamento modelo es la protagonista: llena la
+             mitad completa y el número va encima, abajo, sobre un velo. -->
+        <img class="firma-foto" src="assets/img/sala-comedor.webp" alt="Sala-comedor del apartamento modelo de Cielo, con ventanal de piso a techo y vista al Llano" width="1800" height="1013" loading="lazy" />
         <div class="firma-txt">
           <p class="sec-kicker sec-kicker-light">Solo en Cielo</p>
           <h2 class="firma-h"><span class="firma-num"><span data-count="2,65">2,65</span><small>m</small></span><span class="firma-sub">de altura libre</span></h2>
@@ -1062,7 +1054,7 @@
     <p class="footer-copy">© 2026 Cielo Apartamentos · Construcciones Urbanas. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="assets/js/main.js?v=20261004l" defer></script>
+  <script src="assets/js/main.js?v=20261004m" defer></script>
   <!-- autoajusta la altura del iframe del calendario (#agenda) al contenido -->
   <script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 </body>
