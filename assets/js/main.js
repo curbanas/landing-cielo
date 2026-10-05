@@ -73,7 +73,7 @@ const tabInvertir = document.getElementById("tabInvertir");
 const HERO_COPY = {
   vivir: {
     title: "Vive, invierte y<br />respira más alto",
-    sub: "Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio. Desde $461 millones.",
+    sub: "Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio.",
   },
   invertir: {
     title: "Tu inversión,<br />en el punto más alto",
@@ -144,6 +144,24 @@ if (statsEl && "IntersectionObserver" in window) {
   });
 }
 
+/* ---- firma (2,65 m y precio): al entrar en pantalla los dos números
+   cuentan desde cero y la regla de la escena crece hasta el techo. */
+const firmaEl = document.querySelector(".firma");
+if (firmaEl && "IntersectionObserver" in window) {
+  const fio = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      firmaEl.classList.add("is-in");
+      firmaEl.querySelectorAll("[data-count]").forEach(animateCount);
+      fio.disconnect();
+    },
+    { threshold: 0.3 }
+  );
+  fio.observe(firmaEl);
+} else if (firmaEl) {
+  firmaEl.classList.add("is-in");
+}
+
 /* ========================================================== MOTION ENGINE
    Un solo rAF gobierna todo lo ligado al scroll (hero, carriles, deck,
    brand moments, odómetros, parallax); los reveals van por
@@ -162,7 +180,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
       sel: ".sec-kicker, .band-points, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
       variant: "",
     },
-    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div", variant: "" },
+    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li", variant: "" },
     { sel: ".typology-card", variant: "motion-up" },
     { sel: ".ed-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
