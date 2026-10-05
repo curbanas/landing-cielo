@@ -3699,3 +3699,21 @@ mark {
 /* tipología disponible sin precio publicado: enlace a cotizar */
 .typology-price.is-ask a { color: var(--violet); font-weight: 700; text-decoration: none; }
 .typology-price.is-ask a:hover { text-decoration: underline; }
+
+/* ---- plan de pagos: las tres cifras, a la vista bajo el título */
+.deck-nums {
+  list-style: none; display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: clamp(26px, 4vh, 40px) 0 0;
+  border-top: 1px solid rgba(32, 48, 80, 0.16); border-bottom: 1px solid rgba(32, 48, 80, 0.16);
+}
+.deck-nums li { display: flex; flex-direction: column; gap: 8px; padding: clamp(18px, 2.6vw, 30px) 10px; border-left: 1px solid rgba(32, 48, 80, 0.16); }
+.deck-nums li:first-child { border-left: 0; }
+.deck-nums strong { font-size: clamp(1.9rem, 4.6vw, 3.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ink); white-space: nowrap; }
+.deck-nums span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.4; color: var(--violet); }
+.deck-head::after { content: none; }
+.deck-ink mark, .deck-lilac mark { color: #fff; background: linear-gradient(transparent 55%, rgba(107, 93, 165, 0.95) 55%); }
+.deck-lilac mark { background: linear-gradient(transparent 55%, rgba(22, 35, 60, 0.6) 55%); }
+/* en las fichas desde 100 m², lo que suman va en violeta */
+.typology-specs li.is-plus { font-weight: 700; color: var(--violet); }
+.typology-specs li.is-plus::before { content: "+"; margin-right: 8px; }
+.typologies-head p strong { color: var(--ink); }

@@ -73,7 +73,7 @@ const tabInvertir = document.getElementById("tabInvertir");
 const HERO_COPY = {
   vivir: {
     title: "Vive, invierte y<br />respira más alto",
-    sub: "Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio.",
+    sub: "Apartamentos de 71 a 117 m² sobre el Anillo Vial de Villavicencio.",
   },
   invertir: {
     title: "Tu inversión,<br />en el punto más alto",
