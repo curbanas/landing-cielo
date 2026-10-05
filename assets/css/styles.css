@@ -1000,10 +1000,10 @@ a.zl-hit:focus-visible span { opacity: 1; transform: none; }
 
 /* Respaldo por categoría: mientras una zona no tenga su ícono propio,
    lleva el genérico de su categoría. */
-.zcat-divertido .zcat-zones li::before { background-image: url("../img/icono-divertido.png"); }
-.zcat-privado   .zcat-zones li::before { background-image: url("../img/icono-privado.png"); }
-.zcat-organico  .zcat-zones li::before { background-image: url("../img/icono-organico.png"); }
-.zcat-social    .zcat-zones li::before { background-image: url("../img/icono-social.png"); }
+.zcat-divertido .zcat-zones li::before { background-image: url("../img/icono-divertido.png?v=20261005p"); }
+.zcat-privado   .zcat-zones li::before { background-image: url("../img/icono-privado.png?v=20261005p"); }
+.zcat-organico  .zcat-zones li::before { background-image: url("../img/icono-organico.png?v=20261005p"); }
+.zcat-social    .zcat-zones li::before { background-image: url("../img/icono-social.png?v=20261005p"); }
 
 /* Ícono propio de cada zona. Va con clase y no con custom property en el
    atributo style: definida así, la url() no resolvía la ruta y el fondo
@@ -1026,26 +1026,26 @@ a.zl-hit:focus-visible span { opacity: 1; transform: none; }
 }
 .zcat-grupo:last-of-type { margin-bottom: clamp(24px, 3.5vh, 34px); }
 
-.zcat-zones li.zi-piscina-vip::before  { background-image: url("../img/icono-piscina-vip.png"); }
-.zcat-zones li.zi-jacuzzi-vip::before  { background-image: url("../img/icono-jacuzzi-vip.png"); }
-.zcat-zones li.zi-pilates::before      { background-image: url("../img/icono-pilates.png"); }
-.zcat-zones li.zi-yoga::before         { background-image: url("../img/icono-yoga.png"); }
-.zcat-zones li.zi-trx::before          { background-image: url("../img/icono-trx.png"); }
-.zcat-zones li.zi-gym::before          { background-image: url("../img/icono-gym.png"); }
-.zcat-zones li.zi-muro-escalar::before { background-image: url("../img/icono-muro-escalar.png"); }
-.zcat-zones li.zi-parque-infantil::before     { background-image: url("../img/icono-parque-infantil.png"); }
-.zcat-zones li.zi-cancha-multiple::before     { background-image: url("../img/icono-cancha-multiple.png"); }
-.zcat-zones li.zi-cancha-sintetica::before    { background-image: url("../img/icono-cancha-sintetica.png"); }
-.zcat-zones li.zi-voley-playa::before         { background-image: url("../img/icono-voley-playa.png"); }
-.zcat-zones li.zi-salon-multifuncional::before{ background-image: url("../img/icono-salon-multifuncional.png"); }
-.zcat-zones li.zi-auditorio::before           { background-image: url("../img/icono-auditorio.png"); }
-.zcat-zones li.zi-coworking::before           { background-image: url("../img/icono-coworking.png"); }
-.zcat-zones li.zi-conectividad::before        { background-image: url("../img/icono-conectividad.png"); }
-.zcat-zones li.zi-lobby::before               { background-image: url("../img/icono-lobby.png"); }
-.zcat-zones li.zi-isla-lectura::before        { background-image: url("../img/icono-isla-lectura.png"); }
-.zcat-zones li.zi-bbq::before                 { background-image: url("../img/icono-bbq.png"); }
-.zcat-zones li.zi-teppanyaki::before          { background-image: url("../img/icono-teppanyaki.png"); }
-.zcat-zones li.zi-ahumadores::before          { background-image: url("../img/icono-ahumadores.png"); }
+.zcat-zones li.zi-piscina-vip::before  { background-image: url("../img/icono-piscina-vip.png?v=20261005p"); }
+.zcat-zones li.zi-jacuzzi-vip::before  { background-image: url("../img/icono-jacuzzi-vip.png?v=20261005p"); }
+.zcat-zones li.zi-pilates::before      { background-image: url("../img/icono-pilates.png?v=20261005p"); }
+.zcat-zones li.zi-yoga::before         { background-image: url("../img/icono-yoga.png?v=20261005p"); }
+.zcat-zones li.zi-trx::before          { background-image: url("../img/icono-trx.png?v=20261005p"); }
+.zcat-zones li.zi-gym::before          { background-image: url("../img/icono-gym.png?v=20261005p"); }
+.zcat-zones li.zi-muro-escalar::before { background-image: url("../img/icono-muro-escalar.png?v=20261005p"); }
+.zcat-zones li.zi-parque-infantil::before     { background-image: url("../img/icono-parque-infantil.png?v=20261005p"); }
+.zcat-zones li.zi-cancha-multiple::before     { background-image: url("../img/icono-cancha-multiple.png?v=20261005p"); }
+.zcat-zones li.zi-cancha-sintetica::before    { background-image: url("../img/icono-cancha-sintetica.png?v=20261005p"); }
+.zcat-zones li.zi-voley-playa::before         { background-image: url("../img/icono-voley-playa.png?v=20261005p"); }
+.zcat-zones li.zi-salon-multifuncional::before{ background-image: url("../img/icono-salon-multifuncional.png?v=20261005p"); }
+.zcat-zones li.zi-auditorio::before           { background-image: url("../img/icono-auditorio.png?v=20261005p"); }
+.zcat-zones li.zi-coworking::before           { background-image: url("../img/icono-coworking.png?v=20261005p"); }
+.zcat-zones li.zi-conectividad::before        { background-image: url("../img/icono-conectividad.png?v=20261005p"); }
+.zcat-zones li.zi-lobby::before               { background-image: url("../img/icono-lobby.png?v=20261005p"); }
+.zcat-zones li.zi-isla-lectura::before        { background-image: url("../img/icono-isla-lectura.png?v=20261005p"); }
+.zcat-zones li.zi-bbq::before                 { background-image: url("../img/icono-bbq.png?v=20261005p"); }
+.zcat-zones li.zi-teppanyaki::before          { background-image: url("../img/icono-teppanyaki.png?v=20261005p"); }
+.zcat-zones li.zi-ahumadores::before          { background-image: url("../img/icono-ahumadores.png?v=20261005p"); }
 
 .zcat-media figure {
   margin: 0;
