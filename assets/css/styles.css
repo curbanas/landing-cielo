@@ -3680,3 +3680,19 @@ button.zdet-item:hover img { transform: translateY(-2px); }
   .cuarto-list li:nth-child(even) { padding-left: 14px; border-left: 1px solid rgba(255, 255, 255, 0.2); }
   .cuarto-list li.is-now { padding-left: 14px; }
 }
+
+/* ---- palabras clave sombreadas (resaltador) */
+mark {
+  color: inherit; font-weight: 700;
+  background: linear-gradient(transparent 55%, rgba(189, 181, 218, 0.75) 55%);
+  padding: 0 0.12em; border-radius: 2px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.firma-alto mark { color: #fff; background: linear-gradient(transparent 55%, rgba(107, 93, 165, 0.95) 55%); }
+.firma-alto .firma-claim { max-width: 30ch; color: rgba(255, 255, 255, 0.92); }
+.firma-vent {
+  margin: clamp(18px, 2.6vh, 26px) 0; padding: 14px 0 14px 18px; max-width: 44ch;
+  border-left: 3px solid var(--lilac);
+  font-size: clamp(1rem, 1.35vw, 1.14rem); line-height: 1.5; color: rgba(255, 255, 255, 0.92);
+}
+.feature-group li.is-key { font-weight: 500; }
