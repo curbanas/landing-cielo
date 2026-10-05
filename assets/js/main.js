@@ -195,7 +195,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
       sel: ".sec-kicker, .band-points, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
       variant: "",
     },
-    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li, .intro-keys li", variant: "" },
+    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div, .hero2-keys li, .intro-keys li, .cuarto-list li", variant: "" },
     { sel: ".typology-card", variant: "motion-up" },
     { sel: ".modelo-gal, .flexi-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
@@ -221,7 +221,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   });
 
   // escalonado: los hermanos de una misma rejilla entran en cascada
-  [".stats", ".where-facts", ".backed-facts", ".ed-duo", ".faq"].forEach((parentSel) => {
+  [".stats", ".where-facts", ".cuarto-list", ".backed-facts", ".ed-duo", ".faq"].forEach((parentSel) => {
     document.querySelectorAll(parentSel).forEach((parent) => {
       [...parent.children].forEach((child, i) => {
         child.style.setProperty("--motion-delay", `${Math.min(i, 5) * 80}ms`);
