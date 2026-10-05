@@ -3756,3 +3756,20 @@ mark {
       linear-gradient(100deg, #131e35 0%, #1f2c52 42%, #3a3370 78%, #51468c 100%);
   }
 }
+
+/* cabecera sin el motivo de arcos: solo el degradado, el resplandor y el
+   filete de color. */
+.nav {
+  background:
+    radial-gradient(38% 190% at 12% 0%, rgba(133, 169, 224, 0.38) 0%, rgba(133, 169, 224, 0) 70%),
+    radial-gradient(30% 160% at 92% 110%, rgba(189, 181, 218, 0.3) 0%, rgba(189, 181, 218, 0) 70%),
+    linear-gradient(100deg, #131e35 0%, #1f2c52 42%, #3a3370 78%, #51468c 100%);
+}
+@media (max-width: 860px) {
+  .nav { background: none; }
+  .topbar {
+    background:
+      radial-gradient(60% 190% at 12% 0%, rgba(133, 169, 224, 0.38) 0%, rgba(133, 169, 224, 0) 70%),
+      linear-gradient(100deg, #131e35 0%, #1f2c52 42%, #3a3370 78%, #51468c 100%);
+  }
+}
