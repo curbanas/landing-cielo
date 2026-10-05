@@ -77,7 +77,7 @@ const HERO_COPY = {
   },
   invertir: {
     title: "Tu inversión,<br />en el punto más alto",
-    sub: "Preventa sobre el Anillo Vial, con el respaldo de más de tres décadas de Construcciones Urbanas.",
+    sub: "Preventa sobre el Anillo Vial, con el respaldo de los 37 años de Construcciones Urbanas.",
   },
 };
 
