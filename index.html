@@ -100,7 +100,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261004" />
 </head>
 <body>
 
@@ -183,44 +183,33 @@
   <main id="inicio">
 
     <!-- ======================================================= HERO
-         Réplica del hero de referencia: la escena queda sticky durante
-         3 viewports. Fase A (p1): el "device frame" blanco con el logo
-         crece de 0.35 a 1 —scale = p1 * 0.65 + 0.35, origen center top,
-         radio compensado con la escala inversa para que se lea constante.
-         Fase B (p2): sobre la imagen ya a pantalla completa cruza la
-         palabra de marca "más alto" (de ±40vw a 0) y aparece el CTA. -->
-    <section class="hero-stack" id="heroStack">
-      <div class="hero-scene">
-        <div class="hero-bg" aria-hidden="true"></div>
-
-        <div class="hero-top" id="heroTop">
-          <div class="hero-toggle" role="tablist" aria-label="Perfil">
-            <button class="hero-toggle-btn is-active" id="tabVivir" role="tab" aria-selected="true" aria-controls="heroCopy">Vivir</button>
-            <button class="hero-toggle-btn" id="tabInvertir" role="tab" aria-selected="false" aria-controls="heroCopy">Invertir</button>
-          </div>
-
-          <div class="hero-copy" id="heroCopy">
-            <h1 class="hero-title" id="heroTitle">Vive, invierte y<br />respira más alto</h1>
-            <p class="hero-sub" id="heroSub">Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio. Desde&nbsp;$461&nbsp;millones.</p>
-          </div>
+         Portada a sangre: el render completo de borde a borde, con el
+         logo, el título y los botones a la izquierda sobre un degradado
+         oscuro. Sin la escena de scroll anterior (tarjeta que crecía):
+         la imagen se ve entera desde la primera pantalla. -->
+        <section class="hero2">
+      <img class="hero2-img" src="assets/img/hero-cielo.webp" alt="Cielo Apartamentos al atardecer sobre el Anillo Vial de Villavicencio, con la portería y las dos torres iluminadas" width="1672" height="941" fetchpriority="high" />
+      <div class="hero2-shade" aria-hidden="true"></div>
+      <div class="hero2-inner">
+        <!-- logo grande de Cielo: mientras está a la vista, el logo
+             compacto de la barra permanece oculto (lo alterna el JS con
+             .is-top en el nav). -->
+        <div class="hero2-logo" id="brandrow">
+          <img src="assets/img/logo-cielo.png" alt="Cielo Apartamentos" width="400" height="121" />
         </div>
-
-        <!-- device frame: la imagen ocupa la tarjeta completa. La cabecera
-             con el logo se retiró — el logo ya vive en la franja azul. -->
-        <figure class="hero-device" id="heroDevice">
-          <div class="hero-device-media">
-            <img class="hero-device-img" src="assets/img/hero-cielo.webp" alt="Cielo Apartamentos al atardecer sobre el Anillo Vial de Villavicencio, con la portería y las dos torres iluminadas" width="1672" height="941" fetchpriority="high" />
-            <div class="hero-shade" aria-hidden="true"></div>
-            <!-- palabra de marca que cruza la imagen en la fase B -->
-            <div class="hero-word" aria-hidden="true"><span>más alto</span></div>
-            <figcaption class="hero-device-caption">
-              <strong>Cielo está por llegar. Descúbrelo primero.</strong>
-              <a class="btn btn-light" href="#agenda">Agenda tu visita</a>
-            </figcaption>
-          </div>
-        </figure>
-
-        <div class="hero-scrollcue" id="heroCue" aria-hidden="true"><span></span></div>
+        <p class="hero2-kicker">Cielo está por llegar · Descúbrelo primero</p>
+        <div class="hero-copy" id="heroCopy">
+          <h1 class="hero-title" id="heroTitle">Vive, invierte y<br />respira más alto</h1>
+          <p class="hero-sub" id="heroSub">Apartamentos de 70 a 117 m² sobre el Anillo Vial de Villavicencio. Desde&nbsp;$461&nbsp;millones.</p>
+        </div>
+        <div class="hero2-cta">
+          <a class="btn btn-light" href="#agenda">Agenda tu visita</a>
+          <a class="btn btn-line" href="#proyecto">Conoce el proyecto</a>
+        </div>
+        <div class="hero-toggle" role="tablist" aria-label="Perfil">
+          <button class="hero-toggle-btn is-active" id="tabVivir" role="tab" aria-selected="true" aria-controls="heroCopy">Para vivir</button>
+          <button class="hero-toggle-btn" id="tabInvertir" role="tab" aria-selected="false" aria-controls="heroCopy">Para invertir</button>
+        </div>
       </div>
     </section>
 
@@ -235,249 +224,251 @@
 
     <!-- ============================================ INTRO / RESUMEN
          Bloque de respuesta autocontenido (SEO/GEO) en el primer 30%. -->
-    <section class="intro" id="proyecto">
+        <section class="intro intro-impact" id="proyecto">
       <p class="intro-kicker">El proyecto</p>
       <h2 class="visually-hidden">Qué es Cielo Apartamentos</h2>
-      <p class="intro-lede"><strong>Cielo Apartamentos</strong> es un proyecto de vivienda en preventa de Construcciones Urbanas (Curbanas), sobre el Anillo Vial de Villavicencio, pasando la estación Terpel. Apartamentos de 70 a 117 m² desde $461 millones, en 11 tipologías de 2, 3 y 4 alcobas. Se construye en <strong>2 etapas</strong>, cada una de <strong>2 torres de 17 pisos</strong> con <strong>4 apartamentos por piso</strong>.</p>
+      <!-- los cuatro ambientes de la marca, cada uno en su color: los
+           mismos de las pestañas de zonas sociales. -->
+      <p class="intro-claim">
+        <span class="pil-divertido">Divertido</span>
+        <span class="pil-privado">Privado</span>
+        <span class="pil-organico">Orgánico</span>
+        <span class="pil-social">Social</span>
+      </p>
+      <p class="intro-lede"><strong>Cielo Apartamentos</strong> es un proyecto de vivienda en preventa de Construcciones Urbanas (Curbanas), sobre el Anillo Vial de Villavicencio, pasando la estación Terpel. Apartamentos de 70 a 117 m² desde $461 millones, en 11 tipologías de 2, 3 y 4 alcobas.</p>
 
       <dl class="stats" id="stats">
-        <div class="stat"><dt>Altura libre</dt><dd><span class="stat-num" data-count="2,65">0,00</span> m</dd></div>
-        <div class="stat"><dt>Zonas sociales</dt><dd><span class="stat-num" data-count="18">0</span></dd></div>
-        <div class="stat"><dt>Áreas</dt><dd>70–<span class="stat-num" data-count="117">0</span> m²</dd></div>
-        <div class="stat"><dt>Tipologías</dt><dd><span class="stat-num" data-count="11">0</span></dd></div>
+        <div class="stat"><dd><span class="stat-num" data-count="2,65">0,00</span><small> m</small></dd><dt>altura libre</dt></div>
+        <div class="stat"><dd><span class="stat-num" data-count="18">0</span></dd><dt>zonas sociales</dt></div>
+        <div class="stat"><dd>70–<span class="stat-num" data-count="117">0</span><small> m²</small></dd><dt>2, 3 y 4 alcobas</dt></div>
+        <div class="stat"><dd><span class="stat-num" data-count="11">0</span></dd><dt>tipologías</dt></div>
       </dl>
 
-      <!-- Lo que antes iba enumerado dentro del párrafo. Mismo contenido,
-           separado en dos grupos para que se pueda escanear. -->
-      <div class="features">
-        <div class="feature-group">
-          <h3>En cada apartamento</h3>
-          <ul>
-            <li>Gran formato de sala-comedor</li>
-            <li>Balcón mirador en alcobas</li>
-            <li>Cocina abierta</li>
-            <li>Zona de lavandería independiente</li>
-            <li>Estudio</li>
-            <li>Parqueadero y depósito</li>
-            <li>Ventanales de piso a techo en PVC</li>
-            <li>Aire acondicionado en todas las alcobas</li>
-            <li>Acabados premium</li>
-            <li>Altura libre de 2,65 m, única en apartamentos de Villavicencio</li>
-          </ul>
+      <!-- El detalle (las dos listas) va plegado: la sección abre con lo
+           esencial y quien quiera el inventario completo lo despliega. El
+           texto sigue en el HTML, también para buscadores. -->
+      <details class="intro-more">
+        <summary>Ver todo lo que incluye</summary>
+        <p class="intro-etapas">Cielo se construye en <strong>2 etapas</strong>, cada una de <strong>2 torres de 17 pisos</strong> con <strong>4 apartamentos por piso</strong>.</p>
+        <div class="features">
+          <div class="feature-group">
+            <h3>En cada apartamento</h3>
+            <ul>
+              <li>Gran formato de sala-comedor</li>
+              <li>Balcón mirador en alcobas</li>
+              <li>Cocina abierta</li>
+              <li>Zona de lavandería independiente</li>
+              <li>Estudio</li>
+              <li>Parqueadero y depósito</li>
+              <li>Ventanales de piso a techo en PVC</li>
+              <li>Aire acondicionado en todas las alcobas</li>
+              <li>Acabados premium</li>
+              <li>Altura libre de 2,65 m, única en apartamentos de Villavicencio</li>
+            </ul>
+          </div>
+          <div class="feature-group">
+            <h3>En el proyecto</h3>
+            <ul>
+              <li>18 zonas sociales</li>
+              <li>Piscina Honda y Piscina Panda</li>
+              <li>Dos piscinas VIP y dos jacuzzis</li>
+              <li>Cancha múltiple y cancha sintética</li>
+              <li>Vóley playa</li>
+              <li>Gimnasio</li>
+              <li>Coworking</li>
+              <li>Zona BBQ</li>
+              <li>Salón social con doble altura</li>
+              <li>2 etapas, cada una de 2 torres de 17 pisos</li>
+            </ul>
+          </div>
         </div>
-        <div class="feature-group">
-          <h3>En el proyecto</h3>
-          <ul>
-            <li>18 zonas sociales</li>
-            <li>Piscina Honda y Piscina Panda</li>
-            <li>Dos piscinas VIP y dos jacuzzis</li>
-            <li>Cancha múltiple y cancha sintética</li>
-            <li>Vóley playa</li>
-            <li>Gimnasio</li>
-            <li>Coworking</li>
-            <li>Zona BBQ</li>
-            <li>Salón social con doble altura</li>
-            <li>2 etapas, cada una de 2 torres de 17 pisos</li>
-          </ul>
-        </div>
-      </div>
-
-      <p class="intro-note">La visita al apartamento modelo se agenda con cita previa.</p>
+        <p class="intro-note">La visita al apartamento modelo se agenda con cita previa.</p>
+      </details>
     </section>
 
     <!-- ============================================ SPLIT / MODELO
-         Split texto + imagen alta, como "Shop in stores and online". -->
-    <section class="split">
+         Composición editorial: el texto arriba en dos columnas y los dos
+         renders debajo, lado a lado, derechos y a la misma altura, con
+         esquinas rectas, filete desfasado y pie numerado. -->
+        <section class="split split-ed">
       <div class="split-copy">
-        <h2>Camina el apartamento<br />modelo</h2>
-        <p class="split-lead">Puedes verlo en un render. Pero hay espacios que solo se entienden cuando los vives.</p>
-        <ul class="split-specs">
-          <li>2,65 m de altura</li>
-          <li>Cocina abierta</li>
-          <li>Terraza de frente con el Llano</li>
-        </ul>
-        <p class="split-close">Ven a conocer Cielo y compruébalo por ti mismo.</p>
-        <a class="btn btn-ink" href="#agenda">Agenda tu visita</a>
+        <div class="split-col">
+          <p class="sec-kicker">Apartamento modelo</p>
+          <h2>Camina el apartamento<br />modelo</h2>
+          <p class="split-tag">Ven a conocer Cielo y compruébalo por ti mismo.</p>
+        </div>
+        <div class="split-col">
+          <p class="split-lead">Puedes verlo en un render. Pero hay espacios que solo se entienden cuando los vives.</p>
+          <ul class="split-specs">
+            <li>2,65 m de altura</li>
+            <li>Cocina abierta</li>
+            <li>Terraza de frente con el Llano</li>
+          </ul>
+          <a class="btn btn-ink" href="#agenda">Agenda tu visita</a>
+        </div>
       </div>
-      <!-- Dos renders superpuestos que flotan en direcciones opuestas al
-           hacer scroll (mismo motor --fy que los del recorrido 360). -->
-      <div class="split-media">
-        <figure class="sm-wide" data-float="1">
-          <img src="assets/img/comedor.webp" alt="Sala-comedor y cocina abierta de un apartamento de Cielo, con ventanal de piso a techo hacia el balcón" width="1800" height="1013" loading="lazy" />
+      <div class="ed-duo">
+        <figure class="ed-fig">
+          <div class="ed-ph"><img src="assets/img/comedor.webp" alt="Sala-comedor y cocina abierta de un apartamento de Cielo, con ventanal de piso a techo hacia el balcón" width="1800" height="1013" loading="lazy" /></div>
+          <figcaption><b>01</b><span>Sala-comedor y cocina abierta</span></figcaption>
         </figure>
-        <figure class="sm-tall" data-float="-1">
-          <img src="assets/img/balcon.webp" alt="Balcón mirador de un apartamento de Cielo, amoblado y con vista al Llano" width="1400" height="1400" loading="lazy" />
+        <figure class="ed-fig">
+          <div class="ed-ph"><img src="assets/img/balcon.webp" alt="Balcón mirador de un apartamento de Cielo, amoblado y con vista al Llano" width="1400" height="1400" loading="lazy" /></div>
+          <figcaption><b>02</b><span>Balcón mirador</span></figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- ======================================== GRID DE ZONAS (LANES)
-         Réplica del grid de rewards: tres carriles con parallax vertical
-         a distinta velocidad; ítems que revelan hacia arriba; dos tiles
-         de número tipo odómetro ligadas al scroll ("18" y "+2,65"). -->
-    <section class="zones" id="zonas">
+    <!-- =============================== ZONAS SOCIALES (EN PESTAÑAS)
+         Las 18 zonas se agrupan en los cuatro ambientes de la marca:
+         Divertido, Privado, Orgánico y Social. Cada pestaña muestra los
+         renders de su ambiente y sus zonas con ícono. Sin JS los cuatro
+         paneles quedan visibles uno debajo de otro (el texto siempre
+         está en el HTML, también para buscadores). -->
+        <section class="zones zones-tabs" id="zonas">
       <header class="zones-head">
-        <h2>18 zonas sociales<br />para la vida del Llano</h2>
+        <p class="sec-kicker">18 zonas sociales · cuatro ambientes</p>
+        <h2>18 zonas sociales <br />para la vida del Llano</h2>
         <p>Diseñadas para el clima y los planes de Villavicencio: del madrugón en el gimnasio al asado del domingo.</p>
       </header>
 
-      <!-- Pieza de marca de las zonas sociales: divertido, privado,
-           orgánico y social. Abre la sección antes del grid de zonas. -->
-      <!-- Las cuatro franjas de la pieza son zonas clicables que bajan al
-           bloque de su categoría. Los porcentajes salen de medir dónde
-           empieza y termina cada panel dentro del PNG, así que siguen
-           cuadrando aunque la imagen se reescale.
-           PENDIENTE: privado, orgánico y social están inertes hasta que
-           existan sus bloques; para activarlos basta cambiar el <span>
-           por <a href="#zona-…"> con la misma clase. -->
-      <figure class="zones-lifestyle">
-        <img src="assets/img/zonas-lifestyle.webp" alt="Las zonas sociales de Cielo en cuatro momentos: divertido, privado, orgánico y social" width="1482" height="1061" loading="lazy" />
-        <a class="zl-hit zl-1" href="#zona-divertido"><span>Ver zonas</span></a>
-        <a class="zl-hit zl-2" href="#zona-privado"><span>Ver zonas</span></a>
-        <a class="zl-hit zl-3" href="#zona-organico"><span>Ver zonas</span></a>
-        <a class="zl-hit zl-4" href="#zona-social"><span>Ver zonas</span></a>
-      </figure>
-      <p class="zones-lifestyle-hint">Toca cada ambiente para ver sus zonas</p>
+      <!-- pista de uso: solo se muestra si hay JS (sin JS los cuatro
+           ambientes ya están todos a la vista y no hay nada que tocar) -->
+      <p class="zhint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0 0V8.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.8a5 5 0 0 1-4-2L5 15.4a1.5 1.5 0 0 1 2.4-1.8L9 15.5" /></svg>
+        <span class="zhint-desk">Haz clic en cada ambiente para ver sus zonas</span>
+        <span class="zhint-mob">Toca cada ambiente para ver sus zonas</span>
+      </p>
 
-      <!-- ===== Categorías de zonas sociales. Primera de cuatro. ===== -->
-      <article class="zcat zcat-divertido" id="zona-divertido">
-        <header class="zcat-head">
-          <img class="zcat-icon" src="assets/img/icono-divertido.png" alt="" width="132" height="132" loading="lazy" />
-          <div class="zcat-head-text">
-          <span class="zcat-tag">Divertido</span>
-          <h3>Zonas húmedas familiares</h3>
+      <div class="ztabs" role="tablist" aria-label="Ambientes de zonas sociales" id="zoneTabs">
+        <button class="ztab is-active" role="tab" id="ztab-divertido" aria-controls="zona-divertido" aria-selected="true">
+          <img src="assets/img/icono-divertido.png" alt="" width="132" height="132" /><span>Divertido</span>
+        </button>
+        <button class="ztab" role="tab" id="ztab-privado" aria-controls="zona-privado" aria-selected="false">
+          <img src="assets/img/icono-privado.png" alt="" width="132" height="132" /><span>Privado</span>
+        </button>
+        <button class="ztab" role="tab" id="ztab-organico" aria-controls="zona-organico" aria-selected="false">
+          <img src="assets/img/icono-organico.png" alt="" width="132" height="132" /><span>Orgánico</span>
+        </button>
+        <button class="ztab" role="tab" id="ztab-social" aria-controls="zona-social" aria-selected="false">
+          <img src="assets/img/icono-social.png" alt="" width="132" height="132" /><span>Social</span>
+        </button>
+      </div>
+
+      <div class="zpanels" id="zonePanels">
+        <article class="zpanel zpanel-det is-active" id="zona-divertido" role="tabpanel" aria-labelledby="ztab-divertido">
+          <div class="zpanel-copy">
+            <p class="zpanel-tag">Divertido</p>
+            <h3>Zonas húmedas familiares</h3>
+            <!-- las zonas del ambiente. Las que tienen render son botones:
+                 al tocarlas, el visor muestra la imagen donde aparecen.
+                 Estas cuatro aún no tienen ícono propio y usan el del
+                 ambiente. -->
+            <ul class="zdet">
+              <li><button type="button" class="zdet-item" data-zimg="piscinas"><img src="assets/img/icono-divertido.png" alt="" width="132" height="132" loading="lazy" /><span>Piscina Honda</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="piscinas"><img src="assets/img/icono-divertido.png" alt="" width="132" height="132" loading="lazy" /><span>Piscina Panda</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="piscinas"><img src="assets/img/icono-divertido.png" alt="" width="132" height="132" loading="lazy" /><span>Zona de Asoleadoras</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-divertido.png" alt="" width="132" height="132" loading="lazy" /><span>Zona de Hamacas</span></span></li>
+            </ul>
           </div>
-        </header>
-        <ul class="zcat-zones">
-          <li>Piscina Honda</li>
-          <li>Piscina Panda</li>
-          <li>Zona de Asoleadoras</li>
-          <li>Zona de Hamacas</li>
-        </ul>
-        <div class="zcat-media">
-          <figure>
-            <img src="assets/img/divertido-1.webp" alt="Piscinas de Cielo con deck en madera, solárium y juegos de agua" width="1800" height="1013" loading="lazy" />
-          </figure>
-          <figure>
-            <img src="assets/img/divertido-2.webp" alt="Vista aérea de las zonas húmedas de Cielo, con piscinas, jacuzzis, pérgolas y cancha de vóley playa" width="1477" height="1065" loading="lazy" />
-          </figure>
-        </div>
-      </article>
-
-      <article class="zcat zcat-privado" id="zona-privado">
-        <header class="zcat-head">
-          <img class="zcat-icon" src="assets/img/icono-privado.png" alt="" width="132" height="132" loading="lazy" />
-          <div class="zcat-head-text">
-          <span class="zcat-tag">Privado</span>
-          <h3>Zonas húmedas exclusivas</h3>
+          <div class="zviewer" data-zviewer>
+            <div class="zviewer-stage">
+              <figure class="zviewer-fig is-shown" data-zfig="piscinas"><img src="assets/img/divertido-1.webp" alt="Piscinas de Cielo con deck en madera, solárium y juegos de agua" width="1800" height="1013" loading="lazy" /><figcaption>Piscinas y zona de asoleadoras</figcaption></figure>
+              <figure class="zviewer-fig" data-zfig="aerea"><img src="assets/img/divertido-2.webp" alt="Vista aérea de las zonas húmedas de Cielo, con piscinas, jacuzzis, pérgolas y cancha de vóley playa" width="1477" height="1065" loading="lazy" /><figcaption>Zonas húmedas, vista aérea</figcaption></figure>
+            </div>
+            <div class="zviewer-thumbs">
+              <button type="button" class="zviewer-thumb is-on" data-zimg="piscinas" aria-label="Ver las piscinas"><img src="assets/img/divertido-1.webp" alt="" width="1800" height="1013" loading="lazy" /></button>
+              <button type="button" class="zviewer-thumb" data-zimg="aerea" aria-label="Ver la vista aérea de las zonas húmedas"><img src="assets/img/divertido-2.webp" alt="" width="1477" height="1065" loading="lazy" /></button>
+            </div>
           </div>
-        </header>
-        <!-- estas dos ya tienen su ícono propio de la pieza de marca; el
-             resto de categorías usa el ícono genérico de su categoría
-             hasta que lleguen los suyos. -->
-        <ul class="zcat-zones">
-          <li class="zi-piscina-vip">Piscina VIP</li>
-          <li class="zi-jacuzzi-vip">Jacuzzi VIP</li>
-        </ul>
-        <div class="zcat-media zcat-media-solo">
-          <figure>
-            <img src="assets/img/privado-1.webp" alt="Zona húmeda VIP de Cielo: camastros bajo pérgola de madera, jardineras y piscinas privadas" width="1800" height="1013" loading="lazy" />
-          </figure>
-        </div>
-      </article>
+        </article>
 
-      <article class="zcat zcat-organico" id="zona-organico">
-        <header class="zcat-head">
-          <img class="zcat-icon" src="assets/img/icono-organico.png" alt="" width="132" height="132" loading="lazy" />
-          <div class="zcat-head-text">
-          <span class="zcat-tag">Orgánico</span>
-          <h3>Mente y cuerpo</h3>
+        <article class="zpanel zpanel-det" id="zona-privado" role="tabpanel" aria-labelledby="ztab-privado">
+          <div class="zpanel-copy">
+            <p class="zpanel-tag">Privado</p>
+            <h3>Zonas húmedas exclusivas</h3>
+            <ul class="zdet">
+              <li><button type="button" class="zdet-item" data-zimg="vip"><img src="assets/img/icono-piscina-vip.png" alt="" width="132" height="132" loading="lazy" /><span>Piscina VIP</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="vip"><img src="assets/img/icono-jacuzzi-vip.png" alt="" width="132" height="132" loading="lazy" /><span>Jacuzzi VIP</span></button></li>
+            </ul>
           </div>
-        </header>
-        <ul class="zcat-zones">
-          <li class="zi-pilates">Deck de Pilates</li>
-          <li class="zi-yoga">Deck de Yoga</li>
-          <li class="zi-trx">Zona TRX</li>
-          <li class="zi-gym">Gym Semidotado</li>
-          <li class="zi-muro-escalar">Muro de Escalar</li>
-        </ul>
-        <div class="zcat-media">
-          <figure>
-            <img src="assets/img/organico-1.webp" alt="Zona de yoga de Cielo Apartamentos, al aire libre y rodeada de vegetación" width="1800" height="1013" loading="lazy" />
-          </figure>
-          <figure>
-            <img src="assets/img/organico-2.webp" alt="Gimnasio de Cielo Apartamentos, equipado y con ventanales al exterior" width="1800" height="1013" loading="lazy" />
-          </figure>
-        </div>
-      </article>
-
-      <article class="zcat zcat-social" id="zona-social">
-        <header class="zcat-head">
-          <img class="zcat-icon" src="assets/img/icono-social.png" alt="" width="132" height="132" loading="lazy" />
-          <div class="zcat-head-text">
-          <span class="zcat-tag">Social</span>
-          <h3>Al aire libre, bajo techo y cocina grill</h3>
+          <div class="zviewer" data-zviewer>
+            <div class="zviewer-stage">
+              <figure class="zviewer-fig is-shown" data-zfig="vip"><img src="assets/img/privado-1.webp" alt="Zona húmeda VIP de Cielo: camastros bajo pérgola de madera, jardineras y piscinas privadas" width="1800" height="1013" loading="lazy" /><figcaption>Zona húmeda VIP</figcaption></figure>
+            </div>
           </div>
-        </header>
+        </article>
 
-        <div class="zcat-grupo">
-          <h4>Al aire libre</h4>
-          <ul class="zcat-zones">
-            <li class="zi-parque-infantil">Parque Infantil</li>
-            <li class="zi-cancha-multiple">Cancha Múltiple</li>
-            <li class="zi-cancha-sintetica">Cancha Sintética</li>
-            <li class="zi-voley-playa">Vóley Playa</li>
-          </ul>
-          <div class="zcat-media zcat-media-solo">
-            <figure>
-              <img src="assets/img/social-1.webp" alt="Parque y zonas verdes de Cielo Apartamentos" width="1600" height="900" loading="lazy" />
-            </figure>
+        <article class="zpanel zpanel-det" id="zona-organico" role="tabpanel" aria-labelledby="ztab-organico">
+          <div class="zpanel-copy">
+            <p class="zpanel-tag">Orgánico</p>
+            <h3>Mente y cuerpo</h3>
+            <ul class="zdet">
+              <li><span class="zdet-item"><img src="assets/img/icono-pilates.png" alt="" width="132" height="132" loading="lazy" /><span>Deck de Pilates</span></span></li>
+              <li><button type="button" class="zdet-item" data-zimg="yoga"><img src="assets/img/icono-yoga.png" alt="" width="132" height="132" loading="lazy" /><span>Deck de Yoga</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-trx.png" alt="" width="132" height="132" loading="lazy" /><span>Zona TRX</span></span></li>
+              <li><button type="button" class="zdet-item" data-zimg="gym"><img src="assets/img/icono-gym.png" alt="" width="132" height="132" loading="lazy" /><span>Gym Semidotado</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-muro-escalar.png" alt="" width="132" height="132" loading="lazy" /><span>Muro de Escalar</span></span></li>
+            </ul>
           </div>
-        </div>
-
-        <div class="zcat-grupo">
-          <h4>Bajo techo</h4>
-          <ul class="zcat-zones">
-            <li class="zi-salon-multifuncional">Salón Multifuncional</li>
-            <li class="zi-auditorio">Auditorio</li>
-            <li class="zi-coworking">Coworking</li>
-            <li class="zi-conectividad">Zona de Conectividad</li>
-            <li class="zi-lobby">Lobby Central</li>
-            <li class="zi-isla-lectura">Isla de Lectura</li>
-          </ul>
-          <div class="zcat-media">
-            <figure>
-              <img src="assets/img/social-3.webp" alt="Salón social y teatrino de Cielo Apartamentos" width="1600" height="900" loading="lazy" />
-            </figure>
-            <figure>
-              <img src="assets/img/social-4.webp" alt="Sala de coworking de Cielo Apartamentos" width="1600" height="900" loading="lazy" />
-            </figure>
+          <div class="zviewer" data-zviewer>
+            <div class="zviewer-stage">
+              <figure class="zviewer-fig is-shown" data-zfig="yoga"><img src="assets/img/organico-1.webp" alt="Zona de yoga de Cielo Apartamentos, al aire libre y rodeada de vegetación" width="1800" height="1013" loading="lazy" /><figcaption>Deck de yoga</figcaption></figure>
+              <figure class="zviewer-fig" data-zfig="gym"><img src="assets/img/organico-2.webp" alt="Gimnasio de Cielo Apartamentos, equipado y con ventanales al exterior" width="1800" height="1013" loading="lazy" /><figcaption>Gimnasio</figcaption></figure>
+            </div>
+            <div class="zviewer-thumbs">
+              <button type="button" class="zviewer-thumb is-on" data-zimg="yoga" aria-label="Ver el deck de yoga"><img src="assets/img/organico-1.webp" alt="" width="1800" height="1013" loading="lazy" /></button>
+              <button type="button" class="zviewer-thumb" data-zimg="gym" aria-label="Ver el gimnasio"><img src="assets/img/organico-2.webp" alt="" width="1800" height="1013" loading="lazy" /></button>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <div class="zcat-grupo">
-          <h4>Cocina Grill</h4>
-          <ul class="zcat-zones">
-            <li class="zi-bbq">Zona BBQ</li>
-            <li class="zi-teppanyaki">Zona Teppanyaki</li>
-            <li class="zi-ahumadores">Zona de Ahumadores</li>
-          </ul>
-          <div class="zcat-media zcat-media-solo">
-            <figure>
-              <img src="assets/img/social-2.webp" alt="Zona BBQ de Cielo Apartamentos, con pérgolas y parrillas" width="1600" height="900" loading="lazy" />
-            </figure>
+        <article class="zpanel zpanel-det" id="zona-social" role="tabpanel" aria-labelledby="ztab-social">
+          <div class="zpanel-copy">
+            <p class="zpanel-tag">Social</p>
+            <h3>Al aire libre, bajo techo y cocina grill</h3>
+
+            <h4 class="zdet-group">Al aire libre</h4>
+            <ul class="zdet">
+              <li><button type="button" class="zdet-item" data-zimg="parque"><img src="assets/img/icono-parque-infantil.png" alt="" width="132" height="132" loading="lazy" /><span>Parque Infantil</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="parque"><img src="assets/img/icono-cancha-multiple.png" alt="" width="132" height="132" loading="lazy" /><span>Cancha Múltiple</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-cancha-sintetica.png" alt="" width="132" height="132" loading="lazy" /><span>Cancha Sintética</span></span></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-voley-playa.png" alt="" width="132" height="132" loading="lazy" /><span>Vóley Playa</span></span></li>
+            </ul>
+
+            <h4 class="zdet-group">Bajo techo</h4>
+            <ul class="zdet">
+              <li><button type="button" class="zdet-item" data-zimg="salon"><img src="assets/img/icono-salon-multifuncional.png" alt="" width="132" height="132" loading="lazy" /><span>Salón Multifuncional</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="salon"><img src="assets/img/icono-auditorio.png" alt="" width="132" height="132" loading="lazy" /><span>Auditorio</span></button></li>
+              <li><button type="button" class="zdet-item" data-zimg="coworking"><img src="assets/img/icono-coworking.png" alt="" width="132" height="132" loading="lazy" /><span>Coworking</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-conectividad.png" alt="" width="132" height="132" loading="lazy" /><span>Zona de Conectividad</span></span></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-lobby.png" alt="" width="132" height="132" loading="lazy" /><span>Lobby Central</span></span></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-isla-lectura.png" alt="" width="132" height="132" loading="lazy" /><span>Isla de Lectura</span></span></li>
+            </ul>
+
+            <h4 class="zdet-group">Cocina Grill</h4>
+            <ul class="zdet">
+              <li><button type="button" class="zdet-item" data-zimg="bbq"><img src="assets/img/icono-bbq.png" alt="" width="132" height="132" loading="lazy" /><span>Zona BBQ</span></button></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-teppanyaki.png" alt="" width="132" height="132" loading="lazy" /><span>Zona Teppanyaki</span></span></li>
+              <li><span class="zdet-item"><img src="assets/img/icono-ahumadores.png" alt="" width="132" height="132" loading="lazy" /><span>Zona de Ahumadores</span></span></li>
+            </ul>
           </div>
-        </div>
-      </article>
-
-      <!-- Del grid de zonas solo se conserva la tile del 18: la galería de
-           ocho tarjetas quedó redundante con los cuatro bloques de arriba,
-           y las tiles de 2,65 m y PVC repetían datos que ya están en el
-           resumen del proyecto y en "En cada apartamento". -->
-      <article class="znum znum-solo" data-odometer="18">
-        <p class="znum-big"><span class="odo" aria-hidden="true">18</span><span class="visually-hidden">18</span> <em>zonas</em></p>
-        <p class="znum-sub">sociales, de la piscina al coworking, pensadas para el día a día y no solo para el folleto.</p>
-      </article>
+          <div class="zviewer" data-zviewer>
+            <div class="zviewer-stage">
+              <figure class="zviewer-fig is-shown" data-zfig="parque"><img src="assets/img/social-1.webp" alt="Parque y zonas verdes de Cielo Apartamentos" width="1600" height="900" loading="lazy" /><figcaption>Parque infantil y cancha múltiple</figcaption></figure>
+              <figure class="zviewer-fig" data-zfig="salon"><img src="assets/img/social-3.webp" alt="Salón social y teatrino de Cielo Apartamentos" width="1600" height="900" loading="lazy" /><figcaption>Salón social y teatrino</figcaption></figure>
+              <figure class="zviewer-fig" data-zfig="coworking"><img src="assets/img/social-4.webp" alt="Sala de coworking de Cielo Apartamentos" width="1600" height="900" loading="lazy" /><figcaption>Coworking</figcaption></figure>
+              <figure class="zviewer-fig" data-zfig="bbq"><img src="assets/img/social-2.webp" alt="Zona BBQ de Cielo Apartamentos, con pérgolas y parrillas" width="1600" height="900" loading="lazy" /><figcaption>Zona BBQ</figcaption></figure>
+            </div>
+            <div class="zviewer-thumbs">
+              <button type="button" class="zviewer-thumb is-on" data-zimg="parque" aria-label="Ver el parque infantil"><img src="assets/img/social-1.webp" alt="" width="1600" height="900" loading="lazy" /></button>
+              <button type="button" class="zviewer-thumb" data-zimg="salon" aria-label="Ver el salón social"><img src="assets/img/social-3.webp" alt="" width="1600" height="900" loading="lazy" /></button>
+              <button type="button" class="zviewer-thumb" data-zimg="coworking" aria-label="Ver el coworking"><img src="assets/img/social-4.webp" alt="" width="1600" height="900" loading="lazy" /></button>
+              <button type="button" class="zviewer-thumb" data-zimg="bbq" aria-label="Ver la zona BBQ"><img src="assets/img/social-2.webp" alt="" width="1600" height="900" loading="lazy" /></button>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- ============================================= DECK DE PAGOS
@@ -486,6 +477,7 @@
          la anterior escala hacia atrás (origen arriba) y se oscurece. -->
     <section class="deck-section" id="pagos">
       <header class="deck-head">
+        <p class="sec-kicker">Plan de pagos</p>
         <h2>Paga a tu ritmo.<br />Tú eliges.</h2>
         <p>Comprar en preventa te da tiempo: así funciona el plan de pagos de Cielo.</p>
       </header>
@@ -542,35 +534,34 @@
       <p class="legal-note">Condiciones del plan de pagos sujetas a la etapa del proyecto y a aprobación. Confírmalas en la sala de ventas.</p>
     </section>
 
-    <!-- ============================================ RESPALDO (STACK)
-         Réplica de "Safety and privacy are our priority": titular
-         centrado, imagen grande redondeada, texto y logos debajo. -->
-    <section class="backed">
+    <!-- ============================================ RESPALDO
+         Misma línea editorial que el apartamento modelo y el plan de
+         pagos: antetítulo, filete, render con esquinas rectas y marco
+         desfasado, el texto a la izquierda con las cifras a la derecha
+         y los logos en una banda de tinta. -->
+        <section class="backed backed-ed" id="respaldo">
+      <p class="sec-kicker">Respaldo</p>
       <h2>Compra con respaldo,<br />no con promesas</h2>
-      <!-- La aérea y la frase flotan en sentidos opuestos con el scroll
-           (mismo motor --fy de los renders del recorrido 360), así el
-           bloque no queda como una foto pegada. -->
-      <figure class="backed-media" data-zoom-scope>
-        <img src="assets/img/aerea.webp" alt="Vista aérea de Cielo Apartamentos: torres, piscinas, deck, pérgolas y cancha de vóley playa" width="1484" height="1060" loading="lazy" data-zoom />
-        <figcaption class="backed-frase" data-float="-1" data-float-amp="90">
+      <figure class="backed-media">
+        <img src="assets/img/aerea.webp" alt="Vista aérea de Cielo Apartamentos: torres, piscinas, deck, pérgolas y cancha de vóley playa" width="1484" height="1060" loading="lazy" />
+        <figcaption class="backed-frase">
           <span>A la altura de<br />los que saben vivir</span>
         </figcaption>
       </figure>
-      <p>Cielo es un proyecto de <strong>Construcciones Urbanas (Curbanas)</strong>, constructora con más de tres décadas levantando vivienda en Villavicencio. Diseño, respaldo y entrega cumplida.</p>
-
-      <!-- Cifras propias de Curbanas, tomadas de curbanas.com. Convierten
-           "compra con respaldo" de promesa en dato verificable, que es lo
-           que un comprador en preventa necesita para decidir. -->
-      <dl class="backed-stats">
-        <div><dd>35</dd><dt>años construyendo en el Meta</dt></div>
-        <div><dd>1.762</dd><dt>viviendas entregadas</dt></div>
-        <div><dd>15.000</dd><dt>familias</dt></div>
-        <div><dd>11</dd><dt>proyectos construidos</dt></div>
-      </dl>
-
+      <div class="backed-body">
+        <p>Cielo es un proyecto de <strong>Construcciones Urbanas (Curbanas)</strong>, constructora con más de tres décadas levantando vivienda en Villavicencio. Diseño, respaldo y entrega cumplida.</p>
+        <!-- Cifras propias de Curbanas, tomadas de curbanas.com. Convierten
+             "compra con respaldo" de promesa en dato verificable. -->
+        <dl class="backed-facts">
+          <div><dt>35<small>años</small></dt><dd>construyendo en el Meta</dd></div>
+          <div><dt>1.762</dt><dd>viviendas entregadas</dd></div>
+          <div><dt>15.000</dt><dd>familias</dd></div>
+          <div><dt>11</dt><dd>proyectos construidos</dd></div>
+        </dl>
+      </div>
       <div class="backed-logos">
-        <img src="assets/img/curbanas-blanco.png" alt="Construcciones Urbanas" width="400" height="121" loading="lazy" />
-        <img src="assets/img/bancolombia-blanco.png" alt="Bancolombia" width="284" height="41" loading="lazy" />
+        <figure><figcaption>Constructora</figcaption><img src="assets/img/curbanas-blanco.png" alt="Construcciones Urbanas" width="400" height="121" loading="lazy" /></figure>
+        <figure><figcaption>Respaldo</figcaption><img src="assets/img/bancolombia-blanco.png" alt="Bancolombia" width="284" height="41" loading="lazy" /></figure>
       </div>
     </section>
 
@@ -589,13 +580,17 @@
     </section>
 
     <!-- ============================================ TIPOLOGÍAS
-         Réplica exacta del sitio original (cieloapartamentos.com.co):
-         lista plana de las 11 unidades, cada una con su plano y su
-         ficha completa, sin tabs ni sticky-scroll. Datos tomados
-         literalmente del sitio en vivo — ver HANDOFF §1. -->
+         Las 11 unidades a la vista en cuadrícula (tres columnas en
+         escritorio, dos en tableta, una en celular). Cada una es una
+         tarjeta blanca con el plano arriba y la ficha debajo. Lo que
+         comparten todas va una sola vez en la cabecera; la ficha deja lo
+         que distingue a cada tipología. Datos tomados del sitio en vivo
+         — ver HANDOFF §1. -->
     <section class="typologies" id="tipologias">
       <header class="typologies-head">
+        <p class="sec-kicker">Elige la tuya</p>
         <h2>Tipologías</h2>
+        <p>11 tipologías, de 70 a 117 m², de 2, 3 y 4 alcobas. Todas incluyen cocina abierta, sala-comedor, zona de lavandería independiente, estudio, depósito y parqueadero.</p>
       </header>
 
       <div class="typology-list">
@@ -611,11 +606,6 @@
               <li>2 baños</li>
               <li>1 balcón</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -634,11 +624,6 @@
               <li>2 baños</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -656,11 +641,6 @@
               <li>2 baños</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -678,11 +658,6 @@
               <li>2 baños</li>
               <li>1 balcón</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -701,11 +676,6 @@
               <li>2 baños + social</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -723,11 +693,6 @@
               <li>2 baños + social</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en plataforma</li>
             </ul>
           </div>
@@ -745,11 +710,6 @@
               <li>2 baños + social</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -767,11 +727,6 @@
               <li>2 baños + social</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -790,11 +745,6 @@
               <li>3 baños</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -812,11 +762,6 @@
               <li>3 baños</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -834,11 +779,6 @@
               <li>3 baños</li>
               <li>2 balcones</li>
               <li>1 terraza</li>
-              <li>Cocina abierta</li>
-              <li>Sala - comedor</li>
-              <li>Zona de lavandería independiente</li>
-              <li>1 estudio</li>
-              <li>1 depósito</li>
               <li>1 parqueadero en sótano</li>
             </ul>
           </div>
@@ -853,6 +793,7 @@
          código del iframe es tal cual lo entregó el cliente; solo se
          envuelve en un contenedor centrado con ancho máximo. -->
     <section class="tour360" id="tour360" aria-label="Recorrido 360° del apartamento">
+      <p class="sec-kicker">Tour virtual</p>
       <h2 class="tour360-title">Recorrido 360°,<br />sin salir de casa</h2>
       <div class="tour360-inner">
         <div style="position:relative;width:100%;padding-top:56.25%;overflow:hidden;border-radius:12px;">
@@ -871,29 +812,30 @@
     </section>
 
     <!-- ============================================ CTA · AGENDAR RECORRIDO
-         Panel oscuro con renders flotando en parallax suave. Antes era un
-         teaser del 360 virtual; ahora es el CTA para agendar un recorrido.
-         En celular esta sección queda sola (el embed #tour360 se esconde
-         porque no funciona bien en móvil). El botón baja al calendario
-         embebido al final de la página (#agenda). -->
-    <section class="tour">
+         A sangre: el render de la sala llena la sección y se desplaza
+         despacio de lado a lado; el texto va a la izquierda sobre un
+         degradado oscuro. En celular esta sección queda sola (el embed
+         #tour360 se esconde porque no funciona bien en móvil). El botón
+         baja al calendario embebido al final de la página (#agenda). -->
+        <section class="tour tour-wide">
+      <div class="tour-pan" aria-hidden="true">
+        <img src="assets/img/sala.webp" alt="" width="1600" height="900" loading="lazy" />
+      </div>
       <div class="tour-copy">
+        <p class="sec-kicker sec-kicker-light">Recorrido guiado</p>
         <h2>Agenda tu recorrido<br />por Cielo</h2>
         <p>Elige el día y la hora que más te acomoden y un asesor de Cielo te acompaña en el recorrido por el proyecto y el apartamento modelo.</p>
         <a class="btn btn-light" href="#agenda">Agendar un recorrido</a>
       </div>
-      <figure class="tour-single" data-zoom-scope>
-        <img src="assets/img/sala.webp" alt="Sala de un apartamento de Cielo, con cocina abierta y ventanal al Llano" width="1600" height="900" loading="lazy" data-zoom />
-      </figure>
     </section>
 
     <!-- ================================== IMPLANTACIÓN · INVIERTE
          La planta es una imagen clara: el velo oscuro y las palabras
          blancas encima la apagaban y tapaban el trazado. Ahora el
          titular va arriba, en tinta, y el plano se ve limpio y completo. -->
-    <section class="planta">
-      <figure class="planta-media" data-zoom-scope data-slide-scope>
-        <img src="assets/img/implantacion-02.webp" alt="Planta de implantación de Cielo Apartamentos: torres, piscinas, canchas, parque infantil y parqueaderos" width="2000" height="1125" loading="lazy" data-zoom />
+    <section class="planta planta-ed">
+      <figure class="planta-media" data-slide-scope>
+        <img src="assets/img/implantacion-02.webp" alt="Planta de implantación de Cielo Apartamentos: torres, piscinas, canchas, parque infantil y parqueaderos" width="2000" height="1125" loading="lazy" />
         <figcaption class="planta-words" aria-label="Invierte más alto">
           <span class="planta-w1" data-slide="1" aria-hidden="true">invierte</span>
           <span class="planta-w2" data-slide="-1" aria-hidden="true">más alto</span>
@@ -909,28 +851,25 @@
     </section>
 
     <!-- ============================================ UBICACIÓN -->
-    <section class="where" id="ubicacion">
-      <!-- Titular y bajada a la izquierda, chips y CTA a la derecha: en una
-           sola columna el texto dejaba medio ancho vacío. -->
-      <div class="where-copy">
-        <div class="where-intro">
-          <h2>Sobre el Anillo Vial,<br />pasando la Terpel</h2>
-          <p>El Anillo Vial conecta el proyecto con toda la ciudad sin atravesar el centro: el punto exacto donde Villavicencio se expande.</p>
-        </div>
-        <div class="where-actions">
-          <ul class="where-chips" id="whereChips">
-            <li>Anillo Vial de Villavicencio</li>
-            <li>Pasando la estación Terpel</li>
-            <li>Sala de ventas con cita previa</li>
-          </ul>
-          <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&query=Cielo+Apartamentos+Anillo+Vial+Villavicencio" target="_blank" rel="noopener">Cómo llegar</a>
-        </div>
-      </div>
-      <!-- Sin marco de parallax: la pieza lleva titular y pines en puntos
-           concretos, y el recorte los partía. Se muestra completa. -->
-      <figure class="where-map" data-zoom-scope>
-        <img src="assets/img/ubicacion-ok.webp" alt="Entorno y urbanismo del sector: Cielo Apartamentos junto a Terraverde, Terraverde Park y Terraverde Vista, sobre el Anillo Vial de Villavicencio" width="1672" height="941" loading="lazy" data-zoom />
+        <section class="where where-ed" id="ubicacion">
+      <header class="where-head">
+        <p class="sec-kicker">Ubicación</p>
+        <h2>Sobre el Anillo Vial,<br />pasando la Terpel</h2>
+        <p>El Anillo Vial conecta el proyecto con toda la ciudad sin atravesar el centro: el punto exacto donde Villavicencio se expande.</p>
+      </header>
+      <!-- La pieza lleva su propio titular y pines en puntos concretos:
+           va completa, de borde a borde, sin texto encima. -->
+      <figure class="where-photo">
+        <img src="assets/img/ubicacion-ok.webp" alt="Entorno y urbanismo del sector: Cielo Apartamentos junto a Terraverde, Terraverde Park y Terraverde Vista, sobre el Anillo Vial de Villavicencio" width="1672" height="941" loading="lazy" />
       </figure>
+      <div class="where-facts">
+        <ul id="whereChips">
+          <li><strong>Anillo Vial</strong><span>de Villavicencio</span></li>
+          <li><strong>Terpel</strong><span>pasando la estación</span></li>
+          <li><strong>Cita previa</strong><span>en la sala de ventas</span></li>
+        </ul>
+        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Cielo+Apartamentos+Anillo+Vial+Villavicencio" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
     </section>
 
     <!-- ============================================ PREGUNTAS -->
@@ -1045,7 +984,7 @@
     <p class="footer-copy">© 2026 Cielo Apartamentos · Construcciones Urbanas. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js?v=20261004" defer></script>
   <!-- autoajusta la altura del iframe del calendario (#agenda) al contenido -->
   <script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 </body>

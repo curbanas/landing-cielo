@@ -155,16 +155,16 @@ if (statsEl && "IntersectionObserver" in window) {
 if ("IntersectionObserver" in window && !reduceMotion) {
   const MOTION_GROUPS = [
     {
-      sel: ".split-copy h2, .zones-head h2, .deck-head h2, .backed > h2, .where-copy h2, .tour-copy h2, .faq-section > h2, .band-text h2, .visit-title, .typologies-head h2, .tour360-title, .schedule-title",
+      sel: ".split-copy h2, .zones-head h2, .deck-head h2, .backed > h2, .where-head h2, .tour-copy h2, .faq-section > h2, .band-text h2, .visit-title, .typologies-head h2, .tour360-title, .schedule-title",
       variant: "motion-title",
     },
     {
-      sel: ".intro-kicker, .intro-lede, .intro-note, .split-copy p, .zones-head p, .deck-head p, .backed p, .where-copy p, .tour-copy p, .visit-sub, .schedule-sub",
+      sel: ".sec-kicker, .intro-kicker, .intro-claim, .intro-lede, .split-copy p, .zones-head p, .deck-head p, .backed-body p, .where-head p, .tour-copy p, .typologies-head p, .visit-sub, .schedule-sub",
       variant: "",
     },
-    { sel: ".stat, .faq-item, .where-chips li, .feature-group", variant: "" },
-    { sel: ".zitem, .znum, .typology-card", variant: "motion-up" },
-    { sel: ".split-media, .backed-media, .where-map, .visit-form", variant: "motion-media" },
+    { sel: ".stat, .faq-item, .where-facts li, .backed-facts div", variant: "" },
+    { sel: ".typology-card", variant: "motion-up" },
+    { sel: ".ed-fig, .backed-media, .where-photo, .visit-form", variant: "motion-media" },
   ];
 
   const io = new IntersectionObserver(
@@ -188,7 +188,7 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   });
 
   // escalonado: los hermanos de una misma rejilla entran en cascada
-  [".stats", ".zlane", ".where-chips", ".faq"].forEach((parentSel) => {
+  [".stats", ".where-facts ul", ".backed-facts", ".ed-duo", ".faq"].forEach((parentSel) => {
     document.querySelectorAll(parentSel).forEach((parent) => {
       [...parent.children].forEach((child, i) => {
         child.style.setProperty("--motion-delay", `${Math.min(i, 5) * 80}ms`);
@@ -379,6 +379,78 @@ if (!reduceMotion) {
   window.__cieloSync = () => { ticking = false; onScroll(); };
   onScroll();
 }
+
+/* ------------------------------------------------ zonas sociales
+   Pestañas: alternan el panel visible, en escritorio y en celular. Con
+   las flechas del teclado se pasa de una a otra. */
+(function () {
+  const tabsEl = document.getElementById("zoneTabs");
+  const track = document.getElementById("zonePanels");
+  if (!tabsEl || !track) return;
+  const tabs = [...tabsEl.querySelectorAll(".ztab")];
+  const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
+
+  function go(i) {
+    tabs.forEach((t, k) => {
+      const on = k === i;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      panels[k].classList.toggle("is-active", on);
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => go(i));
+    t.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const n = (i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
+      go(n);
+      tabs[n].focus();
+    });
+  });
+  go(Math.max(0, tabs.findIndex((t) => t.classList.contains("is-active"))));
+
+  /* Enlaces a un ambiente concreto (el desplegable "Zonas sociales" del
+     menú y el del menú móvil): abren su pestaña y bajan a la sección. El
+     panel de destino puede estar oculto, así que el salto por ancla del
+     navegador no serviría. También cubre llegar con #zona-… en la URL. */
+  const section = document.getElementById("zonas");
+  function openByHash(hash, smooth) {
+    const i = panels.findIndex((p) => p && "#" + p.id === hash);
+    if (i < 0) return false;
+    go(i);
+    section?.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+    return true;
+  }
+  document.querySelectorAll('a[href^="#zona-"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      if (openByHash(a.getAttribute("href"), !reduceMotion)) e.preventDefault();
+    });
+  });
+  if (location.hash) openByHash(location.hash, false);
+})();
+
+/* -------------------------------------------- zonas y visor por ambiente
+   Cada panel con [data-zviewer] muestra un render a la vez. Las zonas y
+   las miniaturas con data-zimg cambian el render; las zonas que
+   pertenecen al render visible quedan resaltadas. */
+document.querySelectorAll(".zpanel").forEach((panel) => {
+  const viewer = panel.querySelector("[data-zviewer]");
+  if (!viewer) return;
+  const figs = [...viewer.querySelectorAll("[data-zfig]")];
+  const triggers = [...panel.querySelectorAll("[data-zimg]")];
+  function show(key) {
+    figs.forEach((f) => f.classList.toggle("is-shown", f.dataset.zfig === key));
+    triggers.forEach((t) => {
+      const on = t.dataset.zimg === key;
+      t.classList.toggle("is-on", on);
+      if (t.tagName === "BUTTON") t.setAttribute("aria-pressed", String(on));
+    });
+  }
+  triggers.forEach((t) => t.addEventListener("click", () => show(t.dataset.zimg)));
+  const first = figs.find((f) => f.classList.contains("is-shown")) || figs[0];
+  if (first) show(first.dataset.zfig);
+});
 
 /* --------------------------------------------------- formulario → WhatsApp */
 const form = document.getElementById("visitForm");

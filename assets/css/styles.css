@@ -2173,3 +2173,936 @@ a.zl-hit:focus-visible span { opacity: 1; transform: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .visit-form { padding: 22px; }
 }
+
+/* ==========================================================================
+   REDISEÑO · LÍNEA EDITORIAL  (octubre 2026)
+   Misma estructura que el rediseño de Element —portada a sangre, una sola
+   barra de cabecera, proyecto en grande, zonas en pestañas, composición
+   editorial en modelo / plan de pagos / respaldo, tipologías en
+   cuadrícula y ubicación a sangre— con la marca de Cielo: tinta, lila,
+   violeta y cielos; Poppins; y el motivo de arcos como textura.
+
+   Va como capa al final de la hoja: todo lo de arriba que ya no tiene
+   marcado en el HTML (hero-stack, zcat, zones-lifestyle, znum…) queda
+   inerte. Para deshacer el rediseño basta quitar esta capa y volver al
+   HTML anterior.
+   ========================================================================== */
+:root {
+  --filete: #a79fd0;          /* filete fino: entre el lila y el violeta */
+  --c-divertido: #203050;     /* color de cada ambiente, apto para texto */
+  --c-privado: #8a7fc0;
+  --c-organico: #4f83cf;
+  --c-social: #6b5da5;
+  --page: #f5f6fa;            /* papel frío de fondo */
+  --shadow-card: 0 1.25rem 2.75rem rgba(22, 35, 60, 0.1);
+  --shadow-ed: 0 34px 70px -34px rgba(22, 35, 60, 0.55), 0 2px 6px rgba(22, 35, 60, 0.08);
+}
+
+/* ---- fondo de toda la página: el motivo de arcos de la marca (el del
+   papel mural de los renders) como textura muy tenue sobre un papel frío.
+   Va en un pseudo-elemento fijo —background-attachment: fixed falla en
+   celulares—; las secciones claras son transparentes y lo dejan ver, las
+   oscuras y las de foto lo tapan. */
+body { background: var(--page); }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23203050' stroke-width='2' stroke-opacity='0.024'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    linear-gradient(180deg, #f7f8fc 0%, #f1f3f9 100%);
+  pointer-events: none;
+}
+.band-text-light { background: none; }
+
+/* ---- antetítulo de sección: filete corto + rótulo en versalitas. El
+   selector va doblado para ganarle a los `p` de cada sección (.split-copy
+   p, .backed p…) sin recurrir a !important. */
+.sec-kicker.sec-kicker {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 16px; max-width: none;
+  font-size: 0.8rem; font-weight: 700; line-height: 1.4;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--violet);
+}
+.sec-kicker::before { content: ""; flex: 0 0 34px; height: 1px; background: var(--filete); }
+.zones-head .sec-kicker, .deck-head .sec-kicker, .backed-ed > .sec-kicker,
+.typologies-head .sec-kicker, .tour360 .sec-kicker, .where-head .sec-kicker { justify-content: center; }
+/* en celular un rótulo centrado puede partirse en dos renglones: sin el
+   filete delante el texto queda de verdad centrado. */
+@media (max-width: 600px) {
+  .sec-kicker.sec-kicker { letter-spacing: 0.18em; }
+  .zones-head .sec-kicker, .deck-head .sec-kicker, .backed-ed > .sec-kicker,
+  .typologies-head .sec-kicker, .where-head .sec-kicker { display: block; text-align: center; }
+  .zones-head .sec-kicker::before, .deck-head .sec-kicker::before, .backed-ed > .sec-kicker::before,
+  .typologies-head .sec-kicker::before, .where-head .sec-kicker::before { content: none; }
+}
+.sec-kicker.sec-kicker-light { color: var(--lilac); }
+.sec-kicker-light::before { background: rgba(189, 181, 218, 0.7); }
+
+/* titulares de las cabeceras nuevas: misma talla que el resto */
+.where-head h2,
+.typologies-head h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.04;
+  color: var(--ink);
+}
+
+.btn-line { border-color: rgba(255, 255, 255, 0.7); color: #fff; background: transparent; }
+.btn-line:hover { background: #fff; color: var(--ink); }
+
+/* ============================================================ CABECERA
+   Una sola barra. La franja de la constructora quedaba casi vacía: en
+   escritorio se funde con el menú —Construcciones Urbanas y Cielo a la
+   izquierda, enlaces al centro, botones a la derecha— y en celular el
+   botón de menú sube a la franja, así que tampoco hay segunda barra. La
+   ubicación ya la dice la portada. */
+.nav {
+  background: rgba(22, 35, 60, 0.96);
+  border-bottom: 1px solid rgba(189, 181, 218, 0.28);
+}
+.nav-links a { color: #fff; }
+.nav-links a::after { background: var(--lilac); }
+.nav-links .nav-drop-menu a { color: var(--ink); }
+.nav .btn-ghost { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.nav .btn-ghost:hover { background: rgba(255, 255, 255, 0.22); }
+.nav .btn-ink { background: linear-gradient(135deg, #8576c2 0%, var(--violet) 100%); }
+.nav .btn-ink:hover { background: linear-gradient(135deg, #9486cf 0%, #7667b3 100%); }
+.nav-toggle span { background: #fff; }
+
+@media (min-width: 861px) {
+  :root { --topbar-h: 0px; --nav-h: 88px; --cu-w: 384px; }
+  /* la franja pasa a ser una capa transparente sobre el arranque del
+     menú: solo aporta los dos logos. */
+  .topbar {
+    right: auto; width: auto; height: var(--nav-h);
+    justify-content: flex-start; gap: 0;
+    background: none; padding-right: 0;
+  }
+  .topbar::after { content: none; }
+  .topbar-logo { height: 62px; margin-left: -26px; }  /* el PNG trae aire a la izquierda: así alinea con el texto de la portada */
+  .topbar-place { display: none; }
+  /* el logo compacto de Cielo solo aparece cuando el grande de la portada
+     sale de pantalla (.is-top lo pone el JS en el nav). */
+  .topbar-cielo {
+    margin-left: 20px; padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.24);
+    transition: opacity 0.25s ease, visibility 0.25s;
+  }
+  .topbar-cielo::before { content: none; }
+  .topbar-cielo img { height: 40px; }
+  body:has(.nav.is-top) .topbar-cielo { opacity: 0; visibility: hidden; }
+  .nav { padding-left: calc(var(--pad-x) + var(--cu-w)); gap: 24px; }
+  .nav-links { gap: clamp(16px, 1.7vw, 28px); }
+}
+@media (min-width: 861px) and (max-width: 1500px) {
+  :root { --cu-w: 338px; }
+  .topbar-logo { height: 54px; margin-left: -22px; }
+  .topbar-cielo { margin-left: 16px; padding-left: 16px; }
+  .topbar-cielo img { height: 34px; }
+  .nav { gap: 18px; }
+  .nav-links a { font-size: 0.92rem; }
+  .nav-actions .btn { padding-left: 16px; padding-right: 16px; }
+}
+/* a medida que se estrecha la ventana: primero se va el botón de WhatsApp
+   (queda el flotante), luego el logo compacto de Cielo y por último
+   "Contacto", que lleva al mismo sitio que "Agenda tu visita". */
+@media (min-width: 861px) and (max-width: 1400px) {
+  .nav-actions .btn-ghost { display: none; }
+}
+@media (min-width: 861px) and (max-width: 1260px) {
+  :root { --cu-w: 172px; }
+  .topbar-cielo { display: none; }
+}
+@media (min-width: 861px) and (max-width: 1000px) {
+  :root { --cu-w: 136px; }
+  .topbar-logo { height: 44px; margin-left: -18px; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 0.86rem; }
+  .nav-links > a[href="#visita"] { display: none; }
+}
+@media (max-width: 860px) {
+  /* celular: el botón de menú vive dentro de la franja */
+  :root { --nav-h: 0px; }
+  .nav {
+    position: fixed; top: 0; right: 0; left: auto; z-index: 61;
+    width: auto; height: var(--topbar-h);
+    padding: 0 8px 0 0;
+    background: none; border: 0;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .topbar { justify-content: space-between; padding-right: 62px; }
+}
+
+/* ====================================================== PORTADA A SANGRE
+   El render completo de borde a borde (16:9, así se ve entero) con el
+   logo, el título y los botones a la izquierda sobre un degradado de
+   tinta. El texto se centra en la parte visible de la primera pantalla. */
+.hero2 {
+  position: relative; overflow: hidden;
+  height: 56.28vw;
+  background: var(--black-plate); color: #fff;
+}
+.hero2-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero2-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(14, 23, 41, 0.92) 0%, rgba(14, 23, 41, 0.78) 28%, rgba(14, 23, 41, 0.36) 50%, rgba(14, 23, 41, 0) 68%);
+}
+.hero2-inner {
+  position: absolute; left: 0; top: 0;
+  height: min(100%, calc(100vh - var(--topbar-h) - var(--nav-h)));
+  width: min(100%, 880px);
+  padding: 20px var(--pad-x);
+  display: flex; flex-direction: column; justify-content: safe center; align-items: flex-start;
+  text-align: left;
+}
+/* el PNG del logo es de tinta: se pasa a blanco con filtro (mismo recurso
+   que el pie) porque es el de mayor resolución. */
+.hero2-logo { margin-bottom: clamp(10px, 2.4vh, 26px); }
+.hero2-logo img {
+  display: block; width: clamp(230px, 25vw, 370px); height: auto;
+  margin-left: -4%;   /* el lienzo trae aire a la izquierda */
+  filter: brightness(0) invert(1);
+}
+.hero2-kicker {
+  margin-bottom: clamp(14px, 2.4vh, 24px);
+  font-size: clamp(0.7rem, 0.95vw, 0.84rem); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.26em;
+  color: var(--lilac);
+}
+.hero2 .hero-title {
+  margin: 0; max-width: none;
+  font-size: clamp(2.2rem, min(4.6vw, 9vh), 4.5rem);
+  font-weight: 700; line-height: 1.04; letter-spacing: -0.03em;
+  color: #fff;
+  text-shadow: 0 2px 30px rgba(14, 23, 41, 0.45);
+}
+.hero2 .hero-sub {
+  margin: clamp(14px, 2.4vh, 24px) 0 0; max-width: 40ch;
+  font-size: clamp(1rem, 1.35vw, 1.2rem); font-weight: 400;
+  color: #fff; opacity: 0.92;
+}
+.hero2-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(20px, 3.6vh, 36px); }
+.hero2 .hero-toggle {
+  margin: clamp(22px, 4vh, 40px) 0 0;
+  background: none; border: 0; padding: 0; gap: 22px;
+  animation: none;
+}
+.hero2 .hero-toggle-btn {
+  padding: 0 0 6px; border-radius: 0;
+  font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  border-bottom: 1.5px solid transparent;
+}
+.hero2 .hero-toggle-btn.is-active { background: none; color: #fff; border-bottom-color: var(--lilac); }
+
+@media (max-width: 860px) {
+  /* celular: el render completo arriba y el texto debajo, sobre tinta.
+     El logo grande se oculta: la franja ya lo lleva. */
+  .hero2 { height: auto; display: flex; flex-direction: column; background: var(--navy-deep); }
+  .hero2-img { position: static; height: auto; aspect-ratio: 1672 / 941; }
+  .hero2-shade { display: none; }
+  .hero2-inner { position: static; height: auto; width: 100%; padding: 28px var(--pad-x) 36px; }
+  .hero2-logo { display: none; }
+  .hero2 .hero-title { font-size: clamp(2rem, 8.6vw, 3rem); }
+  .hero2-cta .btn { flex: 1 1 auto; }
+}
+
+/* ================================================= EL PROYECTO, EN GRANDE
+   Menos texto: los cuatro ambientes de la marca en su color, una línea
+   de contexto, cuatro cifras grandes sin tarjeta y el detalle (las dos
+   listas) plegado en "Ver todo lo que incluye". */
+.intro.intro-impact {
+  display: block; max-width: 1400px;
+  text-align: center;
+  padding-top: clamp(64px, 11vh, 130px); padding-bottom: clamp(56px, 9vh, 110px);
+}
+.intro-impact .intro-kicker { letter-spacing: 0.24em; margin-bottom: clamp(18px, 3vh, 30px); }
+.intro-claim {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 0.2em clamp(18px, 3.4vw, 56px);
+  font-size: clamp(1.5rem, 3.5vw, 3.4rem);
+  font-weight: 700; line-height: 1.1;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.pil-divertido { color: var(--c-divertido); }
+.pil-privado { color: var(--c-privado); }
+.pil-organico { color: var(--c-organico); }
+.pil-social { color: var(--c-social); }
+.intro-impact .intro-lede {
+  max-width: 66ch; margin: clamp(18px, 3vh, 30px) auto 0;
+  font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.6;
+}
+.intro-impact .stats {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: clamp(40px, 7vh, 76px);
+  border-top: 1px solid rgba(32, 48, 80, 0.16);
+  border-bottom: 1px solid rgba(32, 48, 80, 0.16);
+}
+.intro-impact .stat {
+  background: none; border: 0; border-radius: 0;
+  padding: clamp(22px, 3.4vw, 44px) 12px;
+  border-left: 1px solid rgba(32, 48, 80, 0.16);
+}
+.intro-impact .stat:first-child { border-left: 0; }
+.intro-impact .stat dd {
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  color: var(--ink);
+}
+.intro-impact .stat dd small { font-size: 0.42em; font-weight: 600; letter-spacing: 0; }
+.intro-impact .stat dt {
+  margin-top: 12px;
+  font-size: clamp(0.72rem, 1vw, 0.86rem);
+  letter-spacing: 0.14em; color: var(--violet);
+}
+.intro-more { margin-top: clamp(28px, 5vh, 48px); }
+.intro-more summary {
+  display: inline-flex; align-items: center; gap: 10px;
+  list-style: none; cursor: pointer;
+  padding: 12px 26px;
+  border: 1.5px solid var(--ink); border-radius: var(--radius-pill);
+  font-weight: 600; font-size: 1rem; letter-spacing: 0.01em;
+  color: var(--ink);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.intro-more summary::-webkit-details-marker { display: none; }
+.intro-more summary::after { content: "+"; font-size: 1.3rem; line-height: 1; transition: transform 0.2s ease; }
+.intro-more[open] summary::after { transform: rotate(45deg); }
+.intro-more summary:hover { background: var(--ink); color: #fff; }
+.intro-etapas {
+  max-width: 66ch; margin: clamp(26px, 4vh, 40px) auto 0;
+  color: var(--slate); font-size: clamp(1rem, 1.5vw, 1.12rem);
+}
+.intro-etapas strong { color: var(--ink); }
+.intro-more .features { text-align: left; margin-top: clamp(28px, 4vh, 44px); }
+.intro-more .intro-note { text-align: left; }
+@media (min-width: 861px) {
+  .intro-claim {
+    flex-wrap: nowrap; white-space: nowrap;
+    font-size: clamp(1.3rem, 3.05vw, 3.25rem);
+    gap: 0 clamp(14px, 2.5vw, 46px);
+  }
+}
+@media (max-width: 700px) {
+  .intro-impact .stats { grid-template-columns: repeat(2, 1fr); }
+  .intro-impact .stat:nth-child(3) { border-left: 0; }
+  .intro-impact .stat:nth-child(n+3) { border-top: 1px solid rgba(32, 48, 80, 0.16); }
+}
+
+/* ======================================= APARTAMENTO MODELO · EDITORIAL
+   El texto pasa arriba (título y frase a la izquierda; párrafo, datos y
+   botón a la derecha) y los dos renders van debajo, lado a lado, del
+   mismo tamaño, derechos y a la misma altura. Dejan de ser tarjetas
+   redondeadas: esquinas rectas, un filete desfasado detrás y pie de foto
+   numerado. */
+.split.split-ed { display: block; max-width: 1440px; }
+.split-ed .split-copy {
+  display: grid; grid-template-columns: 1fr 1fr;
+  column-gap: clamp(32px, 5vw, 72px); align-items: end;
+  margin-bottom: clamp(30px, 4.4vw, 56px);
+}
+.split-copy .split-tag {
+  margin: 14px 0 0; max-width: 24ch;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.2;
+  color: var(--violet);
+}
+.split-ed .split-copy .split-lead { margin: 0 0 18px; max-width: 48ch; }
+.split-ed .split-specs { flex-direction: row; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; }
+.split-ed .split-specs li {
+  background: #fff;
+  border: 1px solid rgba(32, 48, 80, 0.1);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-weight: 600; font-size: 0.9rem; letter-spacing: 0;
+}
+.ed-duo {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+  gap: clamp(26px, 3.4vw, 52px);
+  padding: 14px 14px 0 0;
+}
+.ed-fig { position: relative; margin: 0; }
+.ed-fig::before {
+  content: ""; position: absolute; z-index: 0;
+  top: -14px; right: -14px; width: 62%; height: 58%;
+  border: 1px solid var(--filete);
+  pointer-events: none;
+}
+.ed-ph { position: relative; z-index: 1; overflow: hidden; box-shadow: var(--shadow-ed); }
+.ed-ph img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 3 / 2; object-fit: cover;
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ed-fig:hover .ed-ph img { transform: scale(1.045); }
+.ed-fig figcaption {
+  display: flex; align-items: baseline; gap: 14px;
+  margin-top: 18px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink);
+}
+.ed-fig figcaption b {
+  font-weight: 300; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1;
+  color: var(--violet);
+}
+.ed-fig figcaption::after {
+  content: ""; flex: 1 1 auto; height: 1px; align-self: center;
+  background: rgba(32, 48, 80, 0.18);
+}
+@media (max-width: 860px) {
+  .split-ed .split-copy { grid-template-columns: 1fr; row-gap: 22px; align-items: start; }
+  .ed-duo { grid-template-columns: 1fr; gap: 34px; padding: 10px 10px 0 0; }
+  .ed-fig::before { top: -10px; right: -10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ed-ph img { transition: none; }
+}
+
+/* ====================================================== ZONAS EN PESTAÑAS
+   Reemplaza la pieza de las cuatro franjas y los cuatro bloques apilados.
+   Cuatro pestañas con el ícono de cada ambiente; el panel activo muestra
+   sus zonas (con ícono) a la izquierda y un visor de renders a la derecha.
+   Los paneles solo se ocultan si hay JS (.js en <html>). En celular
+   funciona igual, con el render arriba y las zonas debajo: no se usa la
+   fila deslizable de Element porque aquí "Social" es mucho más alto que
+   los otros tres y dejaba un hueco bajo los paneles cortos. */
+.zones.zones-tabs { max-width: 1320px; }
+.zones-tabs .zones-head {
+  max-width: 900px; margin: 0 auto clamp(28px, 4vh, 44px);
+  text-align: center;
+}
+.zones-tabs .zones-head p:not(.sec-kicker) { margin-left: auto; margin-right: auto; }
+@media (min-width: 861px) {
+  .zones-tabs .zones-head h2 br { display: none; }
+}
+
+.zhint { display: none; }
+.js .zhint {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: 0 auto 18px;
+  font-size: 0.92rem; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--violet);
+}
+.zhint svg { flex-shrink: 0; animation: zhint-tap 1.8s ease-in-out infinite; }
+@keyframes zhint-tap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.zhint-mob { display: none; }
+
+#ztab-divertido, #zona-divertido { --zc: var(--c-divertido); }
+#ztab-privado, #zona-privado { --zc: var(--c-privado); }
+#ztab-organico, #zona-organico { --zc: var(--c-organico); }
+#ztab-social, #zona-social { --zc: var(--c-social); }
+
+.ztabs {
+  display: flex; justify-content: space-between; gap: clamp(8px, 2vw, 24px);
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(32, 48, 80, 0.14);
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+.ztab {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  background: none; border: 0; cursor: pointer;
+  padding: 6px 4px 0;
+  font-family: var(--font);
+  font-size: clamp(0.82rem, 1.5vw, 1.15rem);
+  font-weight: 600; letter-spacing: 0.01em;
+  color: var(--ink);
+  position: relative;
+  transition: color 0.2s ease;
+}
+.ztab img {
+  width: clamp(46px, 6vw, 72px); height: auto;
+  border-radius: 50%;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ztab:hover img { opacity: 0.85; }
+.ztab.is-active { font-weight: 700; }
+.ztab.is-active img {
+  opacity: 1; transform: translateY(-2px);
+  box-shadow: 0 0 0 3px var(--page), 0 0 0 5px var(--zc, var(--violet));
+}
+.ztab::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: -19px;
+  height: 3px; background: var(--zc, var(--violet));
+  transform: scaleX(0); transition: transform 0.25s ease;
+}
+.ztab.is-active::after { transform: scaleX(1); }
+
+.zpanel {
+  display: grid;
+  grid-template-columns: 1fr 1.55fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  padding-bottom: clamp(28px, 4vh, 44px);
+}
+.js .zpanel:not(.is-active) { display: none; }
+.js .zpanel.is-active { animation: zpanel-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes zpanel-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.zpanel-tag {
+  margin: 0 0 8px;
+  font-size: 0.8rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--zc, var(--violet));
+}
+.zpanel-copy h3 {
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.08;
+  color: var(--ink);
+  max-width: 16ch;
+  margin-bottom: clamp(18px, 3vh, 28px);
+}
+/* Social se divide en tres grupos: cada uno lleva su rótulo sobre sus
+   zonas, con una línea que lo separa sin pesar como un titular. */
+.zdet-group {
+  margin: clamp(20px, 3vh, 28px) 0 14px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid color-mix(in srgb, var(--zc, var(--violet)) 30%, transparent);
+  font-size: 0.74rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--zc, var(--violet));
+}
+.zpanel-copy h3 + .zdet-group { margin-top: 0; }
+
+/* zonas del ambiente: cuadrícula de íconos. Las que tienen render son
+   botones; la activa es la que aparece en el render que se está viendo. */
+.zdet {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.6vw, 20px) clamp(8px, 1.2vw, 16px);
+}
+.zdet-item {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  background: none; border: 0; padding: 0;
+  font-family: var(--font);
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-weight: 600; line-height: 1.2; text-align: center;
+  color: var(--ink);
+}
+.zdet-item img {
+  width: clamp(52px, 5vw, 66px); height: auto;
+  border-radius: 50%;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+button.zdet-item { cursor: pointer; }
+button.zdet-item:hover img { transform: translateY(-2px); }
+.zdet-item.is-on { color: var(--zc, var(--violet)); }
+.zdet-item.is-on img { box-shadow: 0 0 0 3px var(--page), 0 0 0 5px var(--zc, var(--violet)); }
+/* dos o cuatro zonas: dos columnas, para que no quede una sola abajo */
+.zdet:has(li:nth-child(2):last-child),
+.zdet:has(li:nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); max-width: 320px; }
+
+.zviewer-stage { position: relative; }
+.zviewer-fig {
+  position: relative; margin: 0;
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.zviewer-fig + .zviewer-fig { margin-top: 14px; }
+.zviewer-fig img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.zviewer-fig figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 34px 18px 14px;
+  background: linear-gradient(to top, rgba(14, 23, 41, 0.8), rgba(14, 23, 41, 0));
+  color: #fff;
+  font-weight: 600; font-size: 1rem;
+}
+.js .zviewer-fig { display: none; margin-top: 0; }
+.js .zviewer-fig.is-shown { display: block; animation: zpanel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.zviewer-thumbs { display: none; }
+.js .zviewer-thumbs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.zviewer-thumb {
+  width: 92px; padding: 0; border: 0; background: none; cursor: pointer;
+  border-radius: 12px; overflow: hidden;
+  opacity: 0.6;
+  outline: 2px solid transparent; outline-offset: 2px;
+  transition: opacity 0.2s ease, outline-color 0.2s ease;
+}
+.zviewer-thumb img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.zviewer-thumb:hover { opacity: 0.9; }
+.zviewer-thumb.is-on { opacity: 1; outline-color: var(--zc, var(--violet)); }
+
+@media (min-width: 861px) {
+  /* el visor acompaña mientras se recorre una lista larga (Social) */
+  .js .zviewer { position: sticky; top: calc(var(--topbar-h) + var(--nav-h) + 24px); }
+}
+@media (max-width: 860px) {
+  .js .zhint { font-size: 0.85rem; margin-bottom: 14px; }
+  .zhint-desk { display: none; }
+  .zhint-mob { display: inline; }
+  .ztabs { gap: 4px; }
+  .ztab { font-size: 0.74rem; gap: 7px; }
+  .ztab img { width: 44px; }
+  .zpanel { grid-template-columns: 1fr; gap: 18px; }
+  .zpanel .zviewer { order: -1; }
+  .zpanel-copy h3 { max-width: none; }
+  .zviewer-fig { box-shadow: none; }
+  .zviewer-fig figcaption { font-size: 0.85rem; padding: 26px 14px 10px; }
+  .zviewer-thumb { width: 72px; }
+  .zdet-item img { width: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .zpanel.is-active, .js .zviewer-fig.is-shown, .zhint svg { animation: none; }
+}
+
+/* ============================================ PLAN DE PAGOS · EDITORIAL
+   Las cuatro tarjetas pasan de "ficha de app" a lámina: esquinas rectas,
+   numeral grande y fino (01–04), filete, foto a media tarjeta con un
+   marco fino por dentro y enlace de texto en vez de botón. Se conserva
+   el apilado al bajar. Cabecera centrada. Colores: tinta, cielo claro,
+   violeta profundo y blanco. */
+.deck-section { max-width: 1360px; counter-reset: paso; }
+.deck-head { max-width: 860px; margin-left: auto; margin-right: auto; text-align: center; }
+.deck-head p:not(.sec-kicker) { margin-left: auto; margin-right: auto; }
+.deck-head::after {
+  content: ""; display: block; width: 56px; height: 1px; margin: 26px auto 0;
+  background: var(--filete);
+}
+.deck-slot { counter-increment: paso; }
+.deck-card {
+  grid-template-columns: 1fr 1fr;
+  border-radius: 0;
+  box-shadow: var(--shadow-ed);
+}
+.deck-copy {
+  position: relative; align-self: stretch;
+  padding: clamp(32px, 4.6vw, 72px);
+  /* arriba se reserva el alto del numeral: un título largo ("Acompañamiento
+     de Curbanas") se le metía debajo. */
+  padding-top: clamp(96px, 9.4vw, 148px);
+  gap: 0;
+}
+.deck-copy::before {
+  content: counter(paso, decimal-leading-zero);
+  position: absolute; top: clamp(22px, 3vw, 44px); right: clamp(26px, 3.6vw, 56px);
+  font-size: clamp(3.4rem, 6.4vw, 6rem); font-weight: 300; line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--lilac);
+}
+.deck-step {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 0.76rem; letter-spacing: 0.24em; opacity: 1;
+  color: var(--lilac);
+  margin-bottom: 16px;
+}
+.deck-step::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+.deck-copy h3 {
+  font-size: clamp(1.6rem, 2.7vw, 2.4rem);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.12;
+  max-width: 17ch; margin-bottom: 16px;
+}
+.deck-copy p { max-width: 40ch; line-height: 1.6; margin-bottom: 26px; }
+/* enlace de texto con flecha en lugar de botón-píldora */
+.deck-copy .btn {
+  background: none; color: inherit; box-shadow: none;
+  border: 0; border-bottom: 1px solid var(--lilac); border-radius: 0;
+  padding: 0 0 8px; min-height: 0;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.deck-copy .btn::after { content: "→"; margin-left: 12px; display: inline-block; transition: transform 0.3s ease; }
+.deck-copy .btn:hover { background: none; box-shadow: none; transform: none; color: var(--lilac); }
+.deck-copy .btn:hover::after { transform: translateX(6px); }
+.deck-sky { background: var(--sky-tint); }
+.deck-sky .deck-copy p { color: var(--slate); }
+.deck-lilac { background: #4b4279; color: #fff; }
+.deck-lilac .deck-copy p { color: rgba(255, 255, 255, 0.86); }
+.deck-mist { background: #fff; }
+/* en las tarjetas claras el lila pasa a violeta para que se lea */
+.deck-sky .deck-copy::before, .deck-mist .deck-copy::before { color: var(--filete); }
+.deck-sky .deck-step, .deck-mist .deck-step { color: var(--violet); }
+.deck-sky .deck-copy .btn, .deck-mist .deck-copy .btn { border-bottom-color: var(--violet); }
+.deck-sky .deck-copy .btn:hover, .deck-mist .deck-copy .btn:hover { color: var(--violet); }
+/* foto con marco fino por dentro */
+.deck-media { position: relative; overflow: hidden; }
+.deck-media::after {
+  content: ""; position: absolute; inset: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+.deck-media.deck-media-logo::after { border-color: rgba(189, 181, 218, 0.5); }
+.deck-section .legal-note { text-align: center; margin-left: auto; margin-right: auto; }
+@media (max-width: 860px) {
+  .deck-card { grid-template-columns: 1fr; }
+  .deck-copy { padding: 84px 24px 34px; }
+  .deck-copy::before { font-size: 3.2rem; top: 22px; right: 22px; }
+  .deck-media::after { inset: 10px; }
+}
+
+/* ============================================ RESPALDO · EDITORIAL
+   Sale de la banda oscura a sangre y entra en la misma línea que el
+   apartamento modelo y el plan de pagos: antetítulo, filete, render con
+   esquinas rectas y marco desfasado, el texto a la izquierda con las
+   cuatro cifras a la derecha, y los logos en una banda de tinta. */
+.backed.backed-ed {
+  max-width: 1360px; margin: 0 auto;
+  padding: clamp(72px, 11vh, 130px) var(--pad-x);
+  background: none; color: var(--ink);
+}
+.backed.backed-ed > * { max-width: none; }
+.backed-ed > h2 { color: var(--ink); margin-bottom: 0; }
+.backed-ed > h2::after {
+  content: ""; display: block; width: 56px; height: 1px;
+  margin: 26px auto clamp(34px, 5vh, 52px);
+  background: var(--filete);
+}
+.backed-ed .backed-media {
+  position: relative; overflow: visible;
+  border-radius: 0; box-shadow: none;
+  margin: 14px 14px 0 0;
+}
+.backed-ed .backed-media::before {
+  content: ""; position: absolute; z-index: 0;
+  top: -14px; right: -14px; width: 46%; height: 52%;
+  border: 1px solid var(--filete); pointer-events: none;
+}
+/* la aérea es casi cuadrada (1,40): a todo el ancho ocuparía más de una
+   pantalla, así que se encuadra a 16:9 sobre las piscinas. */
+.backed-ed .backed-media img {
+  position: relative; z-index: 1; display: block;
+  width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 56%;
+  transform: none;
+  box-shadow: var(--shadow-ed);
+}
+.backed-ed .backed-frase { z-index: 2; transform: none; }
+.backed-ed .backed-frase span { font-weight: 700; }
+.backed-body {
+  display: grid; grid-template-columns: 1fr 1.25fr;
+  gap: clamp(32px, 5vw, 80px); align-items: center;
+  margin-top: clamp(40px, 6vh, 64px);
+  text-align: left;
+}
+.backed-ed .backed-body p {
+  margin: 0; max-width: 46ch;
+  color: var(--slate);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6;
+}
+.backed-ed .backed-body p strong { color: var(--ink); }
+.backed-facts { margin: 0; display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; }
+.backed-facts div { padding: 4px clamp(12px, 1.6vw, 24px); border-left: 1px solid rgba(32, 48, 80, 0.18); }
+.backed-facts dt {
+  font-size: clamp(1.7rem, 2.9vw, 2.7rem); font-weight: 300; line-height: 1; letter-spacing: -0.02em;
+  color: var(--ink); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.backed-facts dt small { font-size: 0.42em; font-weight: 600; letter-spacing: 0.02em; margin-left: 4px; }
+.backed-facts dd {
+  margin: 12px 0 0; max-width: 16ch;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.5;
+  color: var(--violet);
+}
+.backed-ed .backed-logos {
+  width: 100%; margin-top: clamp(40px, 6vh, 64px);
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  padding: clamp(26px, 3.4vw, 44px) 0;
+  background: var(--navy-deep);
+}
+.backed-logos figure {
+  margin: 0; padding: 0 clamp(14px, 2vw, 30px);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px;
+  border-left: 1px solid rgba(189, 181, 218, 0.32);
+}
+.backed-logos figure:first-child { border-left: 0; }
+.backed-logos figcaption {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac);
+}
+.backed-ed .backed-logos img { opacity: 1; }
+@media (max-width: 1100px) {
+  .backed-body { grid-template-columns: 1fr; text-align: center; }
+  .backed-ed .backed-body p { margin: 0 auto; }
+  .backed-facts { text-align: left; }
+}
+@media (max-width: 860px) {
+  .backed-ed .backed-media { margin: 10px 10px 0 0; }
+  .backed-ed .backed-media::before { top: -10px; right: -10px; }
+  .backed-ed .backed-media img { aspect-ratio: 4 / 3; }
+  .backed-facts { grid-template-columns: repeat(2, 1fr); row-gap: 26px; }
+  .backed-facts div:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .backed-ed .backed-logos { grid-template-columns: 1fr; padding: 8px 0; }
+  .backed-logos figure { border-left: 0; border-top: 1px solid rgba(189, 181, 218, 0.32); padding: 24px 16px; }
+  .backed-logos figure:first-child { border-top: 0; }
+}
+
+/* ================================================ TIPOLOGÍAS EN CUADRÍCULA
+   Las once a la vista: tres columnas en escritorio, dos en tableta y una
+   en celular. Cada tipología es una tarjeta blanca (los planos traen
+   fondo blanco) con el plano arriba y la ficha debajo. La sección lleva
+   una franja de cielo muy clara, de borde a borde, que la separa del
+   resto. */
+.typologies {
+  position: relative; z-index: 0;
+  max-width: 1320px;
+  padding-top: clamp(56px, 9vh, 104px); padding-bottom: clamp(56px, 9vh, 104px);
+}
+.typologies::before {
+  content: ""; position: absolute; z-index: -1;
+  top: 0; bottom: 0; left: 50%;
+  width: 100vw; transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(221, 229, 247, 0.7) 0%, rgba(236, 232, 245, 0.55) 100%);
+}
+.typologies-head { margin-bottom: clamp(32px, 5vh, 52px); }
+.typologies-head h2 {
+  display: block; padding-bottom: 0; border-bottom: 0;
+  text-transform: none;
+}
+.typologies-head p:not(.sec-kicker) {
+  margin: 16px auto 0; max-width: 62ch;
+  color: var(--slate); font-size: clamp(1rem, 1.6vw, 1.18rem);
+}
+/* flex y no grid: son once, así que la última fila (dos tarjetas) queda
+   centrada en vez de dejar un hueco a la derecha. */
+.typology-list {
+  --tg: clamp(16px, 2vw, 28px); --tcols: 3;
+  display: flex; flex-flow: row wrap; justify-content: center;
+  gap: var(--tg);
+}
+.typology-card {
+  flex: 0 0 calc((100% - (var(--tcols) - 1) * var(--tg)) / var(--tcols));
+  min-width: 0;
+  display: flex; flex-direction: column; align-items: stretch;
+  gap: 0;
+  background: #fff;
+  border: 1px solid rgba(32, 48, 80, 0.08);
+  border-radius: var(--radius-lg);
+  padding: clamp(16px, 1.6vw, 24px);
+  box-shadow: 0 1rem 2.2rem rgba(22, 35, 60, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.typology-card:hover { transform: translateY(-4px); box-shadow: 0 1.6rem 3rem rgba(22, 35, 60, 0.14); }
+.typology-media { max-width: none; margin: 0 0 14px; }
+.typology-info { flex: 1; }
+.typology-badge { border-radius: 14px 14px 0 0; }
+.typology-badge span, .typology-badge em { padding: 11px 16px; font-size: 1.05rem; }
+.typology-price { padding: 10px 16px; font-size: 0.88rem; }
+.typology-price strong { font-size: 1.12rem; }
+.typology-specs { border-radius: 0 0 14px 14px; }
+.typology-specs li { padding: 6px 16px; font-size: 0.9rem; }
+.typologies-legal { color: var(--slate); opacity: 0.9; }
+@media (max-width: 980px) {
+  .typology-list { --tcols: 2; }
+  .typology-media { max-width: none; margin: 0 0 14px; }
+}
+@media (max-width: 600px) {
+  .typology-list { --tcols: 1; }
+  .typology-media { max-width: 320px; margin-inline: auto; }
+}
+
+/* ---- recorrido 360 embebido: cabecera centrada como el resto */
+.tour360 { text-align: center; }
+.tour360-inner { text-align: left; max-width: 1200px; }
+.tour360-inner > div { border-radius: 0 !important; box-shadow: var(--shadow-ed); }
+
+/* ============================================ AGENDA TU RECORRIDO A SANGRE
+   El render de la sala llena la sección y se desplaza despacio de lado a
+   lado. El texto va a la izquierda sobre un degradado de tinta. */
+.tour.tour-wide {
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  min-height: min(82vh, 780px);
+  padding: clamp(56px, 9vh, 110px) var(--pad-x);
+  background: var(--black-plate);
+}
+.tour-pan { position: absolute; inset: 0; }
+.tour-pan img {
+  position: absolute; top: 0; left: 0;
+  width: 122%; max-width: none; height: 100%;
+  object-fit: cover;
+  animation: tour-pan 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes tour-pan {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-18%, 0, 0); }
+}
+.tour.tour-wide::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(14, 23, 41, 0.95) 0%, rgba(14, 23, 41, 0.9) 34%, rgba(14, 23, 41, 0.55) 54%, rgba(14, 23, 41, 0) 78%);
+  pointer-events: none;
+}
+.tour-wide .tour-copy { position: relative; z-index: 2; max-width: 520px; justify-self: auto; }
+@media (max-width: 860px) {
+  .tour.tour-wide { flex-direction: column; align-items: stretch; padding: 0; min-height: 0; background: var(--navy-deep); }
+  .tour-pan { position: relative; inset: auto; height: 62vw; overflow: hidden; }
+  .tour-pan img { width: 130%; }
+  .tour.tour-wide::after { display: none; }
+  .tour-wide .tour-copy { padding: 28px var(--pad-x) 40px; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-pan img { animation: none; width: 100%; }
+}
+
+/* ---- planta de implantación a sangre: de borde a borde, completa y con
+   esquinas rectas; las palabras siguen cruzándose con el scroll. */
+.planta.planta-ed { max-width: none; padding: 0 0 clamp(24px, 4vh, 40px); }
+.planta-ed .planta-media { border-radius: 0; box-shadow: none; }
+.planta-ed .planta-media img { transform: none; }
+.planta-ed .planta-sub { padding: 0 var(--pad-x); }
+
+/* ============================================== UBICACIÓN A SANGRE
+   La pieza de entorno trae su propio titular y pines: va completa, de
+   borde a borde, sin texto encima. Arriba la cabecera centrada; debajo,
+   una franja de tinta con los datos como cifras y el botón de cómo
+   llegar. */
+.where.where-ed { display: block; max-width: none; margin: 0; padding: clamp(64px, 10vh, 120px) 0 0; }
+.where-head {
+  max-width: 900px; margin: 0 auto clamp(32px, 5vh, 52px);
+  padding: 0 var(--pad-x);
+  text-align: center;
+}
+.where-head p:not(.sec-kicker) {
+  margin: 16px auto 0; max-width: 52ch;
+  color: var(--slate); font-size: clamp(1rem, 1.6vw, 1.18rem);
+}
+.where-photo { position: relative; margin: 0; background: var(--navy-deep); }
+.where-photo img { display: block; width: 100%; height: auto; }
+.where-facts {
+  display: flex; align-items: center; gap: clamp(20px, 4vw, 56px);
+  padding: clamp(24px, 3.5vw, 44px) var(--pad-x);
+  background: var(--navy-deep); color: #fff;
+}
+.where-facts ul {
+  list-style: none; flex: 1;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 3vw, 48px);
+}
+.where-facts li {
+  display: flex; flex-direction: column; gap: 4px;
+  padding-left: clamp(14px, 1.6vw, 22px);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+.where-facts strong {
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--lilac);
+}
+.where-facts span { font-size: clamp(0.9rem, 1.2vw, 1.02rem); color: rgba(255, 255, 255, 0.86); line-height: 1.35; }
+.where-facts .btn { flex-shrink: 0; }
+@media (max-width: 860px) {
+  .where-facts { flex-direction: column; align-items: stretch; }
+  .where-facts ul { grid-template-columns: 1fr; gap: 16px; }
+  .where-facts .btn { align-self: flex-start; }
+}
+
+/* ---- preguntas: filete fino en vez de borde grueso */
+.faq-item { border-width: 1px; border-color: rgba(32, 48, 80, 0.1); }
+
+/* ---- fondos oscuros sobrios: tinta plana con el motivo de arcos, sin
+   el resplandor de cielo. Menos tonos, más aire. */
+.visit, .schedule {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.04'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    linear-gradient(180deg, #1b2a48 0%, var(--navy-deep) 100%);
+}
+.schedule { background-color: var(--navy-deep); }
+.footer {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='54' viewBox='0 0 108 54'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.035'%3E%3Cpath d='M0 54 A54 54 0 0 1 108 54'/%3E%3Cpath d='M13.5 54 A40.5 40.5 0 0 1 94.5 54'/%3E%3Cpath d='M27 54 A27 27 0 0 1 81 54'/%3E%3Cpath d='M40.5 54 A13.5 13.5 0 0 1 67.5 54'/%3E%3C/g%3E%3C/svg%3E") repeat 0 0 / 108px 54px,
+    var(--black-plate);
+}
