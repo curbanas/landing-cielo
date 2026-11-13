@@ -177,16 +177,35 @@ document.querySelectorAll(".flexi-word[data-words]").forEach((el) => {
   }, 2600);
 });
 
-/* ---- videos de sección: corren solo mientras están en pantalla */
-if ("IntersectionObserver" in window && !reduceMotion) {
-  const vio = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) e.target.play().catch(() => {});
-      else e.target.pause();
-    });
-  }, { threshold: 0.35 });
-  document.querySelectorAll("video.flexi-video").forEach((v) => vio.observe(v));
-}
+/* ---- videos de sección: corren solo mientras están en pantalla.
+   Si el navegador bloquea la reproducción automática (ahorro de batería
+   en iPhone, ahorro de datos, "reducir movimiento") aparece un botón de
+   play para que la persona lo inicie con un toque. */
+document.querySelectorAll("video.flexi-video").forEach((v) => {
+  v.muted = true; v.defaultMuted = true; v.playsInline = true;
+  v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", "");
+  const box = v.parentElement;
+  const btn = document.createElement("button");
+  btn.type = "button"; btn.className = "vplay";
+  btn.setAttribute("aria-label", "Reproducir video");
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
+  box.appendChild(btn);
+  let userPaused = false;
+  const sync = () => box.classList.toggle("is-paused", v.paused);
+  v.addEventListener("play", sync); v.addEventListener("playing", sync); v.addEventListener("pause", sync);
+  sync();
+  const tryPlay = () => { if (v.preload === "none") v.preload = "auto"; const pr = v.play(); if (pr && pr.catch) pr.catch(sync); };
+  btn.addEventListener("click", () => { userPaused = false; tryPlay(); });
+  v.addEventListener("click", () => { if (v.paused) { userPaused = false; tryPlay(); } else { userPaused = true; v.pause(); } });
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { if (!userPaused) tryPlay(); }
+        else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.35 }).observe(v);
+  }
+});
 
 /* ========================================================== MOTION ENGINE
    Un solo rAF gobierna todo lo ligado al scroll (hero, carriles, deck,
