@@ -512,6 +512,29 @@ document.querySelectorAll("[data-zviewer]").forEach((viewer) => {
   triggers.forEach((t) => t.addEventListener("click", () => show(t.dataset.zimg)));
   const first = figs.find((f) => f.classList.contains("is-shown")) || figs[0];
   if (first) show(first.dataset.zfig);
+
+  /* secciones dentro de una zona (p. ej. Social: al aire libre, bajo
+     techo, cocina grill): cada botón deja a la vista solo las zonas,
+     las miniaturas y los renders de su sección. */
+  const subs = [...panel.querySelectorAll("[data-zsub]")];
+  if (subs.length) {
+    const grouped = [...panel.querySelectorAll("[data-zgroup]")];
+    const thumbsBox = viewer.querySelector(".zviewer-thumbs");
+    function group(key) {
+      subs.forEach((b) => {
+        const on = b.dataset.zsub === key;
+        b.classList.toggle("is-on", on);
+        b.setAttribute("aria-selected", String(on));
+      });
+      grouped.forEach((el) => { if (!el.hasAttribute("data-zfig")) el.hidden = el.dataset.zgroup !== key; });
+      const visibleThumbs = grouped.filter((el) => el.classList.contains("zviewer-thumb") && !el.hidden);
+      if (thumbsBox) thumbsBox.hidden = visibleThumbs.length < 2;
+      const f = figs.find((x) => x.dataset.zgroup === key);
+      if (f) show(f.dataset.zfig);
+    }
+    subs.forEach((b) => b.addEventListener("click", () => group(b.dataset.zsub)));
+    group(subs[0].dataset.zsub);
+  }
 });
 
 /* --------------------------------------------------- formulario → WhatsApp */
