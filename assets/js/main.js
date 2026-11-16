@@ -569,3 +569,28 @@ form?.addEventListener("submit", (e) => {
 form?.querySelectorAll("input, select").forEach((field) => {
   field.addEventListener("input", () => field.classList.remove("is-invalid"));
 });
+
+/* ---- agenda única: calendario o formulario */
+(() => {
+  const btns = [...document.querySelectorAll("[data-sched]")];
+  const panels = [...document.querySelectorAll("[data-sched-panel]")];
+  btns.forEach((b) => b.addEventListener("click", () => {
+    btns.forEach((x) => { const on = x === b; x.classList.toggle("is-on", on); x.setAttribute("aria-selected", String(on)); });
+    panels.forEach((p) => { p.hidden = p.dataset.schedPanel !== b.dataset.sched; });
+  }));
+})();
+
+/* ---- Áreas en carrusel (celular): contador de tarjeta visible */
+(() => {
+  const list = document.querySelector(".typology-list");
+  const count = document.querySelector(".typo-count");
+  if (!list || !count) return;
+  const cards = [...list.querySelectorAll(".typology-card")];
+  const upd = () => {
+    const x = list.scrollLeft + list.clientWidth / 2;
+    let i = 0;
+    cards.forEach((c, k) => { if (c.offsetLeft <= x) i = k; });
+    count.textContent = `${i + 1} / ${cards.length}`;
+  };
+  list.addEventListener("scroll", () => requestAnimationFrame(upd), { passive: true });
+})();
