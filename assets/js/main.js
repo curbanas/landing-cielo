@@ -482,7 +482,10 @@ if (!reduceMotion) {
     const i = panels.findIndex((p) => p && "#" + p.id === hash);
     if (i < 0) return false;
     go(i);
-    section?.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+    // se baja hasta las pestañas (no al título de la sección), para que en
+    // celular se vea de una vez el ambiente que se abrió
+    const tabsRow = document.getElementById("zoneTabs") || section;
+    tabsRow?.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
     return true;
   }
   document.querySelectorAll('a[href^="#zona-"]').forEach((a) => {
@@ -595,7 +598,24 @@ form?.querySelectorAll("input, select").forEach((field) => {
     hideT = setTimeout(hide, 20000);   // se oculta solo si no se usa
   };
   const hide = () => { back.classList.remove("is-on"); setTimeout(() => { if (!back.classList.contains("is-on")) back.hidden = true; }, 300); };
-  const goTo = (y) => window.scrollTo({ top: y, behavior: reduceMotion ? "auto" : "smooth" });
+  const goTo = (y) => { cancelSettle(); window.scrollTo({ top: y, behavior: reduceMotion ? "auto" : "smooth" }); };
+  // si al bajar se cargan imágenes y la página crece, el salto queda corto:
+  // se revisa dos veces y se corrige, salvo que la persona ya esté moviéndose
+  let touched = false;
+  ["wheel", "touchstart", "keydown"].forEach((ev) => window.addEventListener(ev, () => { touched = true; }, { passive: true }));
+  var settleT = [];
+  function cancelSettle() { settleT.forEach(clearTimeout); settleT = []; }
+  function settle(el) {
+    cancelSettle();
+    if (!el) return;
+    touched = false;
+    settleT = [900, 1800].map((ms) => setTimeout(() => {
+      if (touched) return;
+      const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      const top = el.getBoundingClientRect().top;
+      if (Math.abs(top - pad) > 60) el.scrollIntoView({ behavior: "auto", block: "start" });
+    }, ms));
+  }
 
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
@@ -608,6 +628,7 @@ form?.querySelectorAll("input, select").forEach((field) => {
     if (Math.abs(t) < window.innerHeight * 0.6) return;
     stack.push({ y, hash: href });   // el propio enlace crea la entrada en el historial
     show();
+    settle(href.startsWith("#zona-") ? (document.getElementById("zoneTabs") || document.getElementById(href.slice(1))) : document.getElementById(href.slice(1)));
   }, true);   // fase de captura: corre antes que los demás manejadores
 
   back.addEventListener("click", () => {
