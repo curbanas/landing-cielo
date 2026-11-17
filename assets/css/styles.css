@@ -1000,10 +1000,10 @@ a.zl-hit:focus-visible span { opacity: 1; transform: none; }
 
 /* Respaldo por categoría: mientras una zona no tenga su ícono propio,
    lleva el genérico de su categoría. */
-.zcat-divertido .zcat-zones li::before { background-image: url("../img/icono-divertido.png?v=20261117b"); }
-.zcat-privado   .zcat-zones li::before { background-image: url("../img/icono-privado.png?v=20261117b"); }
-.zcat-organico  .zcat-zones li::before { background-image: url("../img/icono-organico.png?v=20261117b"); }
-.zcat-social    .zcat-zones li::before { background-image: url("../img/icono-social.png?v=20261117b"); }
+.zcat-divertido .zcat-zones li::before { background-image: url("../img/icono-divertido.png?v=20261117d"); }
+.zcat-privado   .zcat-zones li::before { background-image: url("../img/icono-privado.png?v=20261117d"); }
+.zcat-organico  .zcat-zones li::before { background-image: url("../img/icono-organico.png?v=20261117d"); }
+.zcat-social    .zcat-zones li::before { background-image: url("../img/icono-social.png?v=20261117d"); }
 
 /* Ícono propio de cada zona. Va con clase y no con custom property en el
    atributo style: definida así, la url() no resolvía la ruta y el fondo
@@ -1026,26 +1026,26 @@ a.zl-hit:focus-visible span { opacity: 1; transform: none; }
 }
 .zcat-grupo:last-of-type { margin-bottom: clamp(24px, 3.5vh, 34px); }
 
-.zcat-zones li.zi-piscina-vip::before  { background-image: url("../img/icono-piscina-vip.png?v=20261117b"); }
-.zcat-zones li.zi-jacuzzi-vip::before  { background-image: url("../img/icono-jacuzzi-vip.png?v=20261117b"); }
-.zcat-zones li.zi-pilates::before      { background-image: url("../img/icono-pilates.png?v=20261117b"); }
-.zcat-zones li.zi-yoga::before         { background-image: url("../img/icono-yoga.png?v=20261117b"); }
-.zcat-zones li.zi-trx::before          { background-image: url("../img/icono-trx.png?v=20261117b"); }
-.zcat-zones li.zi-gym::before          { background-image: url("../img/icono-gym.png?v=20261117b"); }
-.zcat-zones li.zi-muro-escalar::before { background-image: url("../img/icono-muro-escalar.png?v=20261117b"); }
-.zcat-zones li.zi-parque-infantil::before     { background-image: url("../img/icono-parque-infantil.png?v=20261117b"); }
-.zcat-zones li.zi-cancha-multiple::before     { background-image: url("../img/icono-cancha-multiple.png?v=20261117b"); }
-.zcat-zones li.zi-cancha-sintetica::before    { background-image: url("../img/icono-cancha-sintetica.png?v=20261117b"); }
-.zcat-zones li.zi-voley-playa::before         { background-image: url("../img/icono-voley-playa.png?v=20261117b"); }
-.zcat-zones li.zi-salon-multifuncional::before{ background-image: url("../img/icono-salon-multifuncional.png?v=20261117b"); }
-.zcat-zones li.zi-auditorio::before           { background-image: url("../img/icono-auditorio.png?v=20261117b"); }
-.zcat-zones li.zi-coworking::before           { background-image: url("../img/icono-coworking.png?v=20261117b"); }
-.zcat-zones li.zi-conectividad::before        { background-image: url("../img/icono-conectividad.png?v=20261117b"); }
-.zcat-zones li.zi-lobby::before               { background-image: url("../img/icono-lobby.png?v=20261117b"); }
-.zcat-zones li.zi-isla-lectura::before        { background-image: url("../img/icono-isla-lectura.png?v=20261117b"); }
-.zcat-zones li.zi-bbq::before                 { background-image: url("../img/icono-bbq.png?v=20261117b"); }
-.zcat-zones li.zi-teppanyaki::before          { background-image: url("../img/icono-teppanyaki.png?v=20261117b"); }
-.zcat-zones li.zi-ahumadores::before          { background-image: url("../img/icono-ahumadores.png?v=20261117b"); }
+.zcat-zones li.zi-piscina-vip::before  { background-image: url("../img/icono-piscina-vip.png?v=20261117d"); }
+.zcat-zones li.zi-jacuzzi-vip::before  { background-image: url("../img/icono-jacuzzi-vip.png?v=20261117d"); }
+.zcat-zones li.zi-pilates::before      { background-image: url("../img/icono-pilates.png?v=20261117d"); }
+.zcat-zones li.zi-yoga::before         { background-image: url("../img/icono-yoga.png?v=20261117d"); }
+.zcat-zones li.zi-trx::before          { background-image: url("../img/icono-trx.png?v=20261117d"); }
+.zcat-zones li.zi-gym::before          { background-image: url("../img/icono-gym.png?v=20261117d"); }
+.zcat-zones li.zi-muro-escalar::before { background-image: url("../img/icono-muro-escalar.png?v=20261117d"); }
+.zcat-zones li.zi-parque-infantil::before     { background-image: url("../img/icono-parque-infantil.png?v=20261117d"); }
+.zcat-zones li.zi-cancha-multiple::before     { background-image: url("../img/icono-cancha-multiple.png?v=20261117d"); }
+.zcat-zones li.zi-cancha-sintetica::before    { background-image: url("../img/icono-cancha-sintetica.png?v=20261117d"); }
+.zcat-zones li.zi-voley-playa::before         { background-image: url("../img/icono-voley-playa.png?v=20261117d"); }
+.zcat-zones li.zi-salon-multifuncional::before{ background-image: url("../img/icono-salon-multifuncional.png?v=20261117d"); }
+.zcat-zones li.zi-auditorio::before           { background-image: url("../img/icono-auditorio.png?v=20261117d"); }
+.zcat-zones li.zi-coworking::before           { background-image: url("../img/icono-coworking.png?v=20261117d"); }
+.zcat-zones li.zi-conectividad::before        { background-image: url("../img/icono-conectividad.png?v=20261117d"); }
+.zcat-zones li.zi-lobby::before               { background-image: url("../img/icono-lobby.png?v=20261117d"); }
+.zcat-zones li.zi-isla-lectura::before        { background-image: url("../img/icono-isla-lectura.png?v=20261117d"); }
+.zcat-zones li.zi-bbq::before                 { background-image: url("../img/icono-bbq.png?v=20261117d"); }
+.zcat-zones li.zi-teppanyaki::before          { background-image: url("../img/icono-teppanyaki.png?v=20261117d"); }
+.zcat-zones li.zi-ahumadores::before          { background-image: url("../img/icono-ahumadores.png?v=20261117d"); }
 
 .zcat-media figure {
   margin: 0;
@@ -4068,3 +4068,37 @@ mark {
 .nav-back em { font-style: normal; }
 @media (max-width: 860px) { .nav-back em { display: none; } }
 .nav-back b { font-weight: inherit; }
+
+/* ---- logo de Cielo: "APARTAMENTOS" como texto legible
+   El PNG traía la palabra en 7 px de alto y trazo muy fino: sobre la foto
+   se perdía. Ahora la imagen es solo "CIELO" y debajo va el texto real,
+   centrado, en mayúsculas espaciadas como en el logo, pero más grueso. */
+.cielo-lockup { display: inline-flex; flex-direction: column; align-items: center; color: #fff; }
+.cielo-lockup img { display: block; width: 100%; height: auto; }
+.cielo-sub {
+  display: block; margin-top: .55em;
+  font-family: "Poppins", system-ui, sans-serif; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .62em; margin-right: -.62em; /* compensa el espacio final */
+  line-height: 1; white-space: nowrap;
+  text-shadow: 0 1px 6px rgba(10,16,30,.45);
+}
+/* portada */
+.hero2-logo .cielo-lockup { width: clamp(200px, 22vw, 320px); }
+.hero2-logo .cielo-lockup img { margin: 0; filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(10,16,30,.35)); }
+.hero2-logo .cielo-sub { font-size: clamp(.68rem, .98vw, .95rem); }
+/* barra superior */
+.topbar-cielo .cielo-lockup-sm { width: 150px; }
+.topbar-cielo .cielo-lockup-sm img { height: auto !important; width: 100% !important; filter: brightness(0) invert(1); }
+.topbar-cielo .cielo-sub { font-size: .56rem; letter-spacing: .5em; margin-right: -.5em; margin-top: .6em; text-shadow: none; }
+@media (max-width: 860px) {
+  .topbar-cielo .cielo-lockup-sm { width: 112px; }
+  .topbar-cielo .cielo-sub { font-size: .46rem; letter-spacing: .42em; margin-right: -.42em; }
+}
+.topbar-cielo, .topbar-cielo:hover { text-decoration: none; }
+.topbar-cielo .cielo-sub { text-decoration: none; }
+.topbar-cielo .cielo-lockup-sm { width: 112px; }
+.topbar-cielo .cielo-sub { font-size: .44rem; letter-spacing: .46em; margin-right: -.46em; margin-top: .55em; }
+@media (max-width: 860px) {
+  .topbar-cielo .cielo-lockup-sm { width: 108px; }
+  .topbar-cielo .cielo-sub { font-size: .44rem; letter-spacing: .42em; margin-right: -.42em; }
+}
