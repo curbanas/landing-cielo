@@ -569,3 +569,71 @@ form?.addEventListener("submit", (e) => {
 form?.querySelectorAll("input, select").forEach((field) => {
   field.addEventListener("input", () => field.classList.remove("is-invalid"));
 });
+
+/* ---------------------------------------------- navegación: volver y subir
+   1) Cada vez que la persona usa un enlace interno (menú, botones, pestañas
+      de zonas) se guarda dónde estaba y aparece "Volver a donde estabas".
+   2) El botón "Atrás" del navegador también la regresa a ese punto.
+   3) Un botón flotante para subir al inicio aparece al bajar. */
+(() => {
+  const back = document.createElement("button");
+  back.type = "button"; back.className = "nav-back"; back.hidden = true;
+  back.innerHTML = '<span aria-hidden="true">↩</span><b>Volver<em> a donde estabas</em></b>';
+  back.setAttribute("aria-label", "Volver a donde estabas");
+  const up = document.createElement("button");
+  up.type = "button"; up.className = "nav-up";
+  up.setAttribute("aria-label", "Subir al inicio");
+  up.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l-7 7h4.5v7h5v-7H19z"/></svg>';
+  document.body.append(back, up);
+
+  const stack = [];          // posiciones desde donde se saltó
+  let hideT;
+  const show = () => {
+    back.hidden = false;
+    requestAnimationFrame(() => back.classList.add("is-on"));
+    clearTimeout(hideT);
+    hideT = setTimeout(hide, 20000);   // se oculta solo si no se usa
+  };
+  const hide = () => { back.classList.remove("is-on"); setTimeout(() => { if (!back.classList.contains("is-on")) back.hidden = true; }, 300); };
+  const goTo = (y) => window.scrollTo({ top: y, behavior: reduceMotion ? "auto" : "smooth" });
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.hasAttribute("data-wa")) return;
+    const href = a.getAttribute("href");
+    if (href.length < 2 || !document.getElementById(href.slice(1))) return;
+    const y = window.scrollY;
+    // si el destino está prácticamente donde ya está, no hace falta "volver"
+    const t = document.getElementById(href.slice(1)).getBoundingClientRect().top;
+    if (Math.abs(t) < window.innerHeight * 0.6) return;
+    stack.push({ y, hash: href });   // el propio enlace crea la entrada en el historial
+    show();
+  }, true);   // fase de captura: corre antes que los demás manejadores
+
+  back.addEventListener("click", () => {
+    const last = stack.pop();
+    if (!last) { hide(); return; }
+    goTo(last.y);
+    if (!stack.length) hide();
+  });
+
+  // "Atrás" del navegador: si la dirección ya no es la del salto, regresar.
+  // (Chrome también lanza popstate al seguir el enlace; ahí el hash coincide
+  // y no se hace nada.)
+  window.addEventListener("popstate", () => {
+    const last = stack[stack.length - 1];
+    if (!last || location.hash === last.hash) return;
+    stack.pop(); goTo(last.y);
+    if (!stack.length) hide();
+  });
+
+  up.addEventListener("click", () => goTo(0));
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      up.classList.toggle("is-on", window.scrollY > window.innerHeight * 1.5);
+      ticking = false;
+    });
+  }, { passive: true });
+})();
