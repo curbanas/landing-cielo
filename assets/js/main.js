@@ -5,7 +5,7 @@
 const CONFIG = {
   // Línea real de ventas en formato internacional, solo dígitos (ej: "573201234567").
   whatsappNumber: "573332889545", // línea de ventas de Cielo (+57 333 288 9545)
-  email: "ventas@curbanas.com",
+  email: "comercial1@terraverde.com.co",
 };
 
 const WHATSAPP_PLACEHOLDER = "573200000000";
